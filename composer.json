@@ -1,0 +1,14 @@
+{
+    "name": "aries/jobersity",
+    "description": "Jobersity is a marketplace for jobseekers and employers",
+    "require": {
+        "nesbot/carbon": "^2.25"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aries Vincent Dajay",
+            "email": "avdajay@gmail.com"
+        }
+    ]
+}
