@@ -2,16 +2,16 @@
 
 <!-- Banner
 ================================================== -->
-<div id="banner" style="background: url('<?php asset('images/banner-home-01.jpg') ?>')">
+<div id="banner" class="with-transparent-header parallax background" style="background-image: url('<?php asset('images/banner-home-02.jpg') ?>')" data-img-width="2000" data-img-height="1330" data-diff="300">
 <div class="container">
     <div class="sixteen columns">
         
         <div class="search-container">
 
             <!-- Form -->
-            <h2>Find job</h2>
-            <input type="text" class="ico-01" placeholder="job title, keywords or company name" value=""/>
-            <input type="text" class="ico-02" placeholder="city, province or region" value=""/>
+            <h2>Find Job</h2>
+            <input type="text" class="ico-01" placeholder="job title, keywords or company name" value="">
+            <input type="text" class="ico-02" placeholder="city, province or region" value="">
             <button><i class="fa fa-search"></i></button>
 
             <!-- Browse Jobs -->
@@ -20,9 +20,9 @@
             </div>
             
             <!-- Announce -->
-            <div class="announce">
+<!-- 				<div class="announce">
                 We’ve over <strong>15 000</strong> job offers for you!
-            </div>
+            </div> -->
 
         </div>
 
@@ -37,23 +37,74 @@
 <!-- Categories -->
 <div class="container">
 <div class="sixteen columns">
-    <h3 class="margin-bottom-25">Popular Categories</h3>
-    <ul id="popular-categories">
-        <li><a href="#"><i class="fa fa-line-chart"></i> Accounting / Finance</a></li>
-        <li><a href="#"><i class="fa fa-wrench"></i> Automotive Jobs</a></li>
-        <li><a href="#"><i class="fa fa-building-o"></i> Construction / Facilities</a></li>
-        <li><a href="#"><i class="fa fa-graduation-cap"></i> Education Training</a></li>
-        <li><a href="#"><i class="fa fa-medkit"></i> Healthcare</a></li>
-        <li><a href="#"><i class="fa fa-cutlery"></i> Restaurant / Food Service</a></li>
-        <li><a href="#"><i class="fa fa-globe"></i> Transportation / Logistics</a></li>
-        <li><a href="#"><i class="fa fa-laptop"></i> Telecommunications</a></li>
-    </ul>
+    <h3 class="margin-bottom-20 margin-top-10">Popular Categories</h3>
+
+        <!-- Popular Categories -->
+        <div class="categories-boxes-container">
+            
+            <!-- Box -->
+            <a href="browse-jobs.html" class="category-small-box">
+                <i class="ln ln-icon-Bar-Chart"></i>
+                <h4>Accouting / Finance</h4>
+                <span>32</span>
+            </a>
+
+            <!-- Box -->
+            <a href="browse-jobs.html" class="category-small-box">
+                <i class="ln ln-icon-Car"></i>
+                <h4>Automotive Jobs</h4>
+                <span>76</span>
+            </a>
+
+            <!-- Box -->
+            <a href="browse-jobs.html" class="category-small-box">
+                <i class="ln  ln-icon-Worker"></i>
+                <h4>Construction / Facilities</h4>
+                <span>31</span>
+            </a>
+
+            <!-- Box -->
+            <a href="browse-jobs.html" class="category-small-box">
+                <i class="ln  ln-icon-Student-Female"></i>
+                <h4>Education / Training</h4>
+                <span>76</span>
+            </a>
+
+            <!-- Box -->
+            <a href="browse-jobs.html" class="category-small-box">
+                <i class="ln ln-icon-Medical-Sign"></i>
+                <h4>Healthcare</h4>
+                <span>32</span>
+            </a>
+
+            <!-- Box -->
+            <a href="browse-jobs.html" class="category-small-box">
+                <i class="ln ln-icon-Plates"></i>
+                <h4>Restarant / Food Service</h4>
+                <span>67</span>
+            </a>
+
+            <!-- Box -->
+            <a href="browse-jobs.html" class="category-small-box">
+                <i class="ln ln-icon-Globe"></i>
+                <h4>Transportation / Logistics</h4>
+                <span>45</span>
+            </a>
+
+            <!-- Box -->
+            <a href="browse-jobs.html" class="category-small-box">
+                <i class="ln   ln-icon-Laptop-3"></i>
+                <h4>Telecommunication</h4>
+                <span>96</span>
+            </a>
+
+        </div>
 
     <div class="clearfix"></div>
     <div class="margin-top-30"></div>
 
-    <a href="<?php url('/job/browse-categories') ?>" class="button centered">Browse All Categories</a>
-    <div class="margin-bottom-50"></div>
+    <a href="browse-categories.html" class="button centered">Browse All Categories</a>
+    <div class="margin-bottom-55"></div>
 </div>
 </div>
 
@@ -64,78 +115,87 @@
 <div class="eleven columns">
 <div class="padding-right">
     <h3 class="margin-bottom-25">Recent Jobs</h3>
-    <ul class="job-list">
-
-        <li class="highlighted"><a href="<?php url('/job/jobs') ?>">
-            <img src="<?php asset('images/job-list-logo-01.png') ?>" alt="">
-            <div class="job-list-content">
-                <h4>Marketing Coordinator - SEO / SEM Experience <span class="full-time">Full-Time</span></h4>
-                <div class="job-icons">
-                    <span><i class="fa fa-briefcase"></i> King</span>
-                    <span><i class="fa fa-map-marker"></i> Sydney</span>
-                    <span><i class="fa fa-money"></i> $100 / hour</span>
-                </div>
+    <div class="listings-container">
+        
+        <!-- Listing -->
+        <a href="job-page-alt.html" class="listing full-time">
+            <div class="listing-logo">
+                <img src="<?php asset('images/job-list-logo-01.png') ?>" alt="">
             </div>
-            </a>
-            <div class="clearfix"></div>
-        </li>
-
-        <li><a href="job-page.html">
-            <img src="<?php asset('images/job-list-logo-02.png') ?>" alt="">
-            <div class="job-list-content">
-                <h4>Core PHP Developer for Site Maintenance <span class="part-time">Part-Time</span></h4>
-                <div class="job-icons">
-                    <span><i class="fa fa-briefcase"></i> Cubico</span>
-                    <span><i class="fa fa-map-marker"></i> London</span>
-                    <span><i class="fa fa-money"></i> $50 / hour</span>
-                </div>
+            <div class="listing-title">
+                <h4>Marketing Coordinator - SEO / SEM Experience <span class="listing-type">Full-Time</span></h4>
+                <ul class="listing-icons">
+                    <li><i class="ln ln-icon-Management"></i> King</li>
+                    <li><i class="ln ln-icon-Map2"></i>  7th Avenue, New York, NY, United States</li>
+                    <li><i class="ln ln-icon-Money-2"></i> $5000 - $7000</li>
+                    <li><div class="listing-date new">new</div></li>
+                </ul>
             </div>
-            </a>
-            <div class="clearfix"></div>
-        </li>
-
-        <li><a href="job-page.html">
-            <img src="<?php asset('images/job-list-logo-03.png') ?>" alt="">
-            <div class="job-list-content">
-                <h4>Restaurant Team Member - Crew <span class="full-time">Full-Time</span></h4>
-                <div class="job-icons">
-                    <span><i class="fa fa-briefcase"></i> King</span>
-                    <span><i class="fa fa-map-marker"></i> Sydney</span>
-                    <span><i class="fa fa-money"></i> $15 / hour</span>
-                </div>
+        </a>
+        
+        <!-- Listing -->
+        <a href="job-page.html" class="listing part-time">
+            <div class="listing-logo">
+                <img src="<?php asset('images/job-list-logo-02.png') ?>" alt="">
             </div>
-            </a>
-            <div class="clearfix"></div>
-        </li>
-
-        <li><a href="job-page.html">
-            <img src="<?php asset('images/job-list-logo-04.png') ?>" alt="">
-            <div class="job-list-content">
-                <h4>Power Systems User Experience Designer  <span class="internship">Internship</span></h4>
-                <div class="job-icons">
-                    <span><i class="fa fa-briefcase"></i> Hexagon</span>
-                    <span><i class="fa fa-map-marker"></i> London</span>
-                    <span><i class="fa fa-money"></i> $75 / hour</span>
-                </div>
+            <div class="listing-title">
+                <h4>Core PHP Developer for Site Maintenance  <span class="listing-type">Part-Time</span></h4>
+                <ul class="listing-icons">
+                    <li><i class="ln ln-icon-Management"></i> Cubico</li>
+                    <li><i class="ln ln-icon-Map2"></i> Sydney</li>
+                    <li><i class="ln ln-icon-Money-2"></i> $125 / hour</li>
+                    <li><div class="listing-date">3d ago</div></li>
+                </ul>
             </div>
-            </a>
-            <div class="clearfix"></div>
-        </li>
+        </a>
 
-        <li><a href="job-page.html">
-            <img src="<?php asset('images/job-list-logo-05.png') ?>" alt="">
-            <div class="job-list-content">
-                <h4>iPhone / Android Music App Development <span class="temporary">Temporary</span></h4>
-                <div class="job-icons">
-                    <span><i class="fa fa-briefcase"></i> Mates</span>
-                    <span><i class="fa fa-map-marker"></i> New York</span>
-                    <span><i class="fa fa-money"></i> $115 / hour</span>
-                </div>
+        <!-- Listing -->
+        <a href="job-page-alt.html" class="listing full-time">
+            <div class="listing-logo">
+                <img src="<?php asset('images/job-list-logo-01.png') ?>" alt="">
             </div>
-            </a>
-            <div class="clearfix"></div>
-        </li>
-    </ul>
+            <div class="listing-title">
+                <h4>Restaurant Team Member - Crew  <span class="listing-type">Full-Time</span></h4>
+                <ul class="listing-icons">
+                    <li><i class="ln ln-icon-Management"></i> King</li>
+                    <li><i class="ln ln-icon-Map2"></i> Sydney</li>
+                    <li><div class="listing-date">3d ago</div></li>
+                </ul>
+            </div>
+        </a>
+
+        <!-- Listing -->
+        <a href="job-page.html" class="listing internship">
+            <div class="listing-logo">
+                <img src="<?php asset('images/job-list-logo-04.png') ?>" alt="">
+            </div>
+            <div class="listing-title">
+                <h4>Power Systems User Experience Designer <span class="listing-type">Internship</span></h4>
+                <ul class="listing-icons">
+                    <li><i class="ln ln-icon-Management"></i> Hexagon</li>
+                    <li><i class="ln ln-icon-Map2"></i> London</li>
+                    <li><i class="ln ln-icon-Money-2"></i> $55 / hour</li>
+                    <li><div class="listing-date">4d ago</div></li>
+                </ul>
+            </div>
+        </a>
+
+        <!-- Listing -->
+        <a href="job-page.html" class="listing freelance">
+            <div class="listing-logo">
+                <img src="<?php asset('images/job-list-logo-05.png') ?>" alt="">
+            </div>
+            <div class="listing-title">
+                <h4>iPhone / Android Music App Development  <span class="listing-type">Freelance</span></h4>
+                <ul class="listing-icons">
+                    <li><i class="ln ln-icon-Management"></i> Hexagon</li>
+                    <li><i class="ln ln-icon-Map2"></i> London</li>
+                    <li><i class="ln ln-icon-Money-2"></i> $85 / hour</li>
+                    <li><div class="listing-date">4d ago</div></li>
+                </ul>
+            </div>
+        </a>
+    </div>
 
     <a href="browse-jobs.html" class="button centered"><i class="fa fa-plus-circle"></i> Show More Jobs</a>
     <div class="margin-bottom-55"></div>
@@ -155,7 +215,7 @@
     
     <!-- Showbiz Container -->
     <div id="job-spotlight" class="showbiz-container">
-        <div class="showbiz" data-left="#showbiz_left_1" data-right="#showbiz_right_1" data-play="#showbiz_play_1" >
+        <div class="showbiz" data-left="#showbiz_left_1" data-right="#showbiz_right_1" data-play="#showbiz_play_1">
             <div class="overflowholder">
 
                 <ul>
@@ -206,41 +266,71 @@
 </div>
 
 
-<!-- Testimonials -->
-<div id="testimonials">
-<!-- Slider -->
+<section class="fullwidth-testimonial margin-top-15">
+
+<!-- Info Section -->
 <div class="container">
     <div class="sixteen columns">
-        <div class="testimonials-slider">
-                <ul class="slides">
-                <li>
-                    <p>I have already heard back about the internship I applied through Job Finder, that's the fastest job reply I've ever gotten and it's so much better than waiting weeks to hear back.
-                    <span>Collis Ta’eed, Envato</span></p>
-                </li>
-
-                <li>
-                    <p>Nam eu eleifend nulla. Duis consectetur sit amet risus sit amet venenatis. Pellentesque pulvinar ante a tincidunt placerat. Donec dapibus efficitur arcu, a rhoncus lectus egestas elementum.
-                    <span>John Doe</span></p>
-                </li>
-                
-                <li>
-                    <p>Maecenas congue sed massa et porttitor. Duis placerat commodo ex, ut faucibus est facilisis ac. Donec eleifend arcu sed sem posuere aliquet. Etiam lorem metus, suscipit vel tortor vitae.
-                    <span>Tom Smith</span></p>
-                </li>
-
-                </ul>
-        </div>
+        <h3 class="headline centered">
+            What Our Users Say 😍
+            <span class="margin-top-25">We collect reviews from our users so you can get an honest opinion of what an experience with our website are really like!</span>
+        </h3>
     </div>
 </div>
+<!-- Info Section / End -->
+
+<!-- Testimonials Carousel -->
+<div class="fullwidth-carousel-container margin-top-20">
+    <div class="testimonial-carousel testimonials">
+        
+        <!-- Item -->
+        <div class="fw-carousel-review">
+            <div class="testimonial-box">
+                <div class="testimonial">Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close.</div>
+            </div>
+            <div class="testimonial-author">
+                <img src="<?php asset('images/resumes-list-avatar-03.png') ?>" alt="">
+                <h4>Tom Baker <span>HR Specialist</span></h4>
+            </div>
+        </div>
+
+        <!-- Item -->
+        <div class="fw-carousel-review">
+            <div class="testimonial-box">
+                <div class="testimonial">Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation is on the runway heading towards a streamlined cloud content.</div>
+            </div>
+            <div class="testimonial-author">
+                <img src="<?php asset('images/resumes-list-avatar-02.png') ?>" alt="">
+                <h4>Jennie Smith <span>Jobseeker</span></h4>
+            </div>
+        </div>
+
+        <!-- Item -->
+        <div class="fw-carousel-review">
+            <div class="testimonial-box">
+                <div class="testimonial">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view.</div>
+            </div>
+            <div class="testimonial-author">
+                <img src="<?php asset('images/resumes-list-avatar-01.png') ?>" alt="">
+                <h4>Jack Paden <span>Jobseeker</span></h4>
+            </div>
+        </div>
+
+    </div>
 </div>
+<!-- Testimonials Carousel / End -->
+
+</section>
 
 
-<!-- Infobox -->
-<div class="infobox">
-<div class="container">
-    <div class="sixteen columns">Start Building Your Own Job Board Now <a href="my-account.html">Get Started</a></div>
+<!-- Flip banner -->
+<a href="browse-jobs.html" class="flip-banner margin-bottom-55" data-background="<?php asset('images/all-categories-photo.jpg') ?>" data-color="#26ae61" data-color-opacity="0.93">
+<div class="flip-banner-content">
+    <h2 class="flip-visible">Step inside and see for yourself!</h2>
+    <h2 class="flip-hidden">Get Started <i class="fa fa-angle-right"></i></h2>
 </div>
-</div>
+</a>
+<!-- Flip banner / End -->
 
 
 <!-- Recent Posts -->
@@ -248,7 +338,6 @@
 <div class="sixteen columns">
     <h3 class="margin-bottom-25">Recent Posts</h3>
 </div>
-
 
 <div class="one-third column">
 

@@ -15,74 +15,71 @@
 <!-- CSS
 ================================================== -->
 <link rel="stylesheet" href="<?php asset('css/style.css') ?>">
-<link rel="stylesheet" href="<?php asset('css/colors/green.css') ?>" id="colors">
-
-<!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<link rel="stylesheet" href="<?php asset('css/colors.css') ?>">
 
 </head>
-
 <body>
 <div id="wrapper">
 
 
 <!-- Header
 ================================================== -->
-<header>
+<header class="<?php echo $path = $_SERVER['REQUEST_URI'] == '/' ? 'transparent' : '' ?> sticky-header">
 <div class="container">
-	<div class="sixteen columns">
-	
-		<!-- Logo -->
-		<div id="logo">
-			<h1><a href="<?php url('/') ?>"><img src="<?php asset('images/logo.png') ?>"></a></h1>
-		</div>
+<div class="sixteen columns">
 
-		<!-- Menu -->
-		<nav id="navigation" class="menu">
-			<ul id="responsive">
+    <!-- Logo -->
+    <div id="logo">
+        <h1><a href="<?php url('/') ?>"><img src="<?php asset('images/logo2.png') ?>" alt="Work Scout"></a></h1>
+    </div>
 
-                <li><a href="<?php url('/') ?>" id="current">Home</a></li>
-                <li><a href="#">Jobseekers</a>
-                    <ul>
-                        <li><a href="<?php url('/job/jobs') ?>">Job Page</a></li>
-                        <li><a href="<?php url('/job/browse-jobs') ?>">Browse Jobs</a></li>
-                        <li><a href="<?php url('/job/browse-categories') ?>">Browse Categories</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Employers</a>
-                    <ul>
-                        <li><a href="<?php url('/job/add-jobs') ?>">Add Job</a></li>
-                        <li><a href="<?php url('/job/manage-jobs') ?>">Manage Jobs</a></li>
-                        <li><a href="<?php url('/job/manage-applications') ?>">Manage Applications</a></li>
-                    </ul>
-                </li>
-                <li><a href="blog.html">Blog</a></li>
-            </ul>
+    <!-- Menu -->
+    <nav id="navigation" class="menu">
+        <ul id="responsive">
 
-            <ul class="float-right">
-                <?php if(!isset($_SESSION['user'])) : ?>
-                    <li><a href="<?php url('login') ?>"><i class="fa fa-user"></i> Sign Up</a></li>
-                    <li><a href="<?php url('register') ?>"><i class="fa fa-lock"></i> Log In</a></li>
-                <?php else: ?>
-                    <li><a href="#"><i class="fa fa-user"></i> Administrator</a>
-                        <ul>
-                            <li><a href="<?php url('/job/add-jobs') ?>">Dashboard</a></li>
-                            <li><a href="<?php url('/job/manage-jobs') ?>">My Profile</a></li>
-                            <li><a href="<?php url('/job/manage-applications') ?>">My Resume</a></li>
-                        </ul>
-                    </li>
-                <?php endif; ?>
-            </ul>
+            <li><a id="current" href="<?php url('/') ?>">Home</a></li>
+            <li><a href="#">Jobseekers</a>
+                <ul>
+                    <li><a href="browse-jobs.html">Browse Jobs</a></li>
+                    <li><a href="browse-categories.html">Browse Categories</a></li>
+                </ul>
+            </li>
 
-		</nav>
+            <li><a href="#">Employeers</a>
+                <ul>
+                    <li><a href="browse-resumes.html">Browse Resumes</a></li>
+                </ul>
+            </li>
 
-		<!-- Navigation -->
-		<div id="mobile-navigation">
-			<a href="#menu" class="menu-trigger"><i class="fa fa-reorder"></i> Menu</a>
-		</div>
+            <li><a href="#">Dashboard</a>
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="dashboard-messages.html">Messages</a></li>
+                    <li><a href="dashboard-manage-resumes.html">Manage Resumes</a></li>
+                    <li><a href="dashboard-add-resume.html">Add Resume</a></li>
+                    <li><a href="dashboard-job-alerts.html">Job Alerts</a></li>
+                    <li><a href="dashboard-manage-jobs.html">Manage Jobs</a></li>
+                    <li><a href="dashboard-manage-applications.html">Manage Applications</a></li>
+                    <li><a href="dashboard-add-job.html">Add Job</a></li>
+                    <li><a href="dashboard-my-profile.html">My Profile</a></li>
+                </ul>
+            </li>
+        </ul>
 
-	</div>
+
+        <ul class="float-right">
+            <li><a href="<?php url('/register') ?>"><i class="fa fa-user"></i> Sign Up</a></li>
+            <li><a href="<?php url('/login') ?>"><i class="fa fa-lock"></i> Log In</a></li>
+        </ul>
+
+    </nav>
+
+    <!-- Navigation -->
+    <div id="mobile-navigation">
+        <a href="#menu" class="menu-trigger"><i class="fa fa-reorder"></i></a>
+    </div>
+
+</div>
 </div>
 </header>
 <div class="clearfix"></div>

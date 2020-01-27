@@ -14,6 +14,6 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once './autoload.php';
-//require_once './vendor/autoload.php';
-require_once './functions.php';
+require_once __DIR__ . '/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/functions.php';

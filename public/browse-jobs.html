@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
@@ -14,12 +14,10 @@
 
 <!-- CSS
 ================================================== -->
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/colors/green.css" id="colors">
+<link rel="stylesheet" href="css\style.css">
+<link rel="stylesheet" href="css\colors.css">
 
-<!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+
 
 </head>
 
@@ -29,13 +27,13 @@
 
 <!-- Header
 ================================================== -->
-<header>
+<header class="sticky-header">
 <div class="container">
 	<div class="sixteen columns">
 
 		<!-- Logo -->
 		<div id="logo">
-			<h1><a href="index.html"><img src="images/logo.png" alt="Work Scout" /></a></h1>
+			<h1><a href="index.html"><img src="images\logo.png" alt="Work Scout"></a></h1>
 		</div>
 
 		<!-- Menu -->
@@ -48,6 +46,7 @@
 						<li><a href="index-2.html">Home #2</a></li>
 						<li><a href="index-3.html">Home #3</a></li>
 						<li><a href="index-4.html">Home #4</a></li>
+						<li><a href="index-5.html">Home #5</a></li>
 					</ul>
 				</li>
 
@@ -57,31 +56,34 @@
 						<li><a href="job-page-alt.html">Job Page Alternative</a></li>
 						<li><a href="resume-page.html">Resume Page</a></li>
 						<li><a href="shortcodes.html">Shortcodes</a></li>
+						<li><a href="icons.html">Icons</a></li>
 						<li><a href="pricing-tables.html">Pricing Tables</a></li>
+						<li><a href="blog.html">Blog</a></li>
 						<li><a href="contact.html">Contact</a></li>
 					</ul>
 				</li>
 
-				<li><a href="#" id="current">For Candidates</a>
+				<li><a id="current" href="#">Browse Listings</a>
 					<ul>
 						<li><a href="browse-jobs.html">Browse Jobs</a></li>
-						<li><a href="browse-categories.html">Browse Categories</a></li>
-						<li><a href="add-resume.html">Add Resume</a></li>
-						<li><a href="manage-resumes.html">Manage Resumes</a></li>
-						<li><a href="job-alerts.html">Job Alerts</a></li>
-					</ul>
-				</li>
-
-				<li><a href="#">For Employers</a>
-					<ul>
-						<li><a href="add-job.html">Add Job</a></li>
-						<li><a href="manage-jobs.html">Manage Jobs</a></li>
-						<li><a href="manage-applications.html">Manage Applications</a></li>
 						<li><a href="browse-resumes.html">Browse Resumes</a></li>
+						<li><a href="browse-categories.html">Browse Categories</a></li>
 					</ul>
 				</li>
 
-				<li><a href="blog.html">Blog</a></li>
+				<li><a href="#">Dashboard</a>
+					<ul>
+						<li><a href="dashboard.html">Dashboard</a></li>
+						<li><a href="dashboard-messages.html">Messages</a></li>
+						<li><a href="dashboard-manage-resumes.html">Manage Resumes</a></li>
+						<li><a href="dashboard-add-resume.html">Add Resume</a></li>
+						<li><a href="dashboard-job-alerts.html">Job Alerts</a></li>
+						<li><a href="dashboard-manage-jobs.html">Manage Jobs</a></li>
+						<li><a href="dashboard-manage-applications.html">Manage Applications</a></li>
+						<li><a href="dashboard-add-job.html">Add Job</a></li>
+						<li><a href="dashboard-my-profile.html">My Profile</a></li>
+					</ul>
+				</li>
 			</ul>
 
 
@@ -113,7 +115,7 @@
 		</div>
 
 		<div class="six columns">
-			<a href="add-job.html" class="button">Post a Job, It’s Free!</a>
+			<a href="dashboard-add-job.html" class="button">Post a Job, It’s Free!</a>
 		</div>
 
 	</div>
@@ -126,90 +128,137 @@
 	<!-- Recent Jobs -->
 	<div class="eleven columns">
 	<div class="padding-right">
-		
-		<form action="#" method="get" class="list-search">
-			<button><i class="fa fa-search"></i></button>
-			<input type="text" placeholder="job title, keywords or company name" value=""/>
-			<div class="clearfix"></div>
-		</form>
 
-		<ul class="job-list full">
-
-			<li><a href="job-page.html">
-				<img src="images/job-list-logo-01.png" alt="">
-				<div class="job-list-content">
-					<h4>Marketing Coordinator - SEO / SEM Experience <span class="full-time">Full-Time</span></h4>
-					<div class="job-icons">
-						<span><i class="fa fa-briefcase"></i> King</span>
-						<span><i class="fa fa-map-marker"></i> Sydney</span>
-						<span><i class="fa fa-money"></i> $100 / hour</span>
-					</div>
-					<p>The SEO/SEM Specialist will work with industry leaders and top retailers to define and deliver best practices through innovative SEO methodologies.</p>
+		<div class="listings-container">
+			
+			<!-- Listing -->
+			<a href="job-page-alt.html" class="listing full-time">
+				<div class="listing-logo">
+					<img src="images\job-list-logo-01.png" alt="">
 				</div>
-				</a>
-				<div class="clearfix"></div>
-			</li>
-
-			<li><a href="job-page.html">
-				<img src="images/job-list-logo-02.png" alt="">
-				<div class="job-list-content">
-					<h4>Core PHP Developer for Site Maintenance <span class="part-time">Part-Time</span></h4>
-					<div class="job-icons">
-						<span><i class="fa fa-briefcase"></i> Cubico</span>
-						<span><i class="fa fa-map-marker"></i> London</span>
-						<span><i class="fa fa-money"></i> $50 / hour</span>
-					</div>
-					<p>Vivamus eleifend metus elit. Aenean facilisis placerat faucibus. Praesent commodo at mi nec imperdiet. Etiam at libero nec nunc iaculis ullamcorper.</p>
+				<div class="listing-title">
+					<h4>Marketing Coordinator - SEO / SEM Experience <span class="listing-type">Full-Time</span></h4>
+					<ul class="listing-icons">
+						<li><i class="ln ln-icon-Management"></i> King</li>
+						<li><i class="ln ln-icon-Map2"></i> Sydney</li>
+						<li><i class="ln ln-icon-Money-2"></i> $5000 - $7000</li>
+						<li><div class="listing-date new">new</div></li>
+					</ul>
 				</div>
-				</a>
-				<div class="clearfix"></div>
-			</li>
-
-			<li><a href="job-page-alt.html">
-				<img src="images/job-list-logo-03.png" alt="">
-				<div class="job-list-content">
-					<h4>Restaurant Team Member - Crew <span class="full-time">Full-Time</span></h4>
-					<div class="job-icons">
-						<span><i class="fa fa-briefcase"></i> King</span>
-						<span><i class="fa fa-map-marker"></i> Sydney</span>
-						<span><i class="fa fa-money"></i> $15 / hour</span>
-					</div>
-					<p>Duis eu sem erat. Aliquam vestibulum justo at quam facilisis, sit amet condimentum dui laoreet. Nunc feugiat ante quis pulvinar ornare. In tempus lorem ipsum.</p>
+			</a>
+			
+			<!-- Listing -->
+			<a href="job-page.html" class="listing part-time">
+				<div class="listing-logo">
+					<img src="images\job-list-logo-02.png" alt="">
 				</div>
-				</a>
-				<div class="clearfix"></div>
-			</li>
-
-			<li><a href="job-page.html">
-				<img src="images/job-list-logo-04.png" alt="">
-				<div class="job-list-content">
-					<h4>Power Systems User Experience Designer  <span class="internship">Internship</span></h4>
-					<div class="job-icons">
-						<span><i class="fa fa-briefcase"></i> Hexagon</span>
-						<span><i class="fa fa-map-marker"></i> London</span>
-						<span><i class="fa fa-money"></i> $75 / hour</span>
-					</div>
-					<p>Praesent eu imperdiet quam. Fusce posuere venenatis lorem vel lacinia. Integer orci magna, accumsan nec velit quis, porttitor pulvinar nulla. Nullam viverra risus massa.</p>
+				<div class="listing-title">
+					<h4>Core PHP Developer for Site Maintenance  <span class="listing-type">Part-Time</span></h4>
+					<ul class="listing-icons">
+						<li><i class="ln ln-icon-Management"></i> Cubico</li>
+						<li><i class="ln ln-icon-Map2"></i> Sydney</li>
+						<li><i class="ln ln-icon-Money-2"></i> $125 / hour</li>
+						<li><div class="listing-date">3d ago</div></li>
+					</ul>
 				</div>
-				</a>
-				<div class="clearfix"></div>
-			</li>
+			</a>
 
-			<li><a href="job-page-alt.html">
-				<img src="images/job-list-logo-05.png" alt="">
-				<div class="job-list-content">
-					<h4>iPhone / Android Music App Development <span class="temporary">Temporary</span></h4>
-					<div class="job-icons">
-						<span><i class="fa fa-briefcase"></i> Mates</span>
-						<span><i class="fa fa-map-marker"></i> New York</span>
-						<span><i class="fa fa-money"></i> $115 / hour</span>
-					</div>
-					<p>Sodales mollis metus eget egestas. Duis sit amet sem pretium, facilisis libero ut, lobortis arcu. Cras ipsum libero, suscipit ut nisl vitae, commodo pretium mauris.</p>
+			<!-- Listing -->
+			<a href="job-page-alt.html" class="listing full-time">
+				<div class="listing-logo">
+					<img src="images\job-list-logo-01.png" alt="">
 				</div>
-				</a>
-				<div class="clearfix"></div>
-			</li>
-		</ul>
+				<div class="listing-title">
+					<h4>Restaurant Team Member - Crew  <span class="listing-type">Full-Time</span></h4>
+					<ul class="listing-icons">
+						<li><i class="ln ln-icon-Management"></i> King</li>
+						<li><i class="ln ln-icon-Map2"></i> Sydney</li>
+						<li><div class="listing-date">3d ago</div></li>
+					</ul>
+				</div>
+			</a>
+
+			<!-- Listing -->
+			<a href="job-page.html" class="listing internship">
+				<div class="listing-logo">
+					<img src="images\job-list-logo-04.png" alt="">
+				</div>
+				<div class="listing-title">
+					<h4>Power Systems User Experience Designer <span class="listing-type">Internship</span></h4>
+					<ul class="listing-icons">
+						<li><i class="ln ln-icon-Management"></i> Hexagon</li>
+						<li><i class="ln ln-icon-Map2"></i> London</li>
+						<li><i class="ln ln-icon-Money-2"></i> $55 / hour</li>
+						<li><div class="listing-date">4d ago</div></li>
+					</ul>
+				</div>
+			</a>
+
+			<!-- Listing -->
+			<a href="job-page.html" class="listing freelance">
+				<div class="listing-logo">
+					<img src="images\job-list-logo-05.png" alt="">
+				</div>
+				<div class="listing-title">
+					<h4>iPhone / Android Music App Development  <span class="listing-type">Freelance</span></h4>
+					<ul class="listing-icons">
+						<li><i class="ln ln-icon-Management"></i> Hexagon</li>
+						<li><i class="ln ln-icon-Map2"></i> London</li>
+						<li><i class="ln ln-icon-Money-2"></i> $85 / hour</li>
+						<li><div class="listing-date">4d ago</div></li>
+					</ul>
+				</div>
+			</a>
+
+			
+			<!-- Listing -->
+			<a href="job-page.html" class="listing part-time featured">
+				<div class="listing-logo">
+					<img src="images\job-list-logo-02.png" alt="">
+				</div>
+				<div class="listing-title">
+					<h4>Core PHP Developer for Site Maintenance  <span class="listing-type">Part-Time</span></h4>
+					<ul class="listing-icons">
+						<li><i class="ln ln-icon-Management"></i> Cubico</li>
+						<li><i class="ln ln-icon-Map2"></i> Sydney</li>
+						<li><i class="ln ln-icon-Money-2"></i> $125 / hour</li>
+						<li><div class="listing-date">3d ago</div></li>
+					</ul>
+				</div>
+			</a>
+
+			<!-- Listing -->
+			<a href="job-page.html" class="listing full-time">
+				<div class="listing-logo">
+					<img src="images\job-list-logo-01.png" alt="">
+				</div>
+				<div class="listing-title">
+					<h4>Restaurant Team Member - Crew <span class="listing-type">Full-Time</span></h4>
+					<ul class="listing-icons">
+						<li><i class="ln ln-icon-Management"></i> King</li>
+						<li><i class="ln ln-icon-Map2"></i> Sydney</li>
+						<li><div class="listing-date">3d ago</div></li>
+					</ul>
+				</div>
+			</a>
+
+			<!-- Listing -->
+			<a href="job-page.html" class="listing full-time">
+				<div class="listing-logo">
+					<img src="images\job-list-logo-04.png" alt="">
+				</div>
+				<div class="listing-title">
+					<h4>Power Systems User Experience Designer <span class="listing-type">Full-Time</span></h4>
+					<ul class="listing-icons">
+						<li><i class="ln ln-icon-Management"></i> Hexagon</li>
+						<li><i class="ln ln-icon-Map2"></i> London</li>
+						<li><i class="ln ln-icon-Money-2"></i> $55 / hour</li>
+						<li><div class="listing-date">4d ago</div></li>
+					</ul>
+				</div>
+			</a>
+
+		</div>
 		<div class="clearfix"></div>
 
 		<div class="pagination-container">
@@ -257,12 +306,12 @@
 		<div class="widget">
 			<h4>Location</h4>
 			<form action="#" method="get">
-				<input type="text" placeholder="State / Province" value=""/>
-				<input type="text" placeholder="City" value=""/>
+				<input type="text" placeholder="State / Province" value="">
+				<input type="text" placeholder="City" value="">
 
-				<input type="text" class="miles" placeholder="Miles" value=""/>
+				<input type="text" class="miles" placeholder="Miles" value="">
 				<label for="zip-code" class="from">from</label>
-				<input type="text" id="zip-code" class="zip-code" placeholder="Zip-Code" value=""/><br>
+				<input type="text" id="zip-code" class="zip-code" placeholder="Zip-Code" value=""><br>
 
 				<button class="button">Filter</button>
 			</form>
@@ -274,7 +323,7 @@
 
 			<ul class="checkboxes">
 				<li>
-					<input id="check-1" type="checkbox" name="check" value="check-1" checked>
+					<input id="check-1" type="checkbox" name="check" value="check-1" checked="">
 					<label for="check-1">Any Type</label>
 				</li>
 				<li>
@@ -303,7 +352,7 @@
 
 			<ul class="checkboxes">
 				<li>
-					<input id="check-6" type="checkbox" name="check" value="check-6" checked>
+					<input id="check-6" type="checkbox" name="check" value="check-6" checked="">
 					<label for="check-6">Any Rate</label>
 				</li>
 				<li>
@@ -402,7 +451,7 @@
 					<li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
 					<li><a class="linkedin" href="#"><i class="icon-linkedin"></i></a></li>
 				</ul>
-				<div class="copyrights">©  Copyright 2015 by <a href="#">Work Scout</a>. All Rights Reserved.</div>
+				<div class="copyrights">©  Copyright 2018 by <a href="#">Work Scout</a>. All Rights Reserved.</div>
 			</div>
 		</div>
 	</div>
@@ -418,19 +467,25 @@
 
 <!-- Scripts
 ================================================== -->
-<script src="scripts/jquery-2.1.3.min.js"></script>
-<script src="scripts/custom.js"></script>
-<script src="scripts/jquery.superfish.js"></script>
-<script src="scripts/jquery.themepunch.tools.min.js"></script>
-<script src="scripts/jquery.themepunch.revolution.min.js"></script>
-<script src="scripts/jquery.themepunch.showbizpro.min.js"></script>
-<script src="scripts/jquery.flexslider-min.js"></script>
-<script src="scripts/chosen.jquery.min.js"></script>
-<script src="scripts/jquery.magnific-popup.min.js"></script>
-<script src="scripts/waypoints.min.js"></script>
-<script src="scripts/jquery.counterup.min.js"></script>
-<script src="scripts/jquery.jpanelmenu.js"></script>
-<script src="scripts/stacktable.js"></script>
+<script src="scripts\jquery-3.4.1.min.js"></script>
+<script src="scripts\jquery-migrate-3.1.0.min.js"></script>
+<script src="scripts\custom.js"></script>
+<script src="scripts\jquery.superfish.js"></script>
+<script src="scripts\jquery.themepunch.tools.min.js"></script>
+<script src="scripts\jquery.themepunch.revolution.min.js"></script>
+<script src="scripts\jquery.themepunch.showbizpro.min.js"></script>
+<script src="scripts\jquery.flexslider-min.js"></script>
+<script src="scripts\chosen.jquery.min.js"></script>
+<script src="scripts\jquery.magnific-popup.min.js"></script>
+<script src="scripts\waypoints.min.js"></script>
+<script src="scripts\jquery.counterup.min.js"></script>
+<script src="scripts\jquery.jpanelmenu.js"></script>
+<script src="scripts\stacktable.js"></script>
+<script src="scripts\slick.min.js"></script>
+<script src="scripts\headroom.min.js"></script>
+
+
+
 
 
 </body>

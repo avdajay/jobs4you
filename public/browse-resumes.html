@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
@@ -14,12 +14,10 @@
 
 <!-- CSS
 ================================================== -->
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/colors/green.css" id="colors">
+<link rel="stylesheet" href="css\style.css">
+<link rel="stylesheet" href="css\colors.css">
 
-<!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+
 
 </head>
 
@@ -29,13 +27,13 @@
 
 <!-- Header
 ================================================== -->
-<header>
+<header class="sticky-header">
 <div class="container">
 	<div class="sixteen columns">
 
 		<!-- Logo -->
 		<div id="logo">
-			<h1><a href="index.html"><img src="images/logo.png" alt="Work Scout" /></a></h1>
+			<h1><a href="index.html"><img src="images\logo.png" alt="Work Scout"></a></h1>
 		</div>
 
 		<!-- Menu -->
@@ -48,6 +46,7 @@
 						<li><a href="index-2.html">Home #2</a></li>
 						<li><a href="index-3.html">Home #3</a></li>
 						<li><a href="index-4.html">Home #4</a></li>
+						<li><a href="index-5.html">Home #5</a></li>
 					</ul>
 				</li>
 
@@ -57,31 +56,34 @@
 						<li><a href="job-page-alt.html">Job Page Alternative</a></li>
 						<li><a href="resume-page.html">Resume Page</a></li>
 						<li><a href="shortcodes.html">Shortcodes</a></li>
+						<li><a href="icons.html">Icons</a></li>
 						<li><a href="pricing-tables.html">Pricing Tables</a></li>
+						<li><a href="blog.html">Blog</a></li>
 						<li><a href="contact.html">Contact</a></li>
 					</ul>
 				</li>
 
-				<li><a href="#">For Candidates</a>
+				<li><a id="current" href="#">Browse Listings</a>
 					<ul>
 						<li><a href="browse-jobs.html">Browse Jobs</a></li>
-						<li><a href="browse-categories.html">Browse Categories</a></li>
-						<li><a href="add-resume.html">Add Resume</a></li>
-						<li><a href="manage-resumes.html">Manage Resumes</a></li>
-						<li><a href="job-alerts.html">Job Alerts</a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="current">For Employers</a>
-					<ul>
-						<li><a href="add-job.html">Add Job</a></li>
-						<li><a href="manage-jobs.html">Manage Jobs</a></li>
-						<li><a href="manage-applications.html">Manage Applications</a></li>
 						<li><a href="browse-resumes.html">Browse Resumes</a></li>
+						<li><a href="browse-categories.html">Browse Categories</a></li>
 					</ul>
 				</li>
 
-				<li><a href="blog.html">Blog</a></li>
+				<li><a href="#">Dashboard</a>
+					<ul>
+						<li><a href="dashboard.html">Dashboard</a></li>
+						<li><a href="dashboard-messages.html">Messages</a></li>
+						<li><a href="dashboard-manage-resumes.html">Manage Resumes</a></li>
+						<li><a href="dashboard-add-resume.html">Add Resume</a></li>
+						<li><a href="dashboard-job-alerts.html">Job Alerts</a></li>
+						<li><a href="dashboard-manage-jobs.html">Manage Jobs</a></li>
+						<li><a href="dashboard-manage-applications.html">Manage Applications</a></li>
+						<li><a href="dashboard-add-job.html">Add Job</a></li>
+						<li><a href="dashboard-my-profile.html">My Profile</a></li>
+					</ul>
+				</li>
 			</ul>
 
 
@@ -126,17 +128,11 @@
 	<!-- Recent Jobs -->
 	<div class="eleven columns">
 	<div class="padding-right">
-		
-		<form action="#" method="get" class="list-search">
-			<button><i class="fa fa-search"></i></button>
-			<input type="text" placeholder="Search freelancer services (e.g. logo design)" value=""/>
-			<div class="clearfix"></div>
-		</form>
 
-		<ul class="resumes-list">
+		<ul class="resumes-list alternative">
 
 			<li><a href="resume-page.html">
-				<img src="images/resumes-list-avatar-01.png" alt="">
+				<img src="images\resumes-list-avatar-01.png" alt="">
 				<div class="resumes-list-content">
 					<h4>John Doe <span>UX/UI Graphic Designer</span></h4>
 					<span><i class="fa fa-map-marker"></i> Melbourne</span>
@@ -156,7 +152,7 @@
 			</li>
 			
 			<li><a href="resume-page.html">
-				<img src="images/avatar-placeholder.png" alt="">
+				<img src="images\avatar-placeholder.png" alt="">
 				<div class="resumes-list-content">
 					<h4>Tom Smith <span>iOS Mobile Developer</span></h4>
 					<span><i class="fa fa-map-marker"></i> Sydney</span>
@@ -176,7 +172,7 @@
 			</li>	
 					
 			<li><a href="resume-page.html">
-				<img src="images/resumes-list-avatar-02.png" alt="">
+				<img src="images\resumes-list-avatar-02.png" alt="">
 				<div class="resumes-list-content">
 					<h4>Kathy Berry <span>SEO / SEM Strategist</span></h4>
 					<span><i class="fa fa-map-marker"></i> London</span>
@@ -195,7 +191,7 @@
 			</li>
 			
 			<li><a href="resume-page.html">
-				<img src="images/resumes-list-avatar-03.png" alt="">
+				<img src="images\resumes-list-avatar-03.png" alt="">
 				<div class="resumes-list-content">
 					<h4>Martin Kowalski <span>Content Writer and Copywriter</span></h4>
 					<span><i class="fa fa-map-marker"></i> Warsaw</span>
@@ -262,7 +258,7 @@
 
 			<!-- Select -->
 			<form action="#" method="get">
-				<select data-placeholder="Select Skills" class="chosen-select" multiple>
+				<select data-placeholder="Select Skills" class="chosen-select" multiple="">
 					<option value="">Adobe Photoshop</option>
 					<option value="">PHP</option>
 					<option value="">HTML</option>
@@ -281,12 +277,12 @@
 		<div class="widget">
 			<h4>Location</h4>
 			<form action="#" method="get">
-				<input type="text" placeholder="State / Province" value=""/>
-				<input type="text" placeholder="City" value=""/>
+				<input type="text" placeholder="State / Province" value="">
+				<input type="text" placeholder="City" value="">
 
-				<input type="text" class="miles" placeholder="Miles" value=""/>
+				<input type="text" class="miles" placeholder="Miles" value="">
 				<label for="zip-code" class="from">from</label>
-				<input type="text" id="zip-code" class="zip-code" placeholder="Zip-Code" value=""/><br>
+				<input type="text" id="zip-code" class="zip-code" placeholder="Zip-Code" value=""><br>
 
 				<button class="button">Filter</button>
 			</form>
@@ -298,7 +294,7 @@
 
 			<ul class="checkboxes">
 				<li>
-					<input id="check-6" type="checkbox" name="check" value="check-6" checked>
+					<input id="check-6" type="checkbox" name="check" value="check-6" checked="">
 					<label for="check-6">Any Rate</label>
 				</li>
 				<li>
@@ -397,7 +393,7 @@
 					<li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
 					<li><a class="linkedin" href="#"><i class="icon-linkedin"></i></a></li>
 				</ul>
-				<div class="copyrights">©  Copyright 2015 by <a href="#">Work Scout</a>. All Rights Reserved.</div>
+				<div class="copyrights">©  Copyright 2018 by <a href="#">Work Scout</a>. All Rights Reserved.</div>
 			</div>
 		</div>
 	</div>
@@ -413,19 +409,25 @@
 
 <!-- Scripts
 ================================================== -->
-<script src="scripts/jquery-2.1.3.min.js"></script>
-<script src="scripts/custom.js"></script>
-<script src="scripts/jquery.superfish.js"></script>
-<script src="scripts/jquery.themepunch.tools.min.js"></script>
-<script src="scripts/jquery.themepunch.revolution.min.js"></script>
-<script src="scripts/jquery.themepunch.showbizpro.min.js"></script>
-<script src="scripts/jquery.flexslider-min.js"></script>
-<script src="scripts/chosen.jquery.min.js"></script>
-<script src="scripts/jquery.magnific-popup.min.js"></script>
-<script src="scripts/waypoints.min.js"></script>
-<script src="scripts/jquery.counterup.min.js"></script>
-<script src="scripts/jquery.jpanelmenu.js"></script>
-<script src="scripts/stacktable.js"></script>
+<script src="scripts\jquery-3.4.1.min.js"></script>
+<script src="scripts\jquery-migrate-3.1.0.min.js"></script>
+<script src="scripts\custom.js"></script>
+<script src="scripts\jquery.superfish.js"></script>
+<script src="scripts\jquery.themepunch.tools.min.js"></script>
+<script src="scripts\jquery.themepunch.revolution.min.js"></script>
+<script src="scripts\jquery.themepunch.showbizpro.min.js"></script>
+<script src="scripts\jquery.flexslider-min.js"></script>
+<script src="scripts\chosen.jquery.min.js"></script>
+<script src="scripts\jquery.magnific-popup.min.js"></script>
+<script src="scripts\waypoints.min.js"></script>
+<script src="scripts\jquery.counterup.min.js"></script>
+<script src="scripts\jquery.jpanelmenu.js"></script>
+<script src="scripts\stacktable.js"></script>
+<script src="scripts\slick.min.js"></script>
+<script src="scripts\headroom.min.js"></script>
+
+
+
 
 
 </body>
