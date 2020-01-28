@@ -24,7 +24,7 @@
 
 <!-- Header
 ================================================== -->
-<header class="<?php echo $path = $_SERVER['REQUEST_URI'] == '/' ? 'transparent sticky-header' : 'sticky-header' ?>">
+<header class="dashboard-header">
 <div class="container">
 <div class="sixteen columns">
 
@@ -67,7 +67,7 @@
         </ul>
 
 
-        <ul class="float-right">
+        <ul class="responsive float-right">
             <li><a href="<?php url('/register') ?>"><i class="fa fa-user"></i> Sign Up</a></li>
             <li><a href="<?php url('/login') ?>"><i class="fa fa-lock"></i> Log In</a></li>
         </ul>
