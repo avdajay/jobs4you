@@ -9,31 +9,31 @@ class JobController extends Controller
 
     public function browse()
     {
-        return view('jobs/browse');
+        return view('job/browse');
     }
 
     public function categories()
     {
-        return view('jobs/categories');
+        return view('job/categories');
     }
 
     public function single()
     {
-        return view('jobs/single');
+        return view('job/single');
     }
 
     public function add()
     {
-        return view('jobs/add');
+        return view('job/add');
     }
 
     public function manage()
     {
-        return view('jobs/manage');
+        return view('job/manage');
     }
 
     public function applications()
     {
-        return view('jobs/applications');
+        return view('job/applications');
     }
 }

@@ -11,6 +11,11 @@ function the_footer()
     require_once ROOT . '/resources/includes/footer.inc.php';
 }
 
+function the_dashfoot()
+{
+    require_once ROOT. '/resources/includes/dashboard-footer.inc.php';
+}
+
 function the_sidebar()
 {
     require_once ROOT . '/resources/includes/sidebar.inc.php';
