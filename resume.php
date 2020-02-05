@@ -2,5 +2,11 @@
 
 require './bootstrap.php';
 
-$user = new AuthController();
-$user->resume();
+$resume = new ResumeController();
+
+if (isset($_GET['id']))
+{
+    $resume->show($_GET['id']);
+}
+
+$resume->index();

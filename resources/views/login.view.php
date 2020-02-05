@@ -1,5 +1,7 @@
 <?php the_header(); ?>
 
+
+
 <!-- Titlebar
 ================================================== -->
 <div id="titlebar" class="single">
@@ -27,13 +29,21 @@
 <div class="container">
     <div class="my-account">
         <!-- Login -->
+        <?php if (!empty($_SESSION['message'])): ?>
+            <?php foreach ($_SESSION['message'] as $error): ?>
+                <div class="notification error closeable">
+                    <p><span><?php echo 'Error! '?></span><?php echo $error['error']; ?></p>
+                    <a class="close" href="#"></a>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <div class="tab-content" id="tab1" style="display: none;">
-            <form method="post" class="login">
+            <form method="POST" class="login" action="<?php url('/login') ?>">
 
                 <p class="form-row form-row-wide">
-                    <label for="username">Username:
+                    <label for="username">Email Address:
                         <i class="ln ln-icon-Male"></i>
-                        <input type="text" class="input-text" name="username" id="username" value="">
+                        <input type="email" class="input-text" name="email" id="email">
                     </label>
                 </p>
 
@@ -45,10 +55,7 @@
                 </p>
 
                 <p class="form-row">
-                    <input type="submit" class="button border fw margin-top-10" name="login" value="Login">
-
-                    <label for="rememberme" class="rememberme">
-                    <input name="rememberme" type="checkbox" id="rememberme" value="forever"> Remember Me</label>
+                    <input type="submit" class="button border fw margin-top-10" name="submit">
                 </p>
 
                 <p class="lost_password">

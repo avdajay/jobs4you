@@ -10,6 +10,8 @@ define('HOST', $_SERVER['HTTP_HOST']);
 // Start the application session
 session_start();
 
+$_SESSION['message'] = array();
+
 //Development Mode;
 error_reporting(E_ALL);
 ini_set('display_errors', 1);

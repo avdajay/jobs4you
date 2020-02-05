@@ -1,6 +1,6 @@
 <?php
 
-if (!(isset($_SESSION['login']) && $_SESSION['login'] != ''))
+if (!isset($_SESSION['uid']))
 {
 	return redirect('login');
 }
