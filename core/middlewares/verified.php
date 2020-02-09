@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($_SESSION['act']))
+if (!empty($_SESSION['uid']) && empty($_SESSION['act']))
 {
 	return redirect('activate');
 }

@@ -11,11 +11,12 @@ define('HOST', $_SERVER['HTTP_HOST']);
 session_start();
 
 $_SESSION['message'] = array();
+$_SESSION['success'] = array();
 
 //Development Mode;
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once __DIR__ . '/autoload.php';
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/autoload.php';
 require_once __DIR__ . '/functions.php';

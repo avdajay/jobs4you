@@ -6,7 +6,7 @@
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8">
-<title><?php config('app', 'name') ?> - <?php config('app', 'tagline') ?></title>
+<title><?php echo config('app', 'name') ?> - <?php echo config('app', 'tagline') ?></title>
 
 <!-- Mobile Specific Metas
 ================================================== -->

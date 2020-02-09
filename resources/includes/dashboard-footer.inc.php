@@ -1,6 +1,6 @@
 			<!-- Copyrights -->
 			<div class="col-md-12">
-				<div class="copyrights">© 2019 WorkScout. All Rights Reserved.</div>
+				<div class="copyrights">Copyright © 2020 <?php echo config('app', 'name') ?>. All Rights Reserved.</div>
 			</div>
 		</div>
 

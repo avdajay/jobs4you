@@ -265,64 +265,6 @@
 </div>
 </div>
 
-
-<section class="fullwidth-testimonial margin-top-15">
-
-<!-- Info Section -->
-<div class="container">
-    <div class="sixteen columns">
-        <h3 class="headline centered">
-            What Our Users Say 😍
-            <span class="margin-top-25">We collect reviews from our users so you can get an honest opinion of what an experience with our website are really like!</span>
-        </h3>
-    </div>
-</div>
-<!-- Info Section / End -->
-
-<!-- Testimonials Carousel -->
-<div class="fullwidth-carousel-container margin-top-20">
-    <div class="testimonial-carousel testimonials">
-        
-        <!-- Item -->
-        <div class="fw-carousel-review">
-            <div class="testimonial-box">
-                <div class="testimonial">Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close.</div>
-            </div>
-            <div class="testimonial-author">
-                <img src="<?php asset('images/resumes-list-avatar-03.png') ?>" alt="">
-                <h4>Tom Baker <span>HR Specialist</span></h4>
-            </div>
-        </div>
-
-        <!-- Item -->
-        <div class="fw-carousel-review">
-            <div class="testimonial-box">
-                <div class="testimonial">Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation is on the runway heading towards a streamlined cloud content.</div>
-            </div>
-            <div class="testimonial-author">
-                <img src="<?php asset('images/resumes-list-avatar-02.png') ?>" alt="">
-                <h4>Jennie Smith <span>Jobseeker</span></h4>
-            </div>
-        </div>
-
-        <!-- Item -->
-        <div class="fw-carousel-review">
-            <div class="testimonial-box">
-                <div class="testimonial">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view.</div>
-            </div>
-            <div class="testimonial-author">
-                <img src="<?php asset('images/resumes-list-avatar-01.png') ?>" alt="">
-                <h4>Jack Paden <span>Jobseeker</span></h4>
-            </div>
-        </div>
-
-    </div>
-</div>
-<!-- Testimonials Carousel / End -->
-
-</section>
-
-
 <!-- Flip banner -->
 <a href="browse-jobs.html" class="flip-banner margin-bottom-55" data-background="<?php asset('images/all-categories-photo.jpg') ?>" data-color="#26ae61" data-color-opacity="0.93">
 <div class="flip-banner-content">
@@ -331,7 +273,6 @@
 </div>
 </a>
 <!-- Flip banner / End -->
-
 
 <!-- Recent Posts -->
 <div class="container">

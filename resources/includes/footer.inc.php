@@ -61,7 +61,7 @@
 				<li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
 				<li><a class="linkedin" href="#"><i class="icon-linkedin"></i></a></li>
 			</ul>
-			<div class="copyrights">Copyright © 2020 by <a href="<?php url('/') ?>"><?php config('app', 'name') ?></a>. All Rights Reserved.</div>
+			<div class="copyrights">Copyright © 2020 <a href="<?php url('/') ?>"><?php echo config('app', 'name') ?></a>. All Rights Reserved.</div>
 		</div>
 	</div>
 </div>

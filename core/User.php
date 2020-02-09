@@ -13,6 +13,7 @@ class User
     public $created_at;
     public $updated_at;
     public $activated_at;
+    public $activation_code;
 
     public function __construct()
     {
@@ -49,10 +50,11 @@ class User
 			'role' => $this->role,
 			'created' => $this->created_at,
             'updated' => $this->updated_at,
-            'activated' => $this->activated_at
+            'activated' => $this->activated_at,
+            'code' => $this->activation_code,
 		];
 		
-		$query = "INSERT INTO " . $this->table . "(email, password, role_id, created_at, updated_at, activated_at) VALUES (:email, :password, :role, :created, :updated, :activated)";
+		$query = "INSERT INTO " . $this->table . "(email, password, role_id, created_at, updated_at, activated_at, activation_code) VALUES (:email, :password, :role, :created, :updated, :activated, :code)";
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute($data);
 	}

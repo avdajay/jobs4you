@@ -16,7 +16,7 @@
 		<div class="dashboard-nav-inner">
 
 			<ul data-submenu-title="Start">
-				<li class="active"><a href="dashboard.html">Dashboard</a></li>
+				<li class="active"><a href="<?php url('/main') ?>">Dashboard</a></li>
 				<li><a href="dashboard-messages.html">Messages <span class="nav-tag">2</span></a></li>
 			</ul>
 

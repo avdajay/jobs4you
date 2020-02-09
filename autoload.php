@@ -8,7 +8,7 @@
 // Autoload controllers and models
 function autoload($class)
 {
-    $path = ROOT . '/core/';
+    $path = __DIR__ . '/core/';
     require $path . $class .'.php';
 }
 

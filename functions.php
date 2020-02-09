@@ -29,7 +29,7 @@ function the_sidebar()
 function config($name, $option)
 {
     $config = include ROOT . '/config/' . $name . '.php';
-    echo $config[$option];
+    return $config[$option];
 }
 
 function asset($path)

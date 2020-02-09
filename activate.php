@@ -2,6 +2,11 @@
 
 require_once './bootstrap.php';
 
-$activate = new ActivationController();
+$activate = new AuthController();
 
-$activate->index();
+if (isset($_GET['submit']))
+{
+    $activate->handleActivation($_GET['token']);
+}
+
+$activate->activate();
