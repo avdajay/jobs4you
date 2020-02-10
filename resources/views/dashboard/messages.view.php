@@ -317,4 +317,4 @@
 
 			</div>
 
-<?php the_footer() ?>
+<?php the_dashfoot() ?>

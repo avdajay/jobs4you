@@ -40,14 +40,14 @@
             <li><a href="<?php url('/') ?>">Home</a></li>
             <li><a href="#">Jobseekers</a>
                 <ul>
-                    <li><a href="<?php url('/job/browse-jobs') ?>">Browse Jobs</a></li>
-                    <li><a href="<?php url('/job/browse-categories') ?>">Browse Categories</a></li>
+                    <li><a href="<?php url('/browse-jobs') ?>">Browse Jobs</a></li>
+                    <li><a href="<?php url('/browse-categories') ?>">Browse Categories</a></li>
                 </ul>
             </li>
 
             <li><a href="#">Employeers</a>
                 <ul>
-                    <li><a href="<?php url('/job/browse-jobs') ?>">Browse Resumes</a></li>
+                    <li><a href="<?php url('/resume') ?>">Browse Resumes</a></li>
                 </ul>
             </li>
         </ul>
