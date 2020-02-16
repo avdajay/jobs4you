@@ -24,9 +24,9 @@ class User
 
     public function get($id)
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE id=?";
+        $query = "SELECT * FROM " . $this->table . " WHERE id=:id";
 		$stmt = $this->conn->prepare($query);
-        $stmt->execute([$id]);
+        $stmt->execute(['id' => $id]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         
         return $user;
@@ -37,7 +37,7 @@ class User
         $query = "SELECT * FROM " . $this->table . " ORDER BY created_at DESC";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $collection = $stmt->fetchAll();
+        $collection = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $collection;
     }
@@ -56,7 +56,27 @@ class User
 		
 		$query = "INSERT INTO " . $this->table . "(email, password, role_id, created_at, updated_at, activated_at, activation_code) VALUES (:email, :password, :role, :created, :updated, :activated, :code)";
 		$stmt = $this->conn->prepare($query);
-		$stmt->execute($data);
-	}
-	
+        $stmt->execute($data);
+    }
+
+    public function user_applicants($id)
+    {
+        $query = "SELECT * FROM users INNER JOIN applicants ON users.id = applicants.user_id WHERE users.id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function user_employees($id)
+    {
+        $query = "SELECT * FROM users INNER JOIN employers ON users.id = employers.user_id WHERE users.id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
 }

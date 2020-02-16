@@ -33,6 +33,7 @@
 <script src="<?php asset('scripts/jquery.jpanelmenu.js') ?>"></script>
 <script src="<?php asset('scripts/stacktable.js') ?>"></script>
 <script src="<?php asset('scripts/slick.min.js') ?>"></script>
+<script src="<?php asset('scripts/app.js') ?>"></script>
 
 </body>
 </html>

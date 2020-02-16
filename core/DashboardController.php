@@ -4,7 +4,7 @@ class DashboardController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth', 'verified']);
     }
 
     public function index()
@@ -12,8 +12,13 @@ class DashboardController extends Controller
         return view('dashboard/index');
     }
 
-    public function showMessage()
+    public function messageView()
     {
         return view('dashboard/messages');
+    }
+
+    public function addResumeView()
+    {
+        return view('dashboard/add-resume');
     }
 }

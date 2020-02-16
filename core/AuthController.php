@@ -68,6 +68,56 @@ class AuthController extends Controller
 			$sesStmt->execute(['id' => $user['id']]);
 			$sesUser = $sesStmt->fetch(PDO::FETCH_ASSOC);
 
+			$applicantsData = [
+				'name' => null,
+				'address' => null,
+				'phone' => null,
+				'summary' => null,
+				'facebook' => null,
+				'twitter' => null,
+				'linkedin' => null,
+				'slug' => null,
+				'photo' => null,
+				'location' => 1,
+				'user_id' => $user['id'],
+			];
+	
+			$employersData = [
+				'user_id' => $user['id'],
+				'name' => null,
+				'address' => null,
+				'description' => null,
+				'phone' => null,
+				'size' => null,
+				'logo' => null,
+				'slug' => null,
+				'website' => null,
+				'facebook' => null,
+				'twitter' => null,
+				'linkedin' => null,
+				'location' => 1,
+				'verified_at' => null, 
+			];
+	
+			$applicantsTable = "applicants";
+			$employersTable = "employers";
+	
+			switch ($user['role_id'])
+			{
+				case 1:
+					
+					$query = "INSERT INTO " . $applicantsTable . "(name, address, phone, summary, facebook, twitter, linkedin, slug, photo, location, user_id) VALUES (:name, :address, :phone, :summary, :facebook, :twitter, :linkedin, :slug, :photo, :location, :user_id)";
+					$stmt = $this->conn->prepare($query);
+					$stmt->execute($applicantsData);
+					break;
+				
+				case 2:
+					$query = "INSERT INTO " . $employersTable . "(user_id, name, address, description, phone, size, logo, slug, website, facebook, twitter, linkedin, location, verified_at) VALUES (:user_id, :name, :address, :description, :phone, :size, :logo, :slug, :website, :facebook, :twitter, :linkedin, :location, :verified_at)";
+					$stmt = $this->conn->prepare($query);
+					$stmt->execute($employersData);
+					break;
+			}
+
 			$this->sendWelcomeEmail($sesUser['email']);
 
 			array_push($_SESSION['success'], ['success' => 'Account has been activated!']);

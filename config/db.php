@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'dbhost' => 'localhost',
-    'dbname' => 'jobersity',
-    'dbuser' => 'root',
-    'dbpass' => ''
+    'host' => 'localhost',
+    'name' => 'jobtain',
+    'user' => 'root',
+    'pass' => ''
 ];

@@ -2,11 +2,19 @@
 
 class Database {
 
-    private $dbhost = 'localhost';
-    private $dbname = 'jobtain';
-    private $dbuser = 'root';
-    private $dbpass = '';
+    private $dbhost;
+    private $dbname;
+    private $dbuser;
+    private $dbpass;
     private $conn;
+
+    public function __construct()
+    {
+        $this->dbhost = config('db', 'host');
+        $this->dbname = config('db', 'name');
+        $this->dbuser = config('db', 'user');
+        $this->dbpass = config('db', 'pass');
+    }
 
     public function connect() {
         $this->conn = null;

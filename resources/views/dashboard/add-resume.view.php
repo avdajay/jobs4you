@@ -61,8 +61,8 @@
 					<!-- Breadcrumbs -->
 					<nav id="breadcrumbs">
 						<ul>
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Dashboard</a></li>
+							<li><a href="<?php url('/') ?>">Home</a></li>
+							<li><a href="<?php url('/main') ?>">Dashboard</a></li>
 							<li>Add Resume</li>
 						</ul>
 					</nav>
@@ -71,7 +71,7 @@
 		</div>
 
 		<div class="row">
-			
+<form method="POST" action="<?php url('/add-resume') ?>" enctype="multipart/form-data">
 			<!-- Table-->
 			<div class="col-lg-12 col-md-12">
 
@@ -84,47 +84,47 @@
 						<!-- Email -->
 						<div class="form">
 							<h5>Your Name</h5>
-							<input class="search-field" type="text" placeholder="Your full name" value="">
+							<input class="search-field" type="text" placeholder="Your full name" value="" name="name">
 						</div>
 
 						<!-- Email -->
 						<div class="form">
 							<h5>Your Email</h5>
-							<input class="search-field" type="text" placeholder="mail@example.com" value="">
+							<input class="search-field" type="text" placeholder="mail@example.com" value="" name="email">
 						</div>
 
 						<!-- Title -->
 						<div class="form">
 							<h5>Professional Title</h5>
-							<input class="search-field" type="text" placeholder="e.g. Web Developer" value="">
+							<input class="search-field" type="text" placeholder="e.g. Web Developer" value="" name="title">
 						</div>
 
 						<!-- Location -->
 						<div class="form">
-							<h5>Location</h5>
-							<input class="search-field" type="text" placeholder="e.g. London, UK" value="">
+							<h5>Expected Salary</h5>
+							<input class="search-field" type="text" placeholder="e.g. 14000" value="" name="salary">
 						</div>
 
 						<!-- Logo -->
 						<div class="form">
 							<h5>Photo <span>(optional)</span></h5>
 							<label class="upload-btn">
-							    <input type="file" multiple="">
+							<input type="file" class="upload" id="upload" accept="image/*" onchange="document.getElementById('selected').textContent = this.files[0].name" name="photo">
 							    <i class="fa fa-upload"></i> Browse
 							</label>
-							<span class="fake-input">No file selected</span>
+							<span class="fake-input" id="selected">No file selected</span>
 						</div>
 
 						<!-- Email -->
 						<div class="form">
 							<h5>Video <span>(optional)</span></h5>
-							<input class="search-field" type="text" placeholder="A link to a video about you" value="">
+							<input class="search-field" type="text" placeholder="A link to a video about you" value="" name="video">
 						</div>
 
 						<!-- Description -->
 						<div class="form" style="width: 100%;">
 							<h5>Resume Content</h5>
-							<textarea class="WYSIWYG" name="summary" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+							<textarea class="WYSIWYG" name="description" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
 						</div>
 
 					</div>
@@ -177,8 +177,8 @@
 				</div>
 
 
-				<a href="#" class="button margin-top-30">Preview <i class="fa fa-arrow-circle-right"></i></a>
+				<input type="submit" class="button margin-top-30" name="save_resume">Save Resume <i class="fa fa-arrow-circle-right"></i></input>
 
 			</div>
-
+</form>
 <?php the_dashfoot() ?>

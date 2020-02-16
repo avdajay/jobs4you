@@ -47,7 +47,7 @@ function url($path)
 	echo $path;
 }
 
-function out($output)
+function e($output)
 {
     echo htmlspecialchars($output);
 }
@@ -55,4 +55,10 @@ function out($output)
 function redirect($route)
 {
     header('Location: ' . $route);
+}
+
+function slug($string)
+{
+    $slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $string);
+    return $slug;
 }

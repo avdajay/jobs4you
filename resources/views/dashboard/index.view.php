@@ -21,7 +21,7 @@
 			</ul>
 
 			<ul data-submenu-title="Management">
-				<?php //if(isset($_SESSION['rid']) && $_SESSION['rid'] == 1): ?>
+				<?php if(isset($_SESSION['rid']) && $_SESSION['rid'] == 1): ?>
 					<li><a>For Candidates</a>
 						<ul>
 							<li><a href="<?php url('manage-resume') ?>">Manage Resumes <span class="nav-tag">2</span></a></li>
@@ -29,7 +29,7 @@
 							<li><a href="<?php url('add-resume') ?>">Add Resume</a></li>
 						</ul>
 					</li>
-				<?php //else: ?>
+				<?php else: ?>
 					<li><a>For Employers</a>
 						<ul>
 							<li><a href="<?php url('manage-jobs') ?>">Manage Jobs <span class="nav-tag">5</span></a></li>
@@ -37,7 +37,7 @@
 							<li><a href="<?php url('add-jobs') ?>">Add Job</a></li>
 						</ul>
 					</li>
-				<?php //endif; ?>	
+				<?php endif; ?>	
 			</ul>	
 
 			<ul data-submenu-title="Account">
@@ -58,7 +58,15 @@
 		<div id="titlebar">
 			<div class="row">
 				<div class="col-md-12">
-					<h2>Howdy, Tom!</h2>
+				<?php if (!empty($_SESSION['success'])): ?>
+					<?php foreach ($_SESSION['success'] as $success): ?>
+						<div class="notification success closeable">
+							<p><span><?php echo 'Success! '?></span><?php echo $success['success']; ?></p>
+							<a class="close" href="#"></a>
+						</div>
+					<?php endforeach; ?>
+				<?php endif; ?>
+					<h2>Welcome back!</h2>
 					<!-- Breadcrumbs -->
 					<nav id="breadcrumbs">
 						<ul>
