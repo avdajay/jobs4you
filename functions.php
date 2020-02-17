@@ -3,32 +3,32 @@
 // Global Functions
 function the_header()
 {
-    require_once ROOT . '/resources/includes/header.inc.php';
+    require_once __DIR__ . '/resources/includes/header.inc.php';
 }
 
 function the_footer()
 {
-    require_once ROOT . '/resources/includes/footer.inc.php';
+    require_once __DIR__ . '/resources/includes/footer.inc.php';
 }
 
 function the_dashhead()
 {
-    require_once ROOT . '/resources/includes/dashboard-header.inc.php';
+    require_once __DIR__ . '/resources/includes/dashboard-header.inc.php';
 }
 
 function the_dashfoot()
 {
-    require_once ROOT. '/resources/includes/dashboard-footer.inc.php';
+    require_once __DIR__ . '/resources/includes/dashboard-footer.inc.php';
 }
 
 function the_sidebar()
 {
-    require_once ROOT . '/resources/includes/sidebar.inc.php';
+    require_once __DIR__ . '/resources/includes/sidebar.inc.php';
 }
 
 function config($name, $option)
 {
-    $config = include ROOT . '/config/' . $name . '.php';
+    $config = include __DIR__ . '/config/' . $name . '.php';
     return $config[$option];
 }
 
@@ -39,7 +39,7 @@ function asset($path)
 
 function view($name, $data = [])
 {
-    require ROOT. '/resources/views/' . $name . '.view.php';
+    require __DIR__ . '/resources/views/' . $name . '.view.php';
 }
 
 function url($path)
