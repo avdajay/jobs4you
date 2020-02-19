@@ -38,7 +38,7 @@
             <?php endforeach; ?>
         <?php endif; ?>
         <div class="tab-content" id="tab1" style="display: none;">
-            <form method="POST" class="login" action="<?php url('/login') ?>">
+            <form method="POST" class="login" action="<?php url('/login.php') ?>">
 
                 <p class="form-row form-row-wide">
                     <label for="username">Email Address:

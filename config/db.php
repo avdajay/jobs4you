@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'host' => 'localhost',
-    'name' => 'jobtain',
-    'user' => 'root',
-    'pass' => ''
+    'host' => 'remotemysql.com',
+    'name' => 'sXKaBd832a',
+    'user' => 'sXKaBd832a',
+    'pass' => 'UxxgO0t4yO'
 ];

@@ -123,8 +123,8 @@
 
 						<!-- Description -->
 						<div class="form" style="width: 100%;">
-							<h5>Resume Content</h5>
-							<textarea class="WYSIWYG" name="description" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+							<h5>Description</h5>
+							<textarea class="WYSIWYG" name="description" cols="40" rows="3" id="summary" spellcheck="true" placeholder="Descriptive information on why are you qualified for the job or how will you contribute to the company or talk about your experiences and skills"></textarea>
 						</div>
 
 					</div>
@@ -142,10 +142,19 @@
 							<!-- Add Education -->
 							<div class="form boxed box-to-clone education-box">
 								<a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
-								<input class="search-field" type="text" placeholder="School Name" value="">
-								<input class="search-field" type="text" placeholder="Qualification(s)" value="">
-								<input class="search-field" type="text" placeholder="Start / end date" value="">
-								<textarea name="desc" id="desc" cols="30" rows="10" placeholder="Notes (optional)"></textarea>
+                                <input class="search-field" type="text" placeholder="School Name" value="" name="school[]">
+                                <select name="type[]" data-placeholder="School Type" id="type">
+                                    <option value="0" selected>Choose Grade Type</option>		
+                                    <option value="1">Primary</option>
+                                    <option value="2">Secondary</option>
+                                    <option value="3">College/University</option>
+                                    <option value="4">Postgraduate</option>
+                                </select>
+                                <input class="search-field" type="text" placeholder="Course e.g. Bsc in Information Technology" value="" name="course[]">
+                                <input class="search-field" type="text" placeholder="Major e.g. Computer Programming" value="" name="major[]">
+                                <input class="search-field" type="text" placeholder="Start Year" value="" name="start[]">
+                                <input class="search-field" type="text" placeholder="End Year" value="" name="end[]">
+                                <textarea name="description[]" id="desc" cols="30" rows="10" placeholder="Summary of your achievements & activities"></textarea>
 							</div>
 
 							<a href="#" class="button gray add-education add-box margin-top-10"><i class="fa fa-plus-circle"></i> Add Education</a>
@@ -163,10 +172,18 @@
 					<!-- Add Experience -->
 					<div class="form boxed box-to-clone experience-box">
 						<a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
-						<input class="search-field" type="text" placeholder="Employer" value="">
-						<input class="search-field" type="text" placeholder="Job Title" value="">
-						<input class="search-field" type="text" placeholder="Start / end date" value="">
-						<textarea name="desc1" id="desc1" cols="30" rows="10" placeholder="Notes (optional)"></textarea>
+						<input class="search-field" type="text" placeholder="Employer/Company Name" value="" name="employer[]">
+                        <input class="search-field" type="text" placeholder="Job Title/Position" value="" name="position[]">
+                        <select name="level[]" data-placeholder="School Type" id="type">
+                            <option value="0" selected>Choose Job Level</option>		
+                            <option value="1">Part Time</option>
+                            <option value="2">Full Time</option>
+                            <option value="3">Freelance</option>
+                            <option value="4">Internship/OJT</option>
+                        </select>
+                        <input class="search-field" type="text" placeholder="Start Date" value="" name="start_date[]">
+                        <input class="search-field" type="text" placeholder="End Date" value="" name="end_date[]">
+						<textarea name="summary[]" id="desc1" cols="30" rows="10" placeholder="Summary of Experience/Key Roles and Responsibilities"></textarea>
 					</div>
 
 					<a href="#" class="button gray add-experience add-box margin-top-10"><i class="fa fa-plus-circle"></i> Add Experience</a>
@@ -177,7 +194,7 @@
 				</div>
 
 
-				<input type="submit" class="button margin-top-30" name="save_resume">Save Resume <i class="fa fa-arrow-circle-right"></i></input>
+				<button type="submit" class="button margin-top-30" name="save_resume">Save Resume <i class="fa fa-arrow-circle-right"></i></button>
 
 			</div>
 </form>

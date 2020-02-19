@@ -8,5 +8,7 @@ if (isset($_GET['id']))
 {
     $resume->show($_GET['id']);
 }
-
-$resume->index();
+else
+{
+    $resume->index();
+}
