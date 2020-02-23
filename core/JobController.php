@@ -24,7 +24,7 @@ class JobController extends Controller
 
     public function add()
     {
-        return view('job/add');
+        return view('dashboard/add-job');
     }
 
     public function manage()

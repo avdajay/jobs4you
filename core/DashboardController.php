@@ -11,14 +11,4 @@ class DashboardController extends Controller
     {
         return view('dashboard/index');
     }
-
-    public function messageView()
-    {
-        return view('dashboard/messages');
-    }
-
-    public function addResumeView()
-    {
-        return view('dashboard/add-resume');
-    }
 }

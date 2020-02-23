@@ -2,12 +2,11 @@
 
 require __DIR__ . '/bootstrap.php';
 
-$addResumeView = new DashboardController();
-$processResume = new ResumeController();
+$resume = new ResumeController();
 
 if (isset($_POST['save_resume']))
 {
-    $processResume->save();
+    $resume->save();
 }
 
-$addResumeView->addResumeView();
+$resume->add_resume_view();

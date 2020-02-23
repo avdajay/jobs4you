@@ -16,31 +16,32 @@
 		<div class="dashboard-nav-inner">
 
 			<ul data-submenu-title="Start">
-				<li><a href="dashboard.html">Dashboard</a></li>
-				<li><a href="dashboard-messages.html">Messages <span class="nav-tag">2</span></a></li>
+				<li><a href="<?php url('/main') ?>">Dashboard</a></li>
+				<li><a href="<?php url('/messages') ?>">Messages <span class="nav-tag">2</span></a></li>
 			</ul>
 
 			<ul data-submenu-title="Management">
-				<li><a>For Employers</a>
-					<ul>
-						<li><a href="dashboard-manage-jobs.html">Manage Jobs <span class="nav-tag">5</span></a></li>
-						<li><a href="dashboard-manage-applications.html">Manage Applications <span class="nav-tag">4</span></a></li>
-						<li><a href="dashboard-add-job.html">Add Job</a></li>
-					</ul>
-				</li>
-
-				<li class="active-submenu"><a>For Candidates</a>
-					<ul>
-						<li><a href="dashboard-manage-resumes.html">Manage Resumes <span class="nav-tag">2</span></a></li>
-						<li><a href="dashboard-job-alerts.html">Job Alerts</a></li>
-						<li><a href="dashboard-add-resume.html">Add Resume</a></li>
-					</ul>
-				</li>	
+				<?php if(isset($_SESSION['rid']) && $_SESSION['rid'] == 1): ?>
+					<li class="active-submenu"><a>For Candidates</a>
+						<ul>
+							<li><a href="<?php url('/manage-resume') ?>">Manage Resumes <span class="nav-tag">2</span></a></li>
+							<li><a href="<?php url('add-resume') ?>">Add Resume</a></li>
+						</ul>
+					</li>
+				<?php else: ?>
+					<li><a>For Employers</a>
+						<ul>
+							<li><a href="<?php url('/manage-jobs') ?>">Manage Jobs <span class="nav-tag">5</span></a></li>
+							<li><a href="<?php url('/manage-applications') ?>">Manage Applications <span class="nav-tag">4</span></a></li>
+							<li><a href="<?php url('/add-jobs') ?>">Add Job</a></li>
+						</ul>
+					</li>
+				<?php endif; ?>	
 			</ul>	
 
 			<ul data-submenu-title="Account">
-				<li><a href="dashboard-my-profile.html">My Profile</a></li>
-				<li><a href="index.html">Logout</a></li>
+				<li><a href="<?php url('/profile') ?>">My Profile</a></li>
+				<li><a href="<?php url('/logout') ?>">Logout</a></li>
 			</ul>
 			
 		</div>
@@ -66,12 +67,20 @@
 							<li>Add Resume</li>
 						</ul>
 					</nav>
+					<?php if (!empty($_SESSION['error'])): ?>
+					<?php foreach ($_SESSION['error'] as $error): ?>
+						<div class="notification danger closeable">
+							<p><?php echo $error['error']; ?></p>
+							<a class="close" href="#"></a>
+						</div>
+					<?php endforeach; ?>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>
 
 		<div class="row">
-<form method="POST" action="<?php url('/add-resume') ?>" enctype="multipart/form-data">
+<form method="POST" action="<?php url('/add-resume') ?>">
 			<!-- Table-->
 			<div class="col-lg-12 col-md-12">
 
@@ -84,13 +93,13 @@
 						<!-- Email -->
 						<div class="form">
 							<h5>Your Name</h5>
-							<input class="search-field" type="text" placeholder="Your full name" value="" name="name">
+							<input class="search-field" type="text" placeholder="Your full name" value="<?php e($data['user']['name']) ?>" name="name">
 						</div>
 
 						<!-- Email -->
 						<div class="form">
 							<h5>Your Email</h5>
-							<input class="search-field" type="text" placeholder="mail@example.com" value="" name="email">
+							<input class="search-field" type="text" placeholder="mail@example.com" value="<?php e($data['user']['email']) ?>" name="email">
 						</div>
 
 						<!-- Title -->
@@ -105,26 +114,10 @@
 							<input class="search-field" type="text" placeholder="e.g. 14000" value="" name="salary">
 						</div>
 
-						<!-- Logo -->
-						<div class="form">
-							<h5>Photo <span>(optional)</span></h5>
-							<label class="upload-btn">
-							<input type="file" class="upload" id="upload" accept="image/*" onchange="document.getElementById('selected').textContent = this.files[0].name" name="photo">
-							    <i class="fa fa-upload"></i> Browse
-							</label>
-							<span class="fake-input" id="selected">No file selected</span>
-						</div>
-
-						<!-- Email -->
-						<div class="form">
-							<h5>Video <span>(optional)</span></h5>
-							<input class="search-field" type="text" placeholder="A link to a video about you" value="" name="video">
-						</div>
-
 						<!-- Description -->
 						<div class="form" style="width: 100%;">
 							<h5>Description</h5>
-							<textarea class="WYSIWYG" name="description" cols="40" rows="3" id="summary" spellcheck="true" placeholder="Descriptive information on why are you qualified for the job or how will you contribute to the company or talk about your experiences and skills"></textarea>
+							<textarea name="desc" cols="40" rows="10" spellcheck="true" placeholder="Descriptive information on why are you qualified for the job or how will you contribute to the company or talk about your experiences and skills"></textarea>
 						</div>
 
 					</div>
@@ -143,9 +136,8 @@
 							<div class="form boxed box-to-clone education-box">
 								<a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
                                 <input class="search-field" type="text" placeholder="School Name" value="" name="school[]">
-                                <select name="type[]" data-placeholder="School Type" id="type">
-                                    <option value="0" selected>Choose Grade Type</option>		
-                                    <option value="1">Primary</option>
+                                <select name="type[]" id="type">	
+                                    <option value="1" selected>Primary</option>
                                     <option value="2">Secondary</option>
                                     <option value="3">College/University</option>
                                     <option value="4">Postgraduate</option>
@@ -174,9 +166,8 @@
 						<a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
 						<input class="search-field" type="text" placeholder="Employer/Company Name" value="" name="employer[]">
                         <input class="search-field" type="text" placeholder="Job Title/Position" value="" name="position[]">
-                        <select name="level[]" data-placeholder="School Type" id="type">
-                            <option value="0" selected>Choose Job Level</option>		
-                            <option value="1">Part Time</option>
+                        <select name="level[]" data-placeholder="School Type" id="type">		
+                            <option value="1" selected>Part Time</option>
                             <option value="2">Full Time</option>
                             <option value="3">Freelance</option>
                             <option value="4">Internship/OJT</option>
@@ -194,7 +185,7 @@
 				</div>
 
 
-				<button type="submit" class="button margin-top-30" name="save_resume">Save Resume <i class="fa fa-arrow-circle-right"></i></button>
+				<button type="submit" class="button margin-top-30" name="save_resume" value="save_resume">Save Resume <i class="fa fa-arrow-circle-right"></i></button>
 
 			</div>
 </form>

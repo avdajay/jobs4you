@@ -24,17 +24,16 @@
 				<?php if(isset($_SESSION['rid']) && $_SESSION['rid'] == 1): ?>
 					<li><a>For Candidates</a>
 						<ul>
-							<li><a href="<?php url('manage-resume') ?>">Manage Resumes <span class="nav-tag">2</span></a></li>
-							<li><a href="<?php url('job-alerts') ?>">Job Alerts</a></li>
+							<li><a href="<?php url('/manage-resume') ?>">Manage Resumes <span class="nav-tag">2</span></a></li>
 							<li><a href="<?php url('add-resume') ?>">Add Resume</a></li>
 						</ul>
 					</li>
 				<?php else: ?>
 					<li><a>For Employers</a>
 						<ul>
-							<li><a href="<?php url('manage-jobs') ?>">Manage Jobs <span class="nav-tag">5</span></a></li>
-							<li><a href="<?php url('manage-applications') ?>">Manage Applications <span class="nav-tag">4</span></a></li>
-							<li><a href="<?php url('add-jobs') ?>">Add Job</a></li>
+							<li><a href="<?php url('/manage-jobs') ?>">Manage Jobs <span class="nav-tag">5</span></a></li>
+							<li><a href="<?php url('/manage-applications') ?>">Manage Applications <span class="nav-tag">4</span></a></li>
+							<li><a href="<?php url('/add-jobs') ?>">Add Job</a></li>
 						</ul>
 					</li>
 				<?php endif; ?>	
@@ -85,7 +84,7 @@
 			<!-- Item -->
 			<div class="col-lg-3 col-md-6">
 				<div class="dashboard-stat color-1">
-					<div class="dashboard-stat-content"><h4 class="counter">3</h4> <span>Active Job Listings</span></div>
+					<div class="dashboard-stat-content"><h4 class="counter">3</h4> <span>Resume on File</span></div>
 					<div class="dashboard-stat-icon"><i class="ln ln-icon-File-Link"></i></div>
 				</div>
 			</div>
@@ -93,7 +92,7 @@
 				<!-- Item -->
 			<div class="col-lg-3 col-md-6">
 				<div class="dashboard-stat color-2">
-					<div class="dashboard-stat-content"><h4 class="counter">527</h4> <span>Total Job Views</span></div>
+					<div class="dashboard-stat-content"><h4 class="counter">527</h4> <span>Total Resume Views</span></div>
 					<div class="dashboard-stat-icon"><i class="ln ln-icon-Bar-Chart"></i></div>
 				</div>
 			</div>
@@ -102,7 +101,7 @@
 				<!-- Item -->
 			<div class="col-lg-3 col-md-6">
 				<div class="dashboard-stat color-3">
-					<div class="dashboard-stat-content"><h4 class="counter">17</h4> <span>Total Applications</span></div>
+					<div class="dashboard-stat-content"><h4 class="counter">17</h4> <span>Total Job Applications</span></div>
 					<div class="dashboard-stat-icon"><i class="ln ln-icon-Business-ManWoman"></i></div>
 				</div>
 			</div>
@@ -111,7 +110,7 @@
 			<!-- Item -->
 				<div class="col-lg-3 col-md-6">
 				<div class="dashboard-stat color-4">
-					<div class="dashboard-stat-content"><h4 class="counter">36</h4> <span>Times Bookmarked</span></div>
+					<div class="dashboard-stat-content"><h4 class="counter">36</h4> <span>Times Resume Bookmarked</span></div>
 					<div class="dashboard-stat-icon"><i class="ln ln-icon-Add-UserStar "></i></div>
 				</div>
 			</div>
