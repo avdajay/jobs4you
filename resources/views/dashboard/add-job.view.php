@@ -62,8 +62,8 @@
 					<!-- Breadcrumbs -->
 					<nav id="breadcrumbs">
 						<ul>
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Dashboard</a></li>
+							<li><a href="<?php url('/') ?>">Home</a></li>
+							<li><a href="<?php url('/main') ?>">Dashboard</a></li>
 							<li>Add Job</li>
 						</ul>
 					</nav>
@@ -91,7 +91,7 @@
 						<!-- Title -->
 						<div class="form">
 							<h5>Job Title</h5>
-							<input class="search-field" type="text" placeholder="" value="">
+							<input class="search-field" type="text" placeholder="e.g. Web Developer" value="">
 						</div>
 
 						<!-- Job Type -->
@@ -164,59 +164,7 @@
 					</div>
 				</div>
 
-
-				<div class="dashboard-list-box margin-top-30">
-					<h4>Company Details</h4>
-					<div class="dashboard-list-box-content">
-
-					<div class="submit-page">
-
-						<!-- Company Name -->
-						<div class="form">
-							<h5>Company Name</h5>
-							<input type="text" placeholder="Enter the name of the company">
-						</div>
-
-						<!-- Website -->
-						<div class="form">
-							<h5>Website <span>(optional)</span></h5>
-							<input type="text" placeholder="http://">
-						</div>
-
-						<!-- Teagline -->
-						<div class="form">
-							<h5>Tagline <span>(optional)</span></h5>
-							<input type="text" placeholder="Briefly describe your company">
-						</div>
-
-						<!-- Video -->
-						<div class="form">
-							<h5>Video <span>(optional)</span></h5>
-							<input type="text" placeholder="A link to a video about your company">
-						</div>
-
-						<!-- Twitter -->
-						<div class="form">
-							<h5>Twitter Username <span>(optional)</span></h5>
-							<input type="text" placeholder="@yourcompany">
-						</div>
-
-						<!-- Logo -->
-						<div class="form">
-							<h5>Logo <span>(optional)</span></h5>
-							<label class="upload-btn">
-							    <input type="file" multiple="">
-							    <i class="fa fa-upload"></i> Browse
-							</label>
-							<span class="fake-input">No file selected</span>
-						</div>
-
-
-					</div>
-
-					</div>
-				</div>
-				<a href="#" class="button margin-top-30">Preview <i class="fa fa-arrow-circle-right"></i></a>
+				<a href="#" class="button margin-top-50">Submit Job <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 
 <?php the_dashfoot() ?>
