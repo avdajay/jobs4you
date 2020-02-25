@@ -81,11 +81,10 @@
 					<div class="dashboard-list-box-content">
 
 					<div class="submit-page">
-
 						<!-- Email -->
 						<div class="form">
 							<h5>Your Email</h5>
-							<input class="search-field" type="text" placeholder="mail@example.com" value="">
+							<input class="search-field" type="text" placeholder="mail@example.com" value="<?php e($data['user']['email']) ?>">
 						</div>
 
 						<!-- Title -->
@@ -97,59 +96,58 @@
 						<!-- Job Type -->
 						<div class="form">
 							<h5>Job Type</h5>
-							<select data-placeholder="Full-Time" class="chosen-select-no-single">
-								<option value="1">Full-Time</option>
-								<option value="2">Part-Time</option>
-								<option value="2">Internship</option>
-								<option value="2">Freelance</option>
+							<select data-placeholder="Choose Job Type" class="chosen-select-no-single" name="type">
+								<?php foreach($data['type'] as $type): ?>
+                                    <option value="<?php e($type['id']) ?>"><?php e($type['name']) ?></option>
+                                <?php endforeach; ?>
 							</select>
 						</div>
 
 
 						<!-- Choose Category -->
 						<div class="form">
-							<div class="select">
-								<h5>Category</h5>
-								<select data-placeholder="Choose Categories" class="chosen-select" multiple="">
-									<option value="1">Web Developers</option>
-									<option value="2">Mobile Developers</option>
-									<option value="3">Designers & Creatives</option>
-									<option value="4">Writers</option>
-									<option value="5">Virtual Assistants</option>
-									<option value="6">Customer Service Agents</option>
-									<option value="7">Sales & Marketing Experts</option>
-									<option value="8">Accountants & Consultants</option>
-								</select>
-							</div>
+							<h5>Category</h5>
+							<select data-placeholder="Choose Category" class="chosen-select-no-single" name="category">
+								<?php foreach($data['categories'] as $categories): ?>
+                                    <option value="<?php e($categories['id']) ?>"><?php e($categories['name']) ?></option>
+                                <?php endforeach; ?>
+							</select>
 						</div>
 
 
 						<!-- Location -->
 						<div class="form">
-							<h5>Location <span>(optional)</span></h5>
-							<input class="search-field" type="text" placeholder="e.g. London" value="">
-							<p class="note">Leave this blank if the location is not important</p>
+							<h5>Location</h5>
+							<select data-placeholder="Choose Location" class="chosen-select-no-single" name="location">
+								<?php foreach($data['locations'] as $locations): ?>
+                                    <option value="<?php e($locations['id']) ?>"><?php e($locations['island_name']) ?></option>
+                                <?php endforeach; ?>
+							</select>
 						</div>
 
 
-						<!-- Tags -->
+						<!-- Job Level -->
 						<div class="form">
-							<h5>Job Tags <span>(optional)</span></h5>
-							<input class="search-field" type="text" placeholder="e.g. PHP, Social Media, Management" value="">
-							<p class="note">Comma separate tags, such as required skills or technologies, for this job.</p>
+							<h5>Job Level</h5>
+							<select data-placeholder="Choose Location" class="chosen-select-no-single" name="levels">
+								<?php foreach($data['levels'] as $levels): ?>
+                                    <option value="<?php e($levels['id']) ?>"><?php e($levels['name']) ?></option>
+                                <?php endforeach; ?>
+							</select>
 						</div>
 
 
 						<!-- Description -->
 						<div class="form" style="width: 100%;">
 							<h5>Description</h5>
-							<textarea class="WYSIWYG" name="summary" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+							<textarea class="WYSIWYG" name="description" cols="40" rows="3" id="summary" spellcheck="true" placeholder="Enter Job Description, Required Skillsets"></textarea>
 						</div>
 
-						<!-- Application email/url -->
+						<!-- Tags -->
 						<div class="form">
-							<h5>Application email / URL</h5>
-							<input type="text" placeholder="Enter an email address or website URL">
+							<h5>Job Tags <span>(optional)</span></h5>
+							<input class="search-field" type="text" placeholder="e.g. PHP, Social Media, Management" value="">
+							<p class="note">Comma separate tags, such as required skills or technologies, for this job.</p>
 						</div>
 
 						<!-- TClosing Date -->

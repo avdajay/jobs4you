@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="ten columns">
 			<span><a href="browse-jobs.html">Restaurant / Food Service</a></span>
-			<h2>Restaurant Team Member - Crew <span class="full-time">Full-Time</span></h2>
+			<h2>Restaurant Team Member - Crew <span class="freelance">Full-Time</span><span class="full-time">Managerial/Supervisory</span></h2>
 		</div>
 
 		<div class="six columns">
@@ -34,6 +34,12 @@
 				<span><a href="#"><i class="fa fa-twitter"></i> @kingrestaurants</a></span>
 			</div>
 			<div class="clearfix"></div>
+            <div class="skills">
+                <span>JavaScript</span>
+                <span>PHP</span>
+                <span>WordPress</span>
+            </div>
+            <div class="clearfix"></div>
 		</div>
 
 		<p class="margin-reset">
