@@ -16,16 +16,16 @@
 		<div class="dashboard-nav-inner">
 
 			<ul data-submenu-title="Start">
-				<li><a href="dashboard.html">Dashboard</a></li>
-				<li><a href="dashboard-messages.html">Messages <span class="nav-tag">2</span></a></li>
+				<li><a href="<?php url('/main') ?>">Dashboard</a></li>
+				<li><a href="#">Messages <span class="nav-tag">2</span></a></li>
 			</ul>
 
 			<ul data-submenu-title="Management">
 				<li class="active-submenu"><a>For Employers</a>
 					<ul>
-						<li><a href="dashboard-manage-jobs.html">Manage Jobs <span class="nav-tag">5</span></a></li>
-						<li><a href="dashboard-manage-applications.html">Manage Applications <span class="nav-tag">4</span></a></li>
-						<li><a href="dashboard-add-job.html">Add Job</a></li>
+						<li><a href="<?php url('/manage-jobs') ?>l">Manage Jobs <span class="nav-tag">5</span></a></li>
+						<li><a href="<?php url('/manage-applications') ?>">Manage Applications <span class="nav-tag">4</span></a></li>
+						<li><a href="<?php url('/add-job') ?>">Add Job</a></li>
 					</ul>
 				</li>
 
@@ -56,13 +56,13 @@
 		<div id="titlebar">
 			<div class="row">
 				<div class="col-md-12">
-					<h2>Manage Resumes</h2>
+					<h2>Manage Jobs</h2>
 					<!-- Breadcrumbs -->
 					<nav id="breadcrumbs">
 						<ul>
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Dashboard</a></li>
-							<li>Manage Resumes</li>
+							<li><a href="<?php url('/') ?>">Home</a></li>
+							<li><a href="<?php url('/main') ?>">Dashboard</a></li>
+							<li>Manage Jobs</li>
 						</ul>
 					</nav>
 				</div>
@@ -76,7 +76,7 @@
 			<div class="col-lg-12 col-md-12">
 
 				<div class="notification notice">
-					Your listings are shown in the table below. Expired listings will be automatically removed after 30 days.
+					Your listings are shown in the table below. Expired listings will be archived and removed after 7 days.
 				</div>
 
 				<div class="dashboard-list-box margin-top-30">

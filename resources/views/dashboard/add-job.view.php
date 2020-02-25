@@ -80,6 +80,8 @@
 					<h4>Job Details</h4>
 					<div class="dashboard-list-box-content">
 
+<form method="POST" action="<?php url('/add-job') ?>">
+
 					<div class="submit-page">
 						<!-- Email -->
 						<div class="form">
@@ -162,7 +164,9 @@
 					</div>
 				</div>
 
-				<a href="#" class="button margin-top-50">Submit Job <i class="fa fa-arrow-circle-right"></i></a>
+				<button type="submit" name="add_job" class="button margin-top-50"><i class="fa fa-arrow-circle-right"></i> Submit Job</a>
 			</div>
+
+</form>
 
 <?php the_dashfoot() ?>

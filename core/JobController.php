@@ -4,7 +4,7 @@ class JobController extends Controller
 {
     public function __construct()
     {
-        
+        $this->middleware(['auth', 'verified']);
     }
 
     public function browse()
@@ -62,11 +62,11 @@ class JobController extends Controller
 
     public function manage()
     {
-        return view('job/manage');
+        return view('dashboard/manage-jobs');
     }
 
     public function applications()
     {
-        return view('job/applications');
+        return view('dashboard/manage-applications');
     }
 }

@@ -3,4 +3,12 @@
 require __DIR__ . '/bootstrap.php';
 
 $job = new JobController();
-$job->single();
+
+if (isset($_GET['add']))
+{
+    $job->add();
+}
+else
+{
+    $job->single();
+}
