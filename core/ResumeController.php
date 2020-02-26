@@ -7,6 +7,7 @@ class ResumeController extends Controller
     private $table = "resume";
     private $educTable = "education";
     private $expTable = "experience";
+    private $skillsTbl = "skills";
     
     public function __construct()
     {
@@ -170,6 +171,34 @@ class ResumeController extends Controller
         else
         {
             array_push($_SESSION['message'], ['error' => 'Error inserting job experience. Check your data!']);
+        }
+
+        // Skills Information
+        $skill = $_POST['skill'];
+        $difficulty = $_POST['position'];
+
+        $filtered = array_filter($skill);
+
+        foreach ($filtered as $index => $value)
+        {
+          
+            $employerQuery = "INSERT INTO " . $this->skillsTbl . " (user_id, name, difficulty) VALUES (:user_id, :name, :difficulty)";
+            $stmt = $this->conn->prepare($employerQuery);
+            $employerResult = $stmt->execute([
+                'user_id'  => $this->sanitize($id),
+                'name' => $this->sanitize($skill[$index]),
+                'difficulty' => $this->sanitize($difficulty[$index]),
+            ]);
+
+        }
+        if ($employerResult)
+        {
+            array_push($_SESSION['success'], ['success' => 'Skills information has been inserted!']);
+            return redirect('manage-resume');
+        }
+        else
+        {
+            array_push($_SESSION['message'], ['error' => 'Error inserting skills information. Check your data!']);
         }
     }
     

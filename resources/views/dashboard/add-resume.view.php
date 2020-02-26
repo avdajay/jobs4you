@@ -181,6 +181,30 @@
 				</div>
 
 
+				</div>
+                </div>
+                
+                <div class="dashboard-list-box margin-top-30">
+					<h4>Skills</h4>
+					<div class="dashboard-list-box-content with-padding">
+
+						<div class="form-inside">
+
+							<!-- Add Skills -->
+							<div class="form boxed box-to-clone education-box">
+								<a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
+                                <input class="search-field" type="text" placeholder="Skills e.g. PHP" value="" name="skill[]">
+                                <select name="difficulty[]" id="type">	
+                                    <option value="Beginner" selected>Beginner</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Advance">Advance</option>
+                                    <option value="Expert">Expert</option>
+                                </select>
+							</div>
+
+							<a href="#" class="button gray add-education add-box margin-top-10"><i class="fa fa-plus-circle"></i> Add Skills</a>
+						</div>
+
 					</div>
 				</div>
 

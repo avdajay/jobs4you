@@ -92,7 +92,7 @@
 								<th><i class="fa fa-calendar"></i> Date Posted</th>
 								<th><i class="fa fa-calendar"></i> Date Expires</th>
 								<th><i class="fa fa-user"></i> Applications</th>
-								<th></th>
+								<th><i class="fa fa-cog"></i> Actions</th>
 							</tr>
 									
 							<!-- Item #1 -->
