@@ -55,6 +55,7 @@ function e($output)
 function redirect($route)
 {
     header('Location: ' . $route);
+    exit;
 }
 
 function slug($string)

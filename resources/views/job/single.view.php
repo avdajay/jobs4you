@@ -5,7 +5,7 @@
 <div id="titlebar">
 	<div class="container">
 		<div class="ten columns">
-			<span><a href="browse-jobs.html">Restaurant / Food Service</a></span>
+			<span><a href="browse-jobs.html"><?php e($data['job']['category']) ?></a></span>
 			<h2>Restaurant Team Member - Crew <span class="freelance">Full-Time</span><span class="full-time">Managerial/Supervisory</span></h2>
 		</div>
 
@@ -27,7 +27,7 @@
 		
 		<!-- Company Info -->
 		<div class="company-info">
-			<img src="images\company-logo.png" alt="">
+			<img src="<?php asset('images/company-logo.png') ?>" alt="">
 			<div class="content">
 				<h4>King LLC</h4>
 				<span><a href="#"><i class="fa fa-link"></i> Website</a></span>
@@ -114,8 +114,13 @@
 					</li>
 				</ul>
 
-
-				<a href="#small-dialog" class="popup-with-zoom-anim button">Apply For This Job</a>
+                <?php if(!empty($_SESSION['uid']) && $_SESSION['rid'] == 1): ?>
+                    <a href="#small-dialog" class="popup-with-zoom-anim button">Apply For This Job</a>
+                <?php elseif(!empty($_SESSION['uid']) && $_SESSION['rid'] == 2): ?>
+                    <!-- apply button doesn't make sense on employer accounts. hidden -->
+                <?php else: ?>
+                    <a href="<?php url('/login') ?>" class="popup-with-zoom-anim button">Login To Apply</a>
+                <?php endif; ?>
 
 				<div id="small-dialog" class="zoom-anim-dialog mfp-hide apply-popup">
 					<div class="small-dialog-headline">
@@ -123,25 +128,23 @@
 					</div>
 
 					<div class="small-dialog-content">
-						<form action="#" method="get">
-							<input type="text" placeholder="Full Name" value="">
-							<input type="text" placeholder="Email Address" value="">
-							<textarea placeholder="Your message / cover letter sent to the employer"></textarea>
+                        <form action="<?php url('/job') ?>" method="POST">
+                            <textarea placeholder="Your message / cover letter sent to the employer. A good start to impress your employer." name="message"></textarea>
 
-							<!-- Upload CV -->
-							<div class="upload-info"><strong>Upload your CV (optional)</strong> <span>Max. file size: 5MB</span></div>
-							<div class="clearfix"></div>
+                            <!-- Upload CV -->
+                            <div class="upload-info"><strong>Attach a Resume</strong></div>
+                            <div class="form">
+                                <select data-placeholder="Choose a Resume" class="chosen-select-no-single" name="type">
+                                    <?php foreach($data['resume'] as $resume): ?>
+                                        <option value="<?php e($resume['id']) ?>"><?php e($resume['title']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
 
-							<label class="upload-btn">
-							    <input type="file" multiple="">
-							    <i class="fa fa-upload"></i> Browse
-							</label>
-							<span class="fake-input">No file selected</span>
+                            <div class="divider"></div>
 
-							<div class="divider"></div>
-
-							<button class="send">Send Application</button>
-						</form>
+                            <button class="send">Send Application</button>
+                        </form>
 					</div>
 					
 				</div>

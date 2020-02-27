@@ -4,7 +4,7 @@ class JobController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+
     }
 
     public function browse()
@@ -17,13 +17,49 @@ class JobController extends Controller
         return view('job/categories');
     }
 
-    public function single()
+    public function single($id)
     {
-        return view('job/single');
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $query = "SELECT * FROM jobs WHERE id=:id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $job = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!empty($job))
+        {
+            http_response_code(404);
+            die();
+        }
+        else 
+        {
+            if (isset($_SESSION['uid']))
+            {
+                $query = "SELECT * FROM resume WHERE user_id=:uid";
+                $stmt = $this->conn->prepare($query);
+                $stmt->execute(['uid' => $_SESSION['uid']]);
+                $resume = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+                return view('job/single', ['job' => $job, 'resume' => $resume]);
+            }
+            else
+            {
+                return view('job/single', ['job' => $job]);
+            }
+        }
+    }
+
+    public function singleApply()
+    {
+
     }
 
     public function add()
     {
+        $this->middleware(['auth', 'verified', 'employer']);
+
         $user = new User();
         $currentUser = $user->get($_SESSION['uid']);
 
@@ -62,11 +98,15 @@ class JobController extends Controller
 
     public function manage()
     {
+        $this->middleware(['auth', 'verified', 'employer']);
+
         return view('dashboard/manage-jobs');
     }
 
     public function applications()
     {
+        $this->middleware(['auth', 'verified', 'employer']);
+
         return view('dashboard/manage-applications');
     }
 }
