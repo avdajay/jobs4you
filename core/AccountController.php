@@ -84,7 +84,7 @@ class AccountController extends Controller
                     'user_id' => $_SESSION['uid'],
                     'name' => $this->sanitize($_POST['name']),
                     'address' => $this->sanitize($_POST['address']),
-                    'description' => $this->sanitize($_POST['description']),
+                    'description' => $this->sanitize($_POST['details']),
                     'phone' => $this->sanitize($_POST['phone']),
                     'size' => $this->sanitize($_POST['size']),
                     'logo' => $photo,
@@ -97,7 +97,7 @@ class AccountController extends Controller
                     'verified_at' => null, 
                 ];
 
-                $query = "UPDATE " . $employersTable . " SET name=:name, address=:address, description=:description, phone=:phone, size=:size, logo=:logo, slug=:slug, website=:website, facebook=:facebook, twitter=:twitter, linkedin=:linkedin, location=:location WHERE user_id=:user_id";
+                $query = "UPDATE " . $employersTable . " SET name=:name, address=:address, description=:description, phone=:phone, size=:size, logo=:logo, slug=:slug, website=:website, facebook=:facebook, twitter=:twitter, linkedin=:linkedin, location=:location, verified_at=:verified_at WHERE user_id=:user_id";
                 $stmt = $this->conn->prepare($query);
                 $stmt->execute($employersData);
                 array_push($_SESSION['success'], ['success' => 'Profile has been updated successfully!']);

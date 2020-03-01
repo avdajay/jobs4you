@@ -95,43 +95,22 @@
 								<th><i class="fa fa-cog"></i> Actions</th>
 							</tr>
 									
-							<!-- Item #1 -->
+							<!-- Item -->
+							<?php //print("<pre>".print_r($data,true)."</pre>"); die(); ?>
+							<?php foreach($data['jobs'] as $job): ?>
 							<tr>
-								<td class="title"><a href="#">Marketing Coordinator - SEO / SEM Experience <span class="pending">(Pending Approval)</span></a></td>
-								<td class="centered">-</td>
-								<td>September 30, 2015</td>
-								<td>October 10, 2015</td>
-								<td class="centered">-</td>
-								<td class="action">
-									<a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
-								</td>
-							</tr>
-									
-							<!-- Item #2 -->
-							<tr>
-								<td class="title"><a href="#">Web Developer - Front End Web Development, Relational Databases</a></td>
-								<td class="centered">-</td>
-								<td>September 30, 2015</td>
-								<td>October 10, 2015</td>
-								<td class="centered"><a href="dashboard-manage-applications.html" class="button">Show (4)</a></td>
+								<td class="title"><a href="<?php url('/job') . e('?id='.$job['id']) ?>"><?php e($job['job_title']) ?></a></td>
+								<td class="centered"><?php echo (empty($job['filled_at'])) ? '-' : '<i class="fa  fa-check">' ?></td>
+								<td><?php e(Carbon\Carbon::parse($job['created_at'])->toFormattedDateString()) ?></td>
+								<td><?php e(Carbon\Carbon::parse($job['expired_at'])->toFormattedDateString()) ?></td>
+								<td class="centered"><?php echo (empty($job['applications'])) ? '-' : '<a href="dashboard-manage-applications.html" class="button">Show ('.$job['applications'].')</a>'; ?></td>
 								<td class="action">
 									<a href="#"><i class="fa fa-pencil"></i> Edit</a>
 									<a href="#"><i class="fa  fa-check "></i> Mark Filled</a>
 									<a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
 								</td>
-							</tr>	
-
-							<!-- Item #2 -->
-							<tr>
-								<td class="title"><a href="#">Power Systems User Experience Designer</a></td>
-								<td class="centered"><i class="fa fa-check"></i></td>
-								<td>May 16, 2015</td>
-								<td>June 30, 2015</td>
-								<td class="centered"><a href="dashboard-manage-applications.html" class="button">Show (9)</a></td>
-								<td class="action">
-									<a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
-								</td>
 							</tr>
+							<?php endforeach; ?>
 
 						</table>
 

@@ -110,7 +110,7 @@
 									<th><i class="fa fa-cog"></i> Actions</th>
 								</tr>
 
-								<?php foreach ($data as $resume): ?>
+								<?php foreach ($data['resume'] as $resume): ?>
 								<tr>
 									<td class="title"><a href="<?php url('/resume') . e('?id='.$resume['id']) ?>"><?php e($resume['name']) ?></a></td>
 									<td><?php e($resume['title']) ?></td>

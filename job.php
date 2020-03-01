@@ -4,11 +4,12 @@ require __DIR__ . '/bootstrap.php';
 
 $job = new JobController();
 
-if (isset($_GET['add']))
+if (isset($_POST['apply']))
 {
-    $job->add();
+    $job->apply();
 }
-else if (isset($_GET['id']))
+
+if (isset($_GET['id']))
 {
     $job->single($_GET['id']);
 }

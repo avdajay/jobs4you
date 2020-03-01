@@ -67,6 +67,14 @@
 							<li>Add Job</li>
 						</ul>
 					</nav>
+					<?php if (!empty($_SESSION['message'])): ?>
+					<?php foreach ($_SESSION['message'] as $error): ?>
+						<div class="notification error closeable">
+							<p><?php echo $error['error']; ?></p>
+							<a class="close" href="#"></a>
+						</div>
+					<?php endforeach; ?>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>
@@ -86,13 +94,13 @@
 						<!-- Email -->
 						<div class="form">
 							<h5>Your Email</h5>
-							<input class="search-field" type="text" placeholder="mail@example.com" value="<?php e($data['user']['email']) ?>">
+							<input class="search-field" type="text" placeholder="mail@example.com" value="<?php e($data['user']['email']) ?>" name="email">
 						</div>
 
 						<!-- Title -->
 						<div class="form">
 							<h5>Job Title</h5>
-							<input class="search-field" type="text" placeholder="e.g. Web Developer" value="">
+							<input class="search-field" type="text" placeholder="e.g. Web Developer" value="" name="title">
 						</div>
 
 						<!-- Job Type -->
@@ -131,7 +139,7 @@
 						<!-- Job Level -->
 						<div class="form">
 							<h5>Job Level</h5>
-							<select data-placeholder="Choose Location" class="chosen-select-no-single" name="levels">
+							<select data-placeholder="Choose Location" class="chosen-select-no-single" name="level">
 								<?php foreach($data['levels'] as $levels): ?>
                                     <option value="<?php e($levels['id']) ?>"><?php e($levels['name']) ?></option>
                                 <?php endforeach; ?>
@@ -148,14 +156,14 @@
 						<!-- Tags -->
 						<div class="form">
 							<h5>Job Tags <span>(optional)</span></h5>
-							<input class="search-field" type="text" placeholder="e.g. PHP, Social Media, Management" value="">
+							<input class="search-field" type="text" placeholder="e.g. PHP, Social Media, Management" value="" name="tags">
 							<p class="note">Comma separate tags, such as required skills or technologies, for this job.</p>
 						</div>
 
 						<!-- TClosing Date -->
 						<div class="form">
 							<h5>Closing Date <span>(optional)</span></h5>
-							<input data-role="date" type="text" placeholder="yyyy-mm-dd">
+							<input data-role="date" type="date" name="closing-date" value="<?php echo Carbon\Carbon::now()->toDateString(); ?>" class="search-field" style="border-radius: 3px; padding: 12px 18px; outline: none; font-size: 14px; color: #909090; margin: 0; max-width: 100%; width: 100%; box-sizing: border-box; display: block; background-color: #fcfcfc; font-weight: 500; border: 1px solid #e0e0e0; opacity: 1;">
 							<p class="note">Deadline for new applicants.</p>
 						</div>
 
@@ -164,7 +172,7 @@
 					</div>
 				</div>
 
-				<button type="submit" name="add_job" class="button margin-top-50"><i class="fa fa-arrow-circle-right"></i> Submit Job</a>
+				<button type="submit" name="add-job" class="button margin-top-50">Submit Job <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 
 </form>

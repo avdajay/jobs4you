@@ -49,7 +49,7 @@ class ResumeController extends Controller
         $query = "SELECT r.id, r.name, r.email, r.title, r.photo, r.description, r.salary, r.created_at, l.island_name AS location FROM resume r INNER JOIN locations l ON l.ID = r.location WHERE user_id=:user_id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute(['user_id' => $_SESSION['uid']]);
-        $resume = $stmt->fetch(PDO::FETCH_ASSOC);
+        $resume = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         return view('dashboard/manage-resumes', ['resume' => $resume]);
     }

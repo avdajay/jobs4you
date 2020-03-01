@@ -23,6 +23,22 @@
 	<!-- Recent Jobs -->
 	<div class="eleven columns">
 	<div class="padding-right">
+	<?php if (!empty($_SESSION['success'])): ?>
+		<?php foreach ($_SESSION['success'] as $success): ?>
+			<div class="notification success closeable">
+				<p><?php echo $success['success']; ?></p>
+				<a class="close" href="#"></a>
+			</div>
+		<?php endforeach; ?>
+		<?php endif; ?>
+		<?php if (!empty($_SESSION['message'])): ?>
+		<?php foreach ($_SESSION['message'] as $error): ?>
+			<div class="notification error closeable">
+				<p><?php echo $error['error']; ?></p>
+				<a class="close" href="#"></a>
+			</div>
+		<?php endforeach; ?>
+		<?php endif; ?>
 
 		<div class="listings-container">
 			

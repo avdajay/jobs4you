@@ -67,9 +67,9 @@
 							<li>Add Resume</li>
 						</ul>
 					</nav>
-					<?php if (!empty($_SESSION['error'])): ?>
-					<?php foreach ($_SESSION['error'] as $error): ?>
-						<div class="notification danger closeable">
+					<?php if (!empty($_SESSION['message'])): ?>
+					<?php foreach ($_SESSION['message'] as $error): ?>
+						<div class="notification error closeable">
 							<p><?php echo $error['error']; ?></p>
 							<a class="close" href="#"></a>
 						</div>
