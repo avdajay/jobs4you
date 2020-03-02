@@ -16,31 +16,32 @@
 		<div class="dashboard-nav-inner">
 
 			<ul data-submenu-title="Start">
-				<li><a href="dashboard.html">Dashboard</a></li>
-				<li><a href="dashboard-messages.html">Messages <span class="nav-tag">2</span></a></li>
+				<li><a href="<?php url('/main') ?>">Dashboard</a></li>
+				<li><a href="<?php url('/messages') ?>">Messages</a></li>
 			</ul>
 
 			<ul data-submenu-title="Management">
-				<li><a>For Employers</a>
-					<ul>
-						<li><a href="dashboard-manage-jobs.html">Manage Jobs <span class="nav-tag">5</span></a></li>
-						<li><a href="dashboard-manage-applications.html">Manage Applications <span class="nav-tag">4</span></a></li>
-						<li><a href="dashboard-add-job.html">Add Job</a></li>
-					</ul>
-				</li>
-
-				<li><a>For Candidates</a>
-					<ul>
-						<li><a href="dashboard-manage-resumes.html">Manage Resumes <span class="nav-tag">2</span></a></li>
-						<li><a href="dashboard-job-alerts.html">Job Alerts</a></li>
-						<li><a href="dashboard-add-resume.html">Add Resume</a></li>
-					</ul>
-				</li>	
+				<?php if(isset($_SESSION['rid']) && $_SESSION['rid'] == 1): ?>
+					<li><a>For Candidates</a>
+						<ul>
+							<li><a href="<?php url('/manage-resume') ?>">Manage Resumes</a></li>
+							<li><a href="<?php url('add-resume') ?>">Add Resume</a></li>
+						</ul>
+					</li>
+				<?php else: ?>
+					<li><a>For Employers</a>
+						<ul>
+							<li><a href="<?php url('/manage-jobs') ?>">Manage Jobs <span class="nav-tag">5</span></a></li>
+							<li><a href="<?php url('/manage-applications') ?>">Manage Applications <span class="nav-tag">4</span></a></li>
+							<li><a href="<?php url('/add-jobs') ?>">Add Job</a></li>
+						</ul>
+					</li>
+				<?php endif; ?>	
 			</ul>	
 
 			<ul data-submenu-title="Account">
-				<li class="active"><a href="dashboard-my-profile.html">My Profile</a></li>
-				<li><a href="index.html">Logout</a></li>
+				<li class="active"><a href="<?php url('/profile') ?>">My Profile</a></li>
+				<li><a href="<?php url('/logout') ?>">Logout</a></li>
 			</ul>
 			
 		</div>

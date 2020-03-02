@@ -21,7 +21,44 @@ class ResumeController extends Controller
 
     public function show($id)
     {
-        return view('resume');
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $query = "SELECT * FROM resume WHERE id=:id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $resume = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($resume))
+        {
+            http_response_code(404);
+            die();
+        }
+        else 
+        {    
+            $query = "SELECT resume.*, locations.island_name AS location_name, applicants.twitter AS twitter FROM resume INNER JOIN locations ON resume.location = locations.id INNER JOIN applicants ON applicants.user_id = resume.user_id WHERE resume.id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['id' => $_GET['id']]);
+            $resume = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $query = "SELECT * FROM experience WHERE user_id=:uid";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['uid' => $resume['user_id']]);
+            $exp = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $query = "SELECT * FROM education WHERE user_id=:uid";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['uid' => $resume['user_id']]);
+            $educ = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $query = "SELECT * FROM skills WHERE user_id=:uid";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['uid' => $resume['user_id']]);
+            $skills = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+            return view('resume', ['resume' => $resume, 'experience' => $exp, 'educ' => $educ, 'skills' => $skills]);
+        }
     }
 
     public function add_resume_view()

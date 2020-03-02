@@ -17,22 +17,22 @@
 
 			<ul data-submenu-title="Start">
 				<li><a href="<?php url('/main') ?>">Dashboard</a></li>
-				<li><a href="<?php url('/messages') ?>">Messages <span class="nav-tag">2</span></a></li>
+				<li><a href="<?php url('/messages') ?>">Messages</a></li>
 			</ul>
 
 			<ul data-submenu-title="Management">
 				<?php if(isset($_SESSION['rid']) && $_SESSION['rid'] == 1): ?>
 					<li class="active-submenu"><a>For Candidates</a>
 						<ul>
-							<li><a href="<?php url('/manage-resume') ?>">Manage Resumes <span class="nav-tag">2</span></a></li>
+							<li><a href="<?php url('/manage-resume') ?>">Manage Resumes</a></li>
 							<li><a href="<?php url('add-resume') ?>">Add Resume</a></li>
 						</ul>
 					</li>
 				<?php else: ?>
 					<li><a>For Employers</a>
 						<ul>
-							<li><a href="<?php url('/manage-jobs') ?>">Manage Jobs <span class="nav-tag">5</span></a></li>
-							<li><a href="<?php url('/manage-applications') ?>">Manage Applications <span class="nav-tag">4</span></a></li>
+							<li><a href="<?php url('/manage-jobs') ?>">Manage Jobs</a></li>
+							<li><a href="<?php url('/manage-applications') ?>">Manage Applications</a></li>
 							<li><a href="<?php url('/add-jobs') ?>">Add Job</a></li>
 						</ul>
 					</li>
