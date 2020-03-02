@@ -60,6 +60,6 @@ function redirect($route)
 
 function slug($string)
 {
-    $slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $string);
+    $slug = strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $string));
     return $slug;
 }

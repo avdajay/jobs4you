@@ -53,22 +53,34 @@
         </ul>
 
         <?php if (isset($_SESSION['uid'])): ?>
+            <?php if ($_SESSION['uid'] == 1): ?>
             <ul class="float-right"> 
                 <li><a href="#"><i class="fa fa-tachometer"></i> Dashboard</a>
                     <ul>
                         <li><a href="<?php url('/main') ?>">Dashboard</a></li>
-                        <li><a href="dashboard-messages.html">Messages</a></li>
-                        <li><a href="dashboard-manage-resumes.html">Manage Resumes</a></li>
-                        <li><a href="dashboard-add-resume.html">Add Resume</a></li>
-                        <li><a href="dashboard-job-alerts.html">Job Alerts</a></li>
-                        <li><a href="dashboard-manage-jobs.html">Manage Jobs</a></li>
-                        <li><a href="dashboard-manage-applications.html">Manage Applications</a></li>
-                        <li><a href="dashboard-add-job.html">Add Job</a></li>
-                        <li><a href="dashboard-my-profile.html">My Profile</a></li>
+                        <li><a href="<?php url('/messages') ?>">Messages</a></li>
+                        <li><a href="<?php url('/manage-resume') ?>">Manage Resumes</a></li>
+                        <li><a href="<?php url('/add-resume') ?>">Add Resume</a></li>
+                        <li><a href="<?php url('/profile') ?>">My Profile</a></li>
                         <li><a href="<?php url('/logout') ?>">Logout</a></li>
                     </ul>
                 </li>
             </ul>
+            <?php else: ?>
+            <ul class="float-right"> 
+                <li><a href="#"><i class="fa fa-tachometer"></i> Dashboard</a>
+                    <ul>
+                        <li><a href="<?php url('/main') ?>">Dashboard</a></li>
+                        <li><a href="<?php url('/messages') ?>">Messages</a></li>
+                        <li><a href="<?php url('/manage-jobs') ?>">Manage Jobs</a></li>
+                        <li><a href="<?php url('/manage-applications') ?>">Manage Applications</a></li>
+                        <li><a href="<?php url('/add-job') ?>">Add Job</a></li>
+                        <li><a href="<?php url('/profile') ?>">My Profile</a></li>
+                        <li><a href="<?php url('/logout') ?>">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <?php endif; ?>
         <?php else: ?>
             <ul class="float-right">
                 <li><a href="<?php url('/register') ?>"><i class="fa fa-user"></i> Sign Up</a></li>
