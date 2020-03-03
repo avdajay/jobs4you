@@ -5,8 +5,8 @@
 <div id="titlebar">
 	<div class="container">
 		<div class="ten columns">
-			<span>We've found 92 resumes for:</span>
-			<h2>Web, Software & IT</h2>
+			<span>We've found <?php echo count($data['resume']) ?> resumes</span>
+			<h2>All Resumes</h2>
 		</div>
 
 		<div class="six columns">
@@ -24,86 +24,21 @@
 	<div class="eleven columns">
 	<div class="padding-right">
 
-		<ul class="resumes-list alternative">
+		<ul class="resumes-list">
 
-			<li><a href="resume-page.html">
-				<img src="images\resumes-list-avatar-01.png" alt="">
+            <?php foreach($data['resume'] as $resume): ?>
+			<li><a href="<?php url('/resume') . e('?id='.$resume['id']) ?>">
+				<img src="<?php asset('uploads/' . $resume['photo']) ?>" alt="Jobseeker Profile" title="Jobseeker Profile">
 				<div class="resumes-list-content">
-					<h4>John Doe <span>UX/UI Graphic Designer</span></h4>
-					<span><i class="fa fa-map-marker"></i> Melbourne</span>
-					<span><i class="fa fa-money"></i> $100 / hour</span>
-					<p>Over 8000 hours on oDesk (only Drupal related). Highly motivated, goal-oriented, hands-on senior software engineer with extensive technical skills and over 15 years of experience in software development</p>
-
-					<div class="skills">
-						<span>JavaScript</span>
-						<span>PHP</span>
-						<span>WordPress</span>
-					</div>
-					<div class="clearfix"></div>
-
-				</div>
-				</a>
-				<div class="clearfix"></div>
-			</li>
-			
-			<li><a href="resume-page.html">
-				<img src="images\avatar-placeholder.png" alt="">
-				<div class="resumes-list-content">
-					<h4>Tom Smith <span>iOS Mobile Developer</span></h4>
-					<span><i class="fa fa-map-marker"></i> Sydney</span>
-					<span><i class="fa fa-money"></i> $35 / hour</span>
-					<p>Over 8000 hours on oDesk (only Drupal related). Highly motivated, goal-oriented, hands-on senior software engineer with extensive technical skills and over 15 years of experience in software development</p>
-
-					<div class="skills">
-						<span>iOS Development</span>
-						<span>iOS App Development</span>
-						<span>Objective-C</span>
-					</div>
-					<div class="clearfix"></div>
-
+					<h4><?php e($resume['name']) ?> <span><?php e($resume['title']) ?></span></h4>
+					<span><i class="fa fa-map-marker"></i> <?php e($resume['lname']) ?></span>
+					<span>₱ <?php e($resume['salary']) ?></span>
+					<p><?php e($resume['description']) ?></p>
 				</div>
 				</a>
 				<div class="clearfix"></div>
 			</li>	
-					
-			<li><a href="resume-page.html">
-				<img src="images\resumes-list-avatar-02.png" alt="">
-				<div class="resumes-list-content">
-					<h4>Kathy Berry <span>SEO / SEM Strategist</span></h4>
-					<span><i class="fa fa-map-marker"></i> London</span>
-					<span><i class="fa fa-money"></i> $75 / hour</span>
-					<p>Over 8000 hours on oDesk (only Drupal related). Highly motivated, goal-oriented, hands-on senior software engineer with extensive technical skills and over 15 years of experience in software development</p>
-
-					<div class="skills">
-						<span>Strategic planning</span>
-						<span>Business Analysis</span>
-					</div>
-					<div class="clearfix"></div>
-
-				</div>
-				</a>
-				<div class="clearfix"></div>
-			</li>
-			
-			<li><a href="resume-page.html">
-				<img src="images\resumes-list-avatar-03.png" alt="">
-				<div class="resumes-list-content">
-					<h4>Martin Kowalski <span>Content Writer and Copywriter</span></h4>
-					<span><i class="fa fa-map-marker"></i> Warsaw</span>
-					<span><i class="fa fa-money"></i> $15 / hour</span>
-					<p>Over 8000 hours on oDesk (only Drupal related). Highly motivated, goal-oriented, hands-on senior software engineer with extensive technical skills and over 15 years of experience in software development</p>
-
-					<div class="skills">
-						<span>Copywriting</span>
-						<span>Content Writing</span>
-						<span>Blog Writing</span>
-					</div>
-					<div class="clearfix"></div>
-
-				</div>
-				</a>
-				<div class="clearfix"></div>
-			</li>	
+            <?php endforeach; ?>
 
 		</ul>
 		<div class="clearfix"></div>
@@ -182,41 +117,6 @@
 				<button class="button">Filter</button>
 			</form>
 		</div>
-
-		<!-- Rate/Hr -->
-		<div class="widget">
-			<h4>Rate / Hr</h4>
-
-			<ul class="checkboxes">
-				<li>
-					<input id="check-6" type="checkbox" name="check" value="check-6" checked="">
-					<label for="check-6">Any Rate</label>
-				</li>
-				<li>
-					<input id="check-7" type="checkbox" name="check" value="check-7">
-					<label for="check-7">$0 - $25 <span>(231)</span></label>
-				</li>
-				<li>
-					<input id="check-8" type="checkbox" name="check" value="check-8">
-					<label for="check-8">$25 - $50 <span>(297)</span></label>
-				</li>
-				<li>
-					<input id="check-9" type="checkbox" name="check" value="check-9">
-					<label for="check-9">$50 - $100 <span>(78)</span></label>
-				</li>
-				<li>
-					<input id="check-10" type="checkbox" name="check" value="check-10">
-					<label for="check-10">$100 - $200 <span>(98)</span></label>
-				</li>
-				<li>
-					<input id="check-11" type="checkbox" name="check" value="check-11">
-					<label for="check-11">$200+ <span>(21)</span></label>
-				</li>
-			</ul>
-
-		</div>
-
-
 
 	</div>
 	<!-- Widgets / End -->

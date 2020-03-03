@@ -5,11 +5,10 @@
 <div id="banner" class="with-transparent-header parallax background" style="background-image: url('<?php asset('images/banner-home-02.jpg') ?>')" data-img-width="2000" data-img-height="1330" data-diff="300">
 <div class="container">
     <div class="sixteen columns">
-        
         <div class="search-container">
 
             <!-- Form -->
-            <h2>Find Job</h2>
+            <h2>Find from over <?php echo count($data) ?> Jobs</h2>
             <input type="text" class="ico-01" placeholder="job title, keywords or company name" value="">
             <input type="text" class="ico-02" placeholder="city, province or region" value="">
             <button><i class="fa fa-search"></i></button>
@@ -46,56 +45,48 @@
             <a href="browse-jobs.html" class="category-small-box">
                 <i class="ln ln-icon-Bar-Chart"></i>
                 <h4>Accouting / Finance</h4>
-                <span>32</span>
             </a>
 
             <!-- Box -->
             <a href="browse-jobs.html" class="category-small-box">
                 <i class="ln ln-icon-Car"></i>
-                <h4>Automotive Jobs</h4>
-                <span>76</span>
+                <h4>Engineering</h4>
             </a>
 
             <!-- Box -->
             <a href="browse-jobs.html" class="category-small-box">
                 <i class="ln  ln-icon-Worker"></i>
-                <h4>Construction / Facilities</h4>
-                <span>31</span>
+                <h4>Skilled Work / Technical</h4>
             </a>
 
             <!-- Box -->
             <a href="browse-jobs.html" class="category-small-box">
                 <i class="ln  ln-icon-Student-Female"></i>
-                <h4>Education / Training</h4>
-                <span>76</span>
+                <h4>Teaching / Education</h4>
             </a>
 
             <!-- Box -->
             <a href="browse-jobs.html" class="category-small-box">
                 <i class="ln ln-icon-Medical-Sign"></i>
-                <h4>Healthcare</h4>
-                <span>32</span>
+                <h4>Health / Medical / Science</h4>
             </a>
 
             <!-- Box -->
             <a href="browse-jobs.html" class="category-small-box">
                 <i class="ln ln-icon-Plates"></i>
-                <h4>Restarant / Food Service</h4>
-                <span>67</span>
+                <h4>Food / Restaurant</h4>
             </a>
 
             <!-- Box -->
             <a href="browse-jobs.html" class="category-small-box">
                 <i class="ln ln-icon-Globe"></i>
-                <h4>Transportation / Logistics</h4>
-                <span>45</span>
+                <h4>Logistics</h4>
             </a>
 
             <!-- Box -->
             <a href="browse-jobs.html" class="category-small-box">
                 <i class="ln   ln-icon-Laptop-3"></i>
-                <h4>Telecommunication</h4>
-                <span>96</span>
+                <h4>IT / Computers / Programming</h4>
             </a>
 
         </div>
@@ -103,7 +94,7 @@
     <div class="clearfix"></div>
     <div class="margin-top-30"></div>
 
-    <a href="browse-categories.html" class="button centered">Browse All Categories</a>
+    <a href="<?php url('/browse-categories') ?>" class="button centered">Browse All Categories</a>
     <div class="margin-bottom-55"></div>
 </div>
 </div>
@@ -118,83 +109,22 @@
     <div class="listings-container">
         
         <!-- Listing -->
-        <a href="job-page-alt.html" class="listing full-time">
+        <?php foreach($data['jobs'] as $job): ?>
+        <a href="<?php url('/job') . e('?id='.$job['id']) ?>" class="listing <?php e(slug($job['etype'])) ?>">
             <div class="listing-logo">
-                <img src="<?php asset('images/job-list-logo-01.png') ?>" alt="">
+                <img src="<?php asset('uploads/'. $job['logo']) ?>" alt="Company Logo" title="Company Logo">
             </div>
             <div class="listing-title">
-                <h4>Marketing Coordinator - SEO / SEM Experience <span class="listing-type">Full-Time</span></h4>
+                <h4><?php e($job['job_title']) ?><span class="listing-type"><?php e($job['etype']) ?></span></h4>
                 <ul class="listing-icons">
-                    <li><i class="ln ln-icon-Management"></i> King</li>
-                    <li><i class="ln ln-icon-Map2"></i>  7th Avenue, New York, NY, United States</li>
-                    <li><i class="ln ln-icon-Money-2"></i> $5000 - $7000</li>
-                    <li><div class="listing-date new">new</div></li>
+                    <li><i class="ln ln-icon-Management"></i> <?php e($job['employer']) ?> <i class="fa fa-check-circle" style="color:#26AE61" title="Verified" alt="Verified Badge"></i></li>
+                    <li><i class="ln ln-icon-Map2"></i>  <?php e($job['lname']) ?></li>
+                    <li><div class="listing-date">Posted: <?php e($job['created_at']) ?></div></li>
                 </ul>
             </div>
         </a>
-        
-        <!-- Listing -->
-        <a href="job-page.html" class="listing part-time">
-            <div class="listing-logo">
-                <img src="<?php asset('images/job-list-logo-02.png') ?>" alt="">
-            </div>
-            <div class="listing-title">
-                <h4>Core PHP Developer for Site Maintenance  <span class="listing-type">Part-Time</span></h4>
-                <ul class="listing-icons">
-                    <li><i class="ln ln-icon-Management"></i> Cubico</li>
-                    <li><i class="ln ln-icon-Map2"></i> Sydney</li>
-                    <li><i class="ln ln-icon-Money-2"></i> $125 / hour</li>
-                    <li><div class="listing-date">3d ago</div></li>
-                </ul>
-            </div>
-        </a>
+        <?php endforeach; ?>
 
-        <!-- Listing -->
-        <a href="job-page-alt.html" class="listing full-time">
-            <div class="listing-logo">
-                <img src="<?php asset('images/job-list-logo-01.png') ?>" alt="">
-            </div>
-            <div class="listing-title">
-                <h4>Restaurant Team Member - Crew  <span class="listing-type">Full-Time</span></h4>
-                <ul class="listing-icons">
-                    <li><i class="ln ln-icon-Management"></i> King</li>
-                    <li><i class="ln ln-icon-Map2"></i> Sydney</li>
-                    <li><div class="listing-date">3d ago</div></li>
-                </ul>
-            </div>
-        </a>
-
-        <!-- Listing -->
-        <a href="job-page.html" class="listing internship">
-            <div class="listing-logo">
-                <img src="<?php asset('images/job-list-logo-04.png') ?>" alt="">
-            </div>
-            <div class="listing-title">
-                <h4>Power Systems User Experience Designer <span class="listing-type">Internship</span></h4>
-                <ul class="listing-icons">
-                    <li><i class="ln ln-icon-Management"></i> Hexagon</li>
-                    <li><i class="ln ln-icon-Map2"></i> London</li>
-                    <li><i class="ln ln-icon-Money-2"></i> $55 / hour</li>
-                    <li><div class="listing-date">4d ago</div></li>
-                </ul>
-            </div>
-        </a>
-
-        <!-- Listing -->
-        <a href="job-page.html" class="listing freelance">
-            <div class="listing-logo">
-                <img src="<?php asset('images/job-list-logo-05.png') ?>" alt="">
-            </div>
-            <div class="listing-title">
-                <h4>iPhone / Android Music App Development  <span class="listing-type">Freelance</span></h4>
-                <ul class="listing-icons">
-                    <li><i class="ln ln-icon-Management"></i> Hexagon</li>
-                    <li><i class="ln ln-icon-Map2"></i> London</li>
-                    <li><i class="ln ln-icon-Money-2"></i> $85 / hour</li>
-                    <li><div class="listing-date">4d ago</div></li>
-                </ul>
-            </div>
-        </a>
     </div>
 
     <a href="browse-jobs.html" class="button centered"><i class="fa fa-plus-circle"></i> Show More Jobs</a>
@@ -266,7 +196,7 @@
 </div>
 
 <!-- Flip banner -->
-<a href="browse-jobs.html" class="flip-banner margin-bottom-55" data-background="<?php asset('images/all-categories-photo.jpg') ?>" data-color="#26ae61" data-color-opacity="0.93">
+<a href="<?php url('/browse-jobs') ?>" class="flip-banner" data-background="<?php asset('images/all-categories-photo.jpg') ?>" data-color="#26ae61" data-color-opacity="0.93">
 <div class="flip-banner-content">
     <h2 class="flip-visible">Step inside and see for yourself!</h2>
     <h2 class="flip-hidden">Get Started <i class="fa fa-angle-right"></i></h2>
@@ -274,15 +204,13 @@
 </a>
 <!-- Flip banner / End -->
 
-<!-- Recent Posts -->
-<div class="container">
+<!-- <div class="container">
 <div class="sixteen columns">
     <h3 class="margin-bottom-25">Recent Posts</h3>
 </div>
 
 <div class="one-third column">
 
-    <!-- Post #1 -->
     <div class="recent-post">
         <div class="recent-post-img"><a href="blog-single-post.html"><img src="<?php asset('images/recent-post-01.jpg') ?>" alt=""></a><div class="hover-icon"></div></div>
         <a href="blog-single-post.html"><h4>Hey Job Seeker, It’s Time To Get Up And Get Hired</h4></a>
@@ -293,41 +221,9 @@
         <p>The world of job seeking can be all consuming. From secretly stalking the open reqs page of your dream company to sending endless applications.</p>
         <a href="blog-single-post.html" class="button">Read More</a>
     </div>
-
+    
 </div>
 
-
-<div class="one-third column">
-
-    <!-- Post #2 -->
-    <div class="recent-post">
-        <div class="recent-post-img"><a href="blog-single-post.html"><img src="<?php asset('images/recent-post-02.jpg') ?>" alt=""></a><div class="hover-icon"></div></div>
-        <a href="blog-single-post.html"><h4>How to "Woo" a Recruiter and Land Your Dream Job</h4></a>
-        <div class="meta-tags">
-            <span>September 12, 2015</span>
-            <span><a href="#">0 Comments</a></span>
-        </div>
-        <p>Struggling to find your significant other the perfect Valentine’s Day gift? If I may make a suggestion: woo a recruiter. </p>
-        <a href="blog-single-post.html" class="button">Read More</a>
-    </div>
-
-</div>
-
-<div class="one-third column">
-
-    <!-- Post #3 -->
-    <div class="recent-post">
-        <div class="recent-post-img"><a href="blog-single-post.html"><img src="<?php asset('images/recent-post-03.jpg') ?>" alt=""></a><div class="hover-icon"></div></div>
-        <a href="blog-single-post.html"><h4>11 Tips to Help You Get New Clients Through Cold Calling</h4></a>
-        <div class="meta-tags">
-            <span>August 27, 2015</span>
-            <span><a href="#">0 Comments</a></span>
-        </div>
-        <p>If your dream employer appears on this list, you’re certainly in good company. But it also means you’re up for some intense competition.</p>
-        <a href="blog-single-post.html" class="button">Read More</a>
-    </div>
-</div>
-
-</div>
+</div> -->
 
 <?php the_footer(); ?>

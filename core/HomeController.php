@@ -8,12 +8,17 @@ class HomeController extends Controller
 
     }
 
-    public function index($id)
+    public function index()
     {   
-        // create a new user instance passing the database connection as parameter
-        $model = new User();
-        $user = $model->get($id);
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
 
-        return view('index', $user);
+        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return view('index', ['jobs' => $jobs]);
     }
 }

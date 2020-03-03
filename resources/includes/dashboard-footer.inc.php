@@ -1,5 +1,5 @@
 			<!-- Copyrights -->
-			<div class="col-md-12">
+			<div class="col-md-12 margin-top-50">
 				<div class="copyrights">Copyright © 2020 <?php echo config('app', 'name') ?>. All Rights Reserved.</div>
 			</div>
 		</div>

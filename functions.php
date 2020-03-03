@@ -44,7 +44,7 @@ function view($name, $data = [])
 
 function url($path)
 {
-	echo $path;
+	echo $path.'.php';
 }
 
 function e($output)
@@ -54,7 +54,7 @@ function e($output)
 
 function redirect($route)
 {
-    header('Location: ' . $route);
+    header('Location: ' . $route . '.php');
     exit;
 }
 

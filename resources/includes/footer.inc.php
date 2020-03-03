@@ -1,6 +1,5 @@
 <!-- Footer
 ================================================== -->
-<div class="margin-top-15"></div>
 
 <div id="footer">
 <!-- Main -->

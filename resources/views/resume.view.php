@@ -11,7 +11,7 @@
 				<div class="resumes-list-content">
 					<h4><?php e($data['resume']['name']) ?> <span><?php e($data['resume']['title']) ?></span></h4>
 					<span class="icons"><i class="fa fa-map-marker"></i> <?php e($data['resume']['location_name']) ?></span>
-					<span class="icons"><i class="fa fa-money"></i> ₱<?php e($data['resume']['salary']) ?></span>
+					<span class="icons">₱ <?php e($data['resume']['salary']) ?></span>
 					<span class="icons"><a href="http://www.twitter.com/<?php e($data['resume']['twitter']) ?>"><i class="fa fa-twitter"></i> <?php e($data['resume']['twitter']) ?></a></span>
                     
 
@@ -64,11 +64,11 @@
         </div>
         
         <div class="skills">
-                    <?php foreach($data['skills'] as $skill): ?>
-                        <span><?php e($skill['name'] . ' (' . $skill['difficulty'] . ')') ?></span>
-                    <?php endforeach; ?>
-					</div>
-					<div class="clearfix"></div>
+        <?php foreach($data['skills'] as $skill): ?>
+            <span><?php e($skill['name'] . ' (' . $skill['difficulty'] . ')') ?></span>
+        <?php endforeach; ?>
+        </div>
+        <div class="clearfix"></div>
         
         <div class="margin-bottom-30"></div>
 

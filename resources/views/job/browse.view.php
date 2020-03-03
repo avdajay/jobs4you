@@ -5,12 +5,12 @@
 <div id="titlebar">
 	<div class="container">
 		<div class="ten columns">
-			<span>We found 1,412 jobs matching:</span>
-			<h2>Web, Software & IT</h2>
+			<span>We found <?php echo count($data['jobs']) ?> jobs</span>
+			<h2>All Jobs</h2>
 		</div>
 
 		<div class="six columns">
-			<a href="dashboard-add-job.html" class="button">Post a Job, It’s Free!</a>
+			<a href="<?php url('/add-job') ?>" class="button">Post a Job, It’s Free!</a>
 		</div>
 
 	</div>
@@ -43,131 +43,21 @@
 		<div class="listings-container">
 			
 			<!-- Listing -->
-			<a href="job-page-alt.html" class="listing full-time">
-				<div class="listing-logo">
-					<img src="images\job-list-logo-01.png" alt="">
-				</div>
-				<div class="listing-title">
-					<h4>Marketing Coordinator - SEO / SEM Experience <span class="listing-type">Full-Time</span></h4>
-					<ul class="listing-icons">
-						<li><i class="ln ln-icon-Management"></i> King</li>
-						<li><i class="ln ln-icon-Map2"></i> Sydney</li>
-						<li><i class="ln ln-icon-Money-2"></i> $5000 - $7000</li>
-						<li><div class="listing-date new">new</div></li>
-					</ul>
-				</div>
-			</a>
-			
-			<!-- Listing -->
-			<a href="job-page.html" class="listing part-time">
-				<div class="listing-logo">
-					<img src="images\job-list-logo-02.png" alt="">
-				</div>
-				<div class="listing-title">
-					<h4>Core PHP Developer for Site Maintenance  <span class="listing-type">Part-Time</span></h4>
-					<ul class="listing-icons">
-						<li><i class="ln ln-icon-Management"></i> Cubico</li>
-						<li><i class="ln ln-icon-Map2"></i> Sydney</li>
-						<li><i class="ln ln-icon-Money-2"></i> $125 / hour</li>
-						<li><div class="listing-date">3d ago</div></li>
-					</ul>
-				</div>
-			</a>
-
-			<!-- Listing -->
-			<a href="job-page-alt.html" class="listing full-time">
-				<div class="listing-logo">
-					<img src="images\job-list-logo-01.png" alt="">
-				</div>
-				<div class="listing-title">
-					<h4>Restaurant Team Member - Crew  <span class="listing-type">Full-Time</span></h4>
-					<ul class="listing-icons">
-						<li><i class="ln ln-icon-Management"></i> King</li>
-						<li><i class="ln ln-icon-Map2"></i> Sydney</li>
-						<li><div class="listing-date">3d ago</div></li>
-					</ul>
-				</div>
-			</a>
-
-			<!-- Listing -->
-			<a href="job-page.html" class="listing internship">
-				<div class="listing-logo">
-					<img src="images\job-list-logo-04.png" alt="">
-				</div>
-				<div class="listing-title">
-					<h4>Power Systems User Experience Designer <span class="listing-type">Internship</span></h4>
-					<ul class="listing-icons">
-						<li><i class="ln ln-icon-Management"></i> Hexagon</li>
-						<li><i class="ln ln-icon-Map2"></i> London</li>
-						<li><i class="ln ln-icon-Money-2"></i> $55 / hour</li>
-						<li><div class="listing-date">4d ago</div></li>
-					</ul>
-				</div>
-			</a>
-
-			<!-- Listing -->
-			<a href="job-page.html" class="listing freelance">
-				<div class="listing-logo">
-					<img src="images\job-list-logo-05.png" alt="">
-				</div>
-				<div class="listing-title">
-					<h4>iPhone / Android Music App Development  <span class="listing-type">Freelance</span></h4>
-					<ul class="listing-icons">
-						<li><i class="ln ln-icon-Management"></i> Hexagon</li>
-						<li><i class="ln ln-icon-Map2"></i> London</li>
-						<li><i class="ln ln-icon-Money-2"></i> $85 / hour</li>
-						<li><div class="listing-date">4d ago</div></li>
-					</ul>
-				</div>
-			</a>
-
-			
-			<!-- Listing -->
-			<a href="job-page.html" class="listing part-time featured">
-				<div class="listing-logo">
-					<img src="images\job-list-logo-02.png" alt="">
-				</div>
-				<div class="listing-title">
-					<h4>Core PHP Developer for Site Maintenance  <span class="listing-type">Part-Time</span></h4>
-					<ul class="listing-icons">
-						<li><i class="ln ln-icon-Management"></i> Cubico</li>
-						<li><i class="ln ln-icon-Map2"></i> Sydney</li>
-						<li><i class="ln ln-icon-Money-2"></i> $125 / hour</li>
-						<li><div class="listing-date">3d ago</div></li>
-					</ul>
-				</div>
-			</a>
-
-			<!-- Listing -->
-			<a href="job-page.html" class="listing full-time">
-				<div class="listing-logo">
-					<img src="images\job-list-logo-01.png" alt="">
-				</div>
-				<div class="listing-title">
-					<h4>Restaurant Team Member - Crew <span class="listing-type">Full-Time</span></h4>
-					<ul class="listing-icons">
-						<li><i class="ln ln-icon-Management"></i> King</li>
-						<li><i class="ln ln-icon-Map2"></i> Sydney</li>
-						<li><div class="listing-date">3d ago</div></li>
-					</ul>
-				</div>
-			</a>
-
-			<!-- Listing -->
-			<a href="job-page.html" class="listing full-time">
-				<div class="listing-logo">
-					<img src="images\job-list-logo-04.png" alt="">
-				</div>
-				<div class="listing-title">
-					<h4>Power Systems User Experience Designer <span class="listing-type">Full-Time</span></h4>
-					<ul class="listing-icons">
-						<li><i class="ln ln-icon-Management"></i> Hexagon</li>
-						<li><i class="ln ln-icon-Map2"></i> London</li>
-						<li><i class="ln ln-icon-Money-2"></i> $55 / hour</li>
-						<li><div class="listing-date">4d ago</div></li>
-					</ul>
-				</div>
-			</a>
+			<?php foreach($data['jobs'] as $job): ?>
+            <a href="<?php url('/job') . e('?id='.$job['id']) ?>" class="listing <?php e(slug($job['etype'])) ?>">
+                <div class="listing-logo">
+                    <img src="<?php asset('uploads/'. $job['logo']) ?>" alt="Company Logo" title="Company Logo">
+                </div>
+                <div class="listing-title">
+                    <h4><?php e($job['job_title']) ?><span class="listing-type"><?php e($job['etype']) ?></span></h4>
+                    <ul class="listing-icons">
+                        <li><i class="ln ln-icon-Management"></i> <?php e($job['employer']) ?> <i class="fa fa-check-circle" style="color:#26AE61" title="Verified" alt="Verified Badge"></i></li>
+                        <li><i class="ln ln-icon-Map2"></i>  <?php e($job['lname']) ?></li>
+                        <li><div class="listing-date">Posted: <?php e($job['created_at']) ?></div></li>
+                    </ul>
+                </div>
+            </a>
+            <?php endforeach; ?>
 
 		</div>
 		<div class="clearfix"></div>
@@ -256,41 +146,6 @@
 			</ul>
 
 		</div>
-
-		<!-- Rate/Hr -->
-		<div class="widget">
-			<h4>Rate / Hr</h4>
-
-			<ul class="checkboxes">
-				<li>
-					<input id="check-6" type="checkbox" name="check" value="check-6" checked="">
-					<label for="check-6">Any Rate</label>
-				</li>
-				<li>
-					<input id="check-7" type="checkbox" name="check" value="check-7">
-					<label for="check-7">$0 - $25 <span>(231)</span></label>
-				</li>
-				<li>
-					<input id="check-8" type="checkbox" name="check" value="check-8">
-					<label for="check-8">$25 - $50 <span>(297)</span></label>
-				</li>
-				<li>
-					<input id="check-9" type="checkbox" name="check" value="check-9">
-					<label for="check-9">$50 - $100 <span>(78)</span></label>
-				</li>
-				<li>
-					<input id="check-10" type="checkbox" name="check" value="check-10">
-					<label for="check-10">$100 - $200 <span>(98)</span></label>
-				</li>
-				<li>
-					<input id="check-11" type="checkbox" name="check" value="check-11">
-					<label for="check-11">$200+ <span>(21)</span></label>
-				</li>
-			</ul>
-
-		</div>
-
-
 
 	</div>
 	<!-- Widgets / End -->

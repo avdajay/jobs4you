@@ -16,7 +16,16 @@ class ResumeController extends Controller
 
     public function index()
     {
-        return view('browse-resume');
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $query = "SELECT resume.*, locations.island_name AS lname FROM resume INNER JOIN locations ON locations.id = resume.location";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $resume = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return view('browse-resume', ['resume' => $resume]);
     }
 
     public function show($id)

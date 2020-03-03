@@ -13,7 +13,16 @@ class JobController extends Controller
 
     public function browse()
     {
-        return view('job/browse');
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return view('job/browse', ['jobs' => $jobs]);
     }
 
     public function categories()
@@ -32,10 +41,13 @@ class JobController extends Controller
         $stmt->execute(['id' => $id]);
         $job = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $query = "SELECT * FROM applications WHERE user_id=:uid";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute(['uid' => $_SESSION['uid']]);
-        $app = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (isset($_SESSION['uid']))
+        {
+            $query = "SELECT * FROM applications WHERE user_id=:uid";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['uid' => $_SESSION['uid']]);
+            $app = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
 
         if (empty($job))
         {
