@@ -11,6 +11,25 @@ class JobController extends Controller
 
     }
 
+    public function indexSearch($keywords, $location)
+    {
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $data = [
+            'keywords' => "%".$this->sanitize($keywords)."%",
+            'location' => $this->sanitize($location)
+        ];
+
+        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE employers.name OR jobs.job_title LIKE :keywords OR locations.island_name = :location";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($data);
+        $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return view('job/browse', ['jobs' => $jobs]);
+    }
+
     public function browse()
     {
         $db = new Database();
