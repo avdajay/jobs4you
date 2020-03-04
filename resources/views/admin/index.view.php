@@ -20,7 +20,6 @@
 			<ul data-submenu-title="Management">
                 <li><a>For Administrator</a>
                     <ul>
-                        <li><a href="<?php url('/admin/settings') ?>">Manage Site</a></li>
                         <li><a href="<?php url('/admin/users') ?>">Manage Users</a></li>
                         <li><a href="<?php url('/admin/resumes') ?>">Manage Resumes</a></li>
                         <li><a href="<?php url('/admin/jobs') ?>">Manage Jobs</a></li>

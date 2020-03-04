@@ -15,7 +15,7 @@
 
             <!-- Browse Jobs -->
             <div class="browse-jobs">
-                Browse job offers by <a href="browse-categories.html"> category</a> or <a href="#">location</a>
+                Browse job offers by <!--<a href="browse-categories.html"> category</a>--> <a href="<?php url('/browse-locations') ?>">location</a>
             </div>
             
             <!-- Announce -->
@@ -94,7 +94,7 @@
     <div class="clearfix"></div>
     <div class="margin-top-30"></div>
 
-    <a href="<?php url('/browse-categories') ?>" class="button centered">Browse All Categories</a>
+    <!-- <a href="<?php url('/browse-categories') ?>" class="button centered">Browse All Categories</a> -->
     <div class="margin-bottom-55"></div>
 </div>
 </div>
@@ -119,7 +119,7 @@
                 <ul class="listing-icons">
                     <li><i class="ln ln-icon-Management"></i> <?php e($job['employer']) ?> <i class="fa fa-check-circle" style="color:#26AE61" title="Verified" alt="Verified Badge"></i></li>
                     <li><i class="ln ln-icon-Map2"></i>  <?php e($job['lname']) ?></li>
-                    <li><div class="listing-date">Posted: <?php e($job['created_at']) ?></div></li>
+                    <li><div class="listing-date">Posted: <?php echo Carbon\Carbon::parse($job['created_at'])->toFormattedDateString(); ?></div></li>
                 </ul>
             </div>
         </a>

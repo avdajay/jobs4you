@@ -30,6 +30,11 @@ class JobController extends Controller
         return view('job/categories');
     }
 
+    public function locations()
+    {
+        return view('job/locations');
+    }
+
     public function single($id)
     {
         $db = new Database();

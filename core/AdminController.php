@@ -33,6 +33,11 @@ class AdminController extends Controller
 
     public function settings()
     {
-        return view('admin/settings');
+        // return view('admin/settings');
+    }
+
+    public function users()
+    {
+        return view('admin/users');
     }
 }

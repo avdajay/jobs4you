@@ -72,13 +72,13 @@
 					</nav>
 				</div>
 			</div>
-        </div>
-        
+			
+		</div>
 <form method="POST" action="<?php url('/profile') ?>">
 			<!-- Change Password -->
-			<div class="col-lg-6 col-md-12">
+			<div class="col-md-12">
 				<div class="dashboard-list-box margin-top-0">
-					<h4 class="gray">Change Password</h4>
+					<h4 class="gray">General Site Settings</h4>
 					<div class="dashboard-list-box-static">
 
 						<!-- Change Password -->
@@ -92,7 +92,7 @@
 							<label>Confirm New Password</label>
 							<input type="password" name="confirm_new">
 
-							<button type="submit" class="button margin-top-50" name="change_pass">Change Password</button>
+							<button type="submit" class="button margin-top-50" name="change_pass">Save Settings</button>
 						</div>
 
 					</div>
