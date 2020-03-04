@@ -1,8 +1,5 @@
 <?php the_dashhead() ?>
 
-<!-- Titlebar
-================================================== -->
-
 <!-- Dashboard -->
 <div id="dashboard">
 
@@ -21,26 +18,18 @@
 			</ul>
 
 			<ul data-submenu-title="Management">
-				<?php if(isset($_SESSION['rid']) && $_SESSION['rid'] == 1): ?>
-					<li><a>For Candidates</a>
-						<ul>
-							<li><a href="<?php url('/manage-resume') ?>">Manage Resumes</a></li>
-							<li><a href="<?php url('/add-resume') ?>">Add Resume</a></li>
-						</ul>
-					</li>
-				<?php else: ?>
-					<li><a>For Employers</a>
-						<ul>
-							<li><a href="<?php url('/manage-jobs') ?>">Manage Jobs</a></li>
-							<li><a href="<?php url('/manage-applications') ?>">Manage Applications</a></li>
-							<li><a href="<?php url('/add-jobs') ?>">Add Job</a></li>
-						</ul>
-					</li>
-				<?php endif; ?>	
+                <li><a>For Administrator</a>
+                    <ul>
+                        <li><a href="<?php url('/admin/settings') ?>">Manage Site</a></li>
+                        <li><a href="<?php url('/admin/users') ?>">Manage Users</a></li>
+                        <li><a href="<?php url('/admin/resumes') ?>">Manage Resumes</a></li>
+                        <li><a href="<?php url('/admin/jobs') ?>">Manage Jobs</a></li>
+                    </ul>
+                </li>
 			</ul>	
 
 			<ul data-submenu-title="Account">
-				<li><a href="<?php url('/profile') ?>">My Profile</a></li>
+				<li><a href="<?php url('/admin/profile') ?>">My Profile</a></li>
 				<li><a href="<?php url('/logout') ?>">Logout</a></li>
 			</ul>
 			
@@ -65,12 +54,12 @@
 						</div>
 					<?php endforeach; ?>
 				<?php endif; ?>
-					<h2>Welcome back!</h2>
+					<h2>Welcome, Admin!</h2>
 					<!-- Breadcrumbs -->
 					<nav id="breadcrumbs">
 						<ul>
-							<li><a href="<?php url('/') ?>">Home</a></li>
-							<li>Dashboard</li>
+							<li><a href="<?php url('/admin/') ?>">Home</a></li>
+							<li>Admin Dashboard</li>
 						</ul>
 					</nav>
 				</div>
@@ -84,15 +73,15 @@
 			<!-- Item -->
 			<div class="col-lg-3 col-md-6">
 				<div class="dashboard-stat color-1">
-					<div class="dashboard-stat-content"><h4 class="counter">3</h4> <span>Resume on File</span></div>
-					<div class="dashboard-stat-icon"><i class="ln ln-icon-File-Link"></i></div>
+					<div class="dashboard-stat-content"><h4 class="counter"><?php echo count($data['jobs']) ?></h4> <span>Total Job Listing</span></div>
+					<div class="dashboard-stat-icon"><i class="ln ln-icon-Suitcase"></i></div>
 				</div>
 			</div>
 
 				<!-- Item -->
 			<div class="col-lg-3 col-md-6">
 				<div class="dashboard-stat color-2">
-					<div class="dashboard-stat-content"><h4 class="counter">527</h4> <span>Total Resume Views</span></div>
+					<div class="dashboard-stat-content"><h4 class="counter">527</h4> <span>Total Job Views</span></div>
 					<div class="dashboard-stat-icon"><i class="ln ln-icon-Bar-Chart"></i></div>
 				</div>
 			</div>
@@ -101,7 +90,7 @@
 				<!-- Item -->
 			<div class="col-lg-3 col-md-6">
 				<div class="dashboard-stat color-3">
-					<div class="dashboard-stat-content"><h4 class="counter">17</h4> <span>Total Job Applications</span></div>
+					<div class="dashboard-stat-content"><h4 class="counter"><?php echo count($data['jobseekers']) ?></h4> <span>Total Jobseekers</span></div>
 					<div class="dashboard-stat-icon"><i class="ln ln-icon-Business-ManWoman"></i></div>
 				</div>
 			</div>
@@ -110,7 +99,7 @@
 			<!-- Item -->
 				<div class="col-lg-3 col-md-6">
 				<div class="dashboard-stat color-4">
-					<div class="dashboard-stat-content"><h4 class="counter">36</h4> <span>Times Resume Bookmarked</span></div>
+					<div class="dashboard-stat-content"><h4 class="counter"><?php echo count($data['employers']) ?></h4> <span>Total Employers</span></div>
 					<div class="dashboard-stat-icon"><i class="ln ln-icon-Add-UserStar "></i></div>
 				</div>
 			</div>
