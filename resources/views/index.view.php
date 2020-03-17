@@ -39,7 +39,6 @@
 <div class="container">
 <div class="sixteen columns">
     <h3 class="margin-bottom-20 margin-top-10">Popular Categories</h3>
-
         <!-- Popular Categories -->
         <div class="categories-boxes-container">
             
@@ -103,7 +102,6 @@
 
 
 <div class="container">
-
 <!-- Recent Jobs -->
 <div class="eleven columns">
 <div class="padding-right">
@@ -129,7 +127,7 @@
 
     </div>
 
-    <a href="browse-jobs.html" class="button centered"><i class="fa fa-plus-circle"></i> Show More Jobs</a>
+    <a href="<?php url('/browse-jobs') ?>" class="button centered"><i class="fa fa-plus-circle"></i> Show More Jobs</a>
     <div class="margin-bottom-55"></div>
 </div>
 </div>

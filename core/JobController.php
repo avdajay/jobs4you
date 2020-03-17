@@ -1,7 +1,5 @@
 <?php
 
-use Carbon\Carbon;
-
 class JobController extends Controller
 {
     private $table = 'jobs';
@@ -9,6 +7,24 @@ class JobController extends Controller
     public function __construct()
     {
 
+    }
+
+    public function locationSearch($location)
+    {
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $data = [
+            'location' => $this->sanitize($location)
+        ];
+
+        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE locations.id = :location";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($data);
+        $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return view('job/browse', ['jobs' => $jobs]);
     }
 
     public function indexSearch($keywords, $location)

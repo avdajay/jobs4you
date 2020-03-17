@@ -2,8 +2,8 @@
     "name": "aries/jobersity",
     "description": "Jobersity is a marketplace for jobseekers and employers",
     "require": {
-        "nesbot/carbon": "^2.25",
-        "swiftmailer/swiftmailer": "@stable"
+        "swiftmailer/swiftmailer": "@stable",
+        "nesbot/carbon": "2.25.3"
     },
     "license": "MIT",
     "authors": [
