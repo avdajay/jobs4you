@@ -45,7 +45,7 @@
 		<?php endif; ?>
 			<img src="<?php asset('uploads/' . $data['job']['logo']) ?>" alt="Employer Logo" title="Employer Logo">
 			<div class="content">
-				<h4><?php e($data['job']['name']) ?> <i class="fa fa-check-circle" style="color:#26AE61" title="Verified" alt="Verified Badge"></i></h4>
+				<h4><?php e($data['job']['name']) ?> <!--<i class="fa fa-check-circle" style="color:#26AE61" title="Verified" alt="Verified Badge"></i>--></h4>
 				<span><a href="http://<?php e($data['job']['website']) ?>" target="_blank"><i class="fa fa-link"></i> <?php e($data['job']['website']) ?></a></span>
 				<span><a href="http://www.linkedin.com/in/<?php e($data['job']['linkedin']) ?>" target="_blank"><i class="fa fa-linkedin"></i> <?php e($data['job']['linkedin']) ?></a></span>
 			</div>

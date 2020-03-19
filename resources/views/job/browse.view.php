@@ -51,9 +51,9 @@
                 <div class="listing-title">
                     <h4><?php e($job['job_title']) ?><span class="listing-type"><?php e($job['etype']) ?></span></h4>
                     <ul class="listing-icons">
-                        <li><i class="ln ln-icon-Management"></i> <?php e($job['employer']) ?> <i class="fa fa-check-circle" style="color:#26AE61" title="Verified" alt="Verified Badge"></i></li>
+                        <li><i class="ln ln-icon-Management"></i> <?php e($job['employer']) ?> <!--<i class="fa fa-check-circle" style="color:#26AE61" title="Verified" alt="Verified Badge"></i>--></li>
                         <li><i class="ln ln-icon-Map2"></i>  <?php e($job['lname']) ?></li>
-                        <li><div class="listing-date">Posted: <?php e($job['created_at']) ?></div></li>
+                        <li><div class="listing-date">Posted: <?php echo Carbon\Carbon::parse($job['created_at'])->toFormattedDateString(); ?></div></li>
                     </ul>
                 </div>
             </a>
@@ -62,7 +62,7 @@
 		</div>
 		<div class="clearfix"></div>
 
-		<div class="pagination-container">
+		<!-- <div class="pagination-container">
 			<nav class="pagination">
 				<ul>
 					<li><a href="#" class="current-page">1</a></li>
@@ -79,26 +79,40 @@
 					<li><a href="#" class="next">Next</a></li>
 				</ul>
 			</nav>
-		</div>
+		</div> -->
 
 	</div>
 	</div>
 
-
+<form method="GET" action="<?php url('/job') ?>">
 	<!-- Widgets -->
 	<div class="five columns">
 
 		<!-- Sort by -->
 		<div class="widget">
-			<h4>Sort by</h4>
+			<h4>Category</h4>
 
 			<!-- Select -->
-			<select data-placeholder="Choose Category" class="chosen-select-no-single">
-				<option selected="selected" value="recent">Newest</option>
-				<option value="oldest">Oldest</option>
-				<option value="expiry">Expiring Soon</option>
-				<option value="ratehigh">Hourly Rate – Highest First</option>
-				<option value="ratelow">Hourly Rate – Lowest First</option>
+			<select data-placeholder="Choose Category" class="chosen-select-no-single" name="category">
+				<option selected="selected" value="recent">Choose Category</option>
+				<option value="2">IT / Computers / Programming</option>
+				<option value="3">Accounting / Finance</option>
+				<option value="4">Teaching / Education</option>
+				<option value="5">Admin / Office</option>
+				<option value="6">Arts / Media / Design</option>
+				<option value="7">Engineering</option>
+				<option value="8">Health / Medical / Science</option>
+				<option value="9">HR / Recruitment</option>
+				<option value="10">Food / Restaurant</option>
+				<option value="11">Hotel / Spa / Salon</option>
+				<option value="12">Legal / Documentation</option>
+				<option value="13">Logistics</option>
+				<option value="14">Production / Manufacturing</option>
+				<option value="15">Maritime</option>
+				<option value="16">Sales / Marketing / Retail</option>
+				<option value="17">Skilled Work / Technical</option>
+				<option value="18">Sports</option>
+				<option value="19">Others</option>
 			</select>
 
 		</div>
@@ -106,16 +120,7 @@
 		<!-- Location -->
 		<div class="widget">
 			<h4>Location</h4>
-			<form action="#" method="get">
-				<input type="text" placeholder="State / Province" value="">
-				<input type="text" placeholder="City" value="">
-
-				<input type="text" class="miles" placeholder="Miles" value="">
-				<label for="zip-code" class="from">from</label>
-				<input type="text" id="zip-code" class="zip-code" placeholder="Zip-Code" value=""><br>
-
-				<button class="button">Filter</button>
-			</form>
+			<input type="text" placeholder="City" value="" name="city">
 		</div>
 
 		<!-- Job Type -->
@@ -124,32 +129,27 @@
 
 			<ul class="checkboxes">
 				<li>
-					<input id="check-1" type="checkbox" name="check" value="check-1" checked="">
-					<label for="check-1">Any Type</label>
+					<input id="check-2" type="checkbox" name="type" value="1">
+					<label for="check-2">Part Time</label>
 				</li>
 				<li>
-					<input id="check-2" type="checkbox" name="check" value="check-2">
-					<label for="check-2">Full-Time <span>(312)</span></label>
+					<input id="check-3" type="checkbox" name="type" value="2">
+					<label for="check-3">Full Time</label>
 				</li>
 				<li>
-					<input id="check-3" type="checkbox" name="check" value="check-3">
-					<label for="check-3">Part-Time <span>(269)</span></label>
+					<input id="check-4" type="checkbox" name="type" value="3">
+					<label for="check-4">Freelance</label>
 				</li>
 				<li>
-					<input id="check-4" type="checkbox" name="check" value="check-4">
-					<label for="check-4">Internship <span>(46)</span></label>
-				</li>
-				<li>
-					<input id="check-5" type="checkbox" name="check" value="check-5">
-					<label for="check-5">Freelance <span>(119)</span></label>
+					<input id="check-5" type="checkbox" name="type" value="4">
+					<label for="check-5">Internship</label>
 				</li>
 			</ul>
-
+			<button type="submit" name="filter" class="button margin-top-30">Refine Search</button>
 		</div>
-
 	</div>
 	<!-- Widgets / End -->
-
+</form>
 
 </div>
 

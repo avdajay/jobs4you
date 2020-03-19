@@ -11,6 +11,49 @@ class JobController extends Controller
 
     }
 
+    public function filter($category, $city, $type)
+    {
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $data = [
+            'category' => $this->sanitize($category),
+            'city' => ucwords($this->sanitize($city)),
+            'type' => $this->sanitize($type)
+        ];
+
+        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo, categories.name AS cat FROM jobs 
+        INNER JOIN employment_type ON jobs.employment_type = employment_type.id 
+        INNER JOIN locations ON jobs.location = locations.id 
+        INNER JOIN employers ON jobs.user_id = employers.user_id 
+        INNER JOIN categories ON jobs.category = categories.id 
+        WHERE jobs.category = :category AND locations.island_name = :city AND jobs.employment_type = :type";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($data);
+        $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return view('job/browse', ['jobs' => $jobs]);
+    }
+
+    public function categorySearch($category)
+    {
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $data = [
+            'category' => $this->sanitize($category)
+        ];
+
+        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo, categories.name AS cat FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id INNER JOIN categories ON jobs.category = categories.id WHERE jobs.category = :category";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($data);
+        $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return view('job/browse', ['jobs' => $jobs]);
+    }
+
     public function locationSearch($location)
     {
         $db = new Database();
@@ -58,8 +101,13 @@ class JobController extends Controller
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $query = "SELECT * FROM categories";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $cat = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        return view('job/browse', ['jobs' => $jobs]);
+        return view('job/browse', ['jobs' => $jobs, 'categories' => $cat]);
     }
 
     public function categories()

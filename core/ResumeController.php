@@ -11,7 +11,31 @@ class ResumeController extends Controller
     
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        
+    }
+
+    public function filter($location, $title)
+    {
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $data = [
+            'location' => $this->sanitize($location),
+            'title' => "%".$this->sanitize($title)."%",
+        ];
+
+        $query = "SELECT resume.*, locations.island_name AS lname FROM resume INNER JOIN locations ON locations.id = resume.location WHERE locations.id = :location AND resume.title LIKE :title";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($data);
+        $resume = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $query = "SELECT * FROM locations";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $location = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return view('browse-resume', ['resume' => $resume, 'location' => $location]);
     }
 
     public function index()
@@ -24,8 +48,13 @@ class ResumeController extends Controller
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $resume = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $query = "SELECT * FROM locations";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $location = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        return view('browse-resume', ['resume' => $resume]);
+        return view('browse-resume', ['resume' => $resume, 'location' => $location]);
     }
 
     public function show($id)
@@ -72,6 +101,8 @@ class ResumeController extends Controller
 
     public function add_resume_view()
     {
+        $this->middleware(['auth', 'verified']);
+
         $user = new User();
         
         if ($_SESSION['rid'] == 1)
@@ -88,6 +119,8 @@ class ResumeController extends Controller
 
     public function manage_resume_view()
     {
+        $this->middleware(['auth', 'verified']);
+
         $db = new Database();
         $cdb = $db->connect();
         $this->conn = $cdb;

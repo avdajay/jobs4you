@@ -43,49 +43,49 @@
         <div class="categories-boxes-container">
             
             <!-- Box -->
-            <a href="browse-jobs.html" class="category-small-box">
+            <a href="<?php url('/job?category=3')?>" class="category-small-box">
                 <i class="ln ln-icon-Bar-Chart"></i>
                 <h4>Accouting / Finance</h4>
             </a>
 
             <!-- Box -->
-            <a href="browse-jobs.html" class="category-small-box">
+            <a href="<?php url('/job?category=7')?>" class="category-small-box">
                 <i class="ln ln-icon-Car"></i>
                 <h4>Engineering</h4>
             </a>
 
             <!-- Box -->
-            <a href="browse-jobs.html" class="category-small-box">
+            <a href="<?php url('/job?category=17')?>" class="category-small-box">
                 <i class="ln  ln-icon-Worker"></i>
                 <h4>Skilled Work / Technical</h4>
             </a>
 
             <!-- Box -->
-            <a href="browse-jobs.html" class="category-small-box">
+            <a href="<?php url('/job?category=4')?>" class="category-small-box">
                 <i class="ln  ln-icon-Student-Female"></i>
                 <h4>Teaching / Education</h4>
             </a>
 
             <!-- Box -->
-            <a href="browse-jobs.html" class="category-small-box">
+            <a href="<?php url('/job?category=8')?>" class="category-small-box">
                 <i class="ln ln-icon-Medical-Sign"></i>
                 <h4>Health / Medical / Science</h4>
             </a>
 
             <!-- Box -->
-            <a href="browse-jobs.html" class="category-small-box">
+            <a href="<?php url('/job?category=10')?>" class="category-small-box">
                 <i class="ln ln-icon-Plates"></i>
                 <h4>Food / Restaurant</h4>
             </a>
 
             <!-- Box -->
-            <a href="browse-jobs.html" class="category-small-box">
+            <a href="<?php url('/job?category=13')?>" class="category-small-box">
                 <i class="ln ln-icon-Globe"></i>
                 <h4>Logistics</h4>
             </a>
 
             <!-- Box -->
-            <a href="browse-jobs.html" class="category-small-box">
+            <a href="<?php url('/job?category=2')?>" class="category-small-box">
                 <i class="ln   ln-icon-Laptop-3"></i>
                 <h4>IT / Computers / Programming</h4>
             </a>
@@ -117,7 +117,7 @@
             <div class="listing-title">
                 <h4><?php e($job['job_title']) ?><span class="listing-type"><?php e($job['etype']) ?></span></h4>
                 <ul class="listing-icons">
-                    <li><i class="ln ln-icon-Management"></i> <?php e($job['employer']) ?> <i class="fa fa-check-circle" style="color:#26AE61" title="Verified" alt="Verified Badge"></i></li>
+                    <li><i class="ln ln-icon-Management"></i> <?php e($job['employer']) ?> <!--<i class="fa fa-check-circle" style="color:#26AE61" title="Verified" alt="Verified Badge"></i>--></li>
                     <li><i class="ln ln-icon-Map2"></i>  <?php e($job['lname']) ?></li>
                     <li><div class="listing-date">Posted: <?php echo Carbon\Carbon::parse($job['created_at'])->toFormattedDateString(); ?></div></li>
                 </ul>
