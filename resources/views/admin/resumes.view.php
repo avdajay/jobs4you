@@ -1,8 +1,4 @@
-<?php
-
-use Carbon\Carbon;
-
-the_dashhead() ?>
+<?php the_dashhead() ?>
 
 <!-- Titlebar
 ================================================== -->
@@ -81,13 +77,14 @@ the_dashhead() ?>
 			</div>
 		</div>
 
+
 		<div class="row">
 			
 			<!-- Table-->
 			<div class="col-lg-12 col-md-12">
 
 				<div class="notification notice">
-					Manage all user accounts.
+					See all submitted resumes.
 				</div>
 				<div class="dashboard-list-box margin-top-5">
 					<div class="dashboard-list-box-content">
@@ -96,21 +93,19 @@ the_dashhead() ?>
 							<table class="manage-table resumes responsive-table">
 
 								<tr>
-									<th><i class="fa fa-user"></i> ID</th>
-									<th><i class="fa fa-user"></i> Role</th>
-									<th><i class="fa fa-at"></i> Email</th>
-									<th><i class="fa fa-calendar"></i> Member Since</th>
-									<th><i class="fa fa-check"></i> Status</th>
+									<th><i class="fa fa-user"></i> Name</th>
+									<th><i class="fa fa-file-text"></i> Title</th>
+									<th><i class="fa fa-map-marker"></i> Location</th>
+									<th><i class="fa fa-calendar"></i> Date Posted</th>
 									<th><i class="fa fa-cog"></i> Actions</th>
 								</tr>
 
-								<?php foreach ($data['users'] as $user): ?>
+								<?php foreach ($data['resume'] as $resume): ?>
 								<tr>
-									<td class="title"><?php e($user['id']) ?></td>
-									<td><?php e($user['rname']) ?></td>
-									<td><?php e($user['email']) ?></td>
-									<td><?php e(Carbon::parse($user['created_at'])->toFormattedDateString()) ?></td>
-									<td><?php echo empty($user['activated_at']) ? '<p style="color:red">Inactive</p>' : '<p style="color:green">Active</p>' ?></td>
+									<td class="title"><a href="<?php url('/resume') . e('?id='.$resume['id']) ?>"><?php e($resume['name']) ?></a></td>
+									<td><?php e($resume['title']) ?></td>
+									<td><?php e($resume['lname']) ?></td>
+									<td><?php e($resume['created_at']) ?></td>
 									<td class="action">
 										<a href="<?php url('/resume') . e('?id='.$resume['id']) ?>"><i class="fa  fa-eye"></i> View</a>
 									</td>

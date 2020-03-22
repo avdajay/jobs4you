@@ -16,31 +16,22 @@
 		<div class="dashboard-nav-inner">
 
 			<ul data-submenu-title="Start">
-				<li><a href="<?php url('/main') ?>">Dashboard</a></li>
-				<li><a href="<?php url('/messages') ?>">Messages</a></li>
+				<li><a href="<?php url('/admin') ?>">Dashboard</a></li>
+				<li><a href="<?php url('/admin/messages') ?>">Messages</a></li>
 			</ul>
 
 			<ul data-submenu-title="Management">
-				<?php if(isset($_SESSION['rid']) && $_SESSION['rid'] == 1): ?>
-					<li class="active-submenu"><a>For Candidates</a>
-						<ul>
-							<li><a href="<?php url('/manage-resume') ?>">Manage Resumes</a></li>
-							<li><a href="<?php url('add-resume') ?>">Add Resume</a></li>
-						</ul>
-					</li>
-				<?php else: ?>
-					<li class="active-submenu"><a>For Employers</a>
-						<ul>
-							<li><a href="<?php url('/manage-jobs') ?>">Manage Jobs</a></li>
-							<li><a href="<?php url('/manage-applications') ?>">Manage Applications</a></li>
-							<li><a href="<?php url('/add-jobs') ?>">Add Job</a></li>
-						</ul>
-					</li>
-				<?php endif; ?>	
+                <li class="active-submenu"><a>For Administrator</a>
+                    <ul>
+                        <li><a href="<?php url('/admin/users') ?>">Manage Users</a></li>
+                        <li><a href="<?php url('/admin/resumes') ?>">Manage Resumes</a></li>
+                        <li><a href="<?php url('/admin/jobs') ?>">Manage Jobs</a></li>
+                    </ul>
+                </li>
 			</ul>	
 
 			<ul data-submenu-title="Account">
-				<li><a href="<?php url('/profile') ?>">My Profile</a></li>
+				<li><a href="<?php url('/admin/profile') ?>">My Profile</a></li>
 				<li><a href="<?php url('/logout') ?>">Logout</a></li>
 			</ul>
 			
@@ -61,8 +52,8 @@
 					<!-- Breadcrumbs -->
 					<nav id="breadcrumbs">
 						<ul>
-							<li><a href="<?php url('/') ?>">Home</a></li>
-							<li><a href="<?php url('/main') ?>">Dashboard</a></li>
+							<li><a href="<?php url('/admin') ?>">Home</a></li>
+							<li><a href="<?php url('/admin') ?>">Dashboard</a></li>
 							<li>Manage Jobs</li>
 						</ul>
 					</nav>
@@ -75,9 +66,17 @@
 			
 			<!-- Table-->
 			<div class="col-lg-12 col-md-12">
+				<?php if (!empty($_SESSION['success'])): ?>
+				<?php foreach ($_SESSION['success'] as $success): ?>
+					<div class="notification success closeable">
+						<p><?php echo $success['success']; ?></p>
+						<a class="close" href="#"></a>
+					</div>
+				<?php endforeach; ?>
+				<?php endif; ?>
 
 				<div class="notification notice">
-					Your listings are shown in the table below. Expired listings will be archived and removed after 7 days.
+					Manage all employer's job listings.
 				</div>
 
 				<div class="dashboard-list-box margin-top-30">
@@ -89,7 +88,7 @@
 
 							<tr>
 								<th><i class="fa fa-file-text"></i> Title</th>
-								<th><i class="fa fa-check-square-o"></i> Filled?</th>
+								<th><i class="fa fa-star"></i> Featured</th>
 								<th><i class="fa fa-calendar"></i> Date Posted</th>
 								<th><i class="fa fa-calendar"></i> Date Expires</th>
 								<th><i class="fa fa-user"></i> Applications</th>
@@ -101,14 +100,23 @@
 							<?php foreach($data['jobs'] as $job): ?>
 							<tr>
 								<td class="title"><a href="<?php url('/job') . e('?id='.$job['id']) ?>"><?php e($job['job_title']) ?></a></td>
-								<td class="centered"><?php echo (empty($job['filled_at'])) ? '-' : '<i class="fa  fa-check">' ?></td>
+								<td class="centered"><?php echo (empty($job['featured_at'])) ? '-' : '<i class="fa  fa-check">' ?></td>
 								<td><?php e(Carbon\Carbon::parse($job['created_at'])->toFormattedDateString()) ?></td>
 								<td><?php e(Carbon\Carbon::parse($job['expired_at'])->toFormattedDateString()) ?></td>
-								<td class="centered"><?php echo (empty($job['applications'])) ? '-' : '<a href="/manage-applications?jid='.$job['id'].'"class="button">Show ('.$job['applications'].')</a>'; ?></td>
+								<td class="centered"><?php echo (empty($job['applications'])) ? '-' : '<a href="#" class="button">'.$job['applications'].'</a>'; ?></td>
 								<td class="action">
-									<a href="#"><i class="fa fa-pencil"></i> Edit</a>
-									<a href="#"><i class="fa  fa-check "></i> Mark Filled</a>
-									<a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
+									<?php if (empty($job['featured_at'])): ?>
+									<form method="POST" action="<?php url('/admin/jobs') ?>" id="featured">
+										<input type="hidden" name="featured" value="<?php e($job['id']) ?>">
+									</form>
+									<a href="#" onclick="event.preventDefault(); document.getElementById('featured').submit();"><i class="fa  fa-check "></i> Featured</a>	
+									<?php endif; ?>
+									<?php if(empty($job['applications'])): ?>
+									<form method="POST" action="<?php url('/admin/jobs') ?>" id="deleted">
+										<input type="hidden" name="deleted" value="<?php e($job['id']) ?>">
+									</form>
+									<a href="#" class="delete" onclick="event.preventDefault(); document.getElementById('deleted').submit();"><i class="fa fa-remove"></i> Delete</a>
+									<?php endif; ?>
 								</td>
 							</tr>
 							<?php endforeach; ?>
@@ -117,7 +125,6 @@
 
 					</div>
 				</div>
-				<a href="#" class="button margin-top-30">Add New Listing</a>
 			</div>
 
 <?php the_dashfoot() ?>

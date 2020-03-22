@@ -13,8 +13,8 @@
 		<div class="dashboard-nav-inner">
 
 			<ul data-submenu-title="Start">
-				<li class="active"><a href="<?php url('/main') ?>">Dashboard</a></li>
-				<li><a href="<?php url('/messages') ?>">Messages</a></li>
+				<li class="active"><a href="<?php url('/admin') ?>">Dashboard</a></li>
+				<li><a href="<?php url('/admin/messages') ?>">Messages</a></li>
 			</ul>
 
 			<ul data-submenu-title="Management">
