@@ -134,7 +134,7 @@
 
 <!-- Job Spotlight -->
 <div class="five columns">
-    <h3 class="margin-bottom-5">Job Spotlight</h3>
+    <h3 class="margin-bottom-5">Featured Jobs</h3>
 
     <!-- Navigation -->
     <div class="showbiz-navigation">
@@ -150,39 +150,19 @@
 
                 <ul>
 
+                    <?php foreach ($data['jobs'] as $job): ?>
+                    <?php if (isset($job['featured_at'])): ?>
                     <li>
                         <div class="job-spotlight">
-                            <a href="#"><h4>Social Media: Advertising Coordinator <span class="part-time">Part-Time</span></h4></a>
-                            <span><i class="fa fa-briefcase"></i> Mates</span>
-                            <span><i class="fa fa-map-marker"></i> New York</span>
-                            <span><i class="fa fa-money"></i> $20 / hour</span>
-                            <p>As advertising & content coordinator, you will support our social media team in producing high quality social content for a range of media channels.</p>
-                            <a href="job-page.html" class="button">Apply For This Job</a>
+                            <a href="<?php url('/job?id='. $job['id']) ?>"><h4><?php e($job['job_title']) ?> <span class="<?php e(slug($job['etype'])) ?>"><?php e($job['etype']) ?></span></h4></a>
+                            <span><i class="fa fa-briefcase"></i> <?php e($job['employer']) ?></span>
+                            <span><i class="fa fa-map-marker"></i> <?php e($job['lname']) ?></span>
+                            <p><?php e(truncate_desc($job['description'], 200)) ?></p>
+                            <a href="<?php url('/job?id='. $job['id']) ?>" class="button">Apply For This Job</a>
                         </div>
                     </li>
-
-                    <li>
-                        <div class="job-spotlight">
-                            <a href="#"><h4>Prestashop / WooCommerce Product Listing <span class="freelance">Freelance</span></h4></a>
-                            <span><i class="fa fa-briefcase"></i> King</span>
-                            <span><i class="fa fa-map-marker"></i> London</span>
-                            <span><i class="fa fa-money"></i> $25 / hour</span>
-                            <p>Etiam suscipit tellus ante, sit amet hendrerit magna varius in. Pellentesque lorem quis enim venenatis pellentesque.</p>
-                            <a href="job-page.html" class="button">Apply For This Job</a>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="job-spotlight">
-                            <a href="#"><h4>Logo Design <span class="freelance">Freelance</span></h4></a>
-                            <span><i class="fa fa-briefcase"></i> Hexagon</span>
-                            <span><i class="fa fa-map-marker"></i> Sydney</span>
-                            <span><i class="fa fa-money"></i> $10 / hour</span>
-                            <p>Proin ligula neque, pretium et ipsum eget, mattis commodo dolor. Etiam tincidunt libero quis commodo.</p>
-                            <a href="job-page.html" class="button">Apply For This Job</a>
-                        </div>
-                    </li>
-
+                    <?php endif; ?>
+                    <?php endforeach; ?>
 
                 </ul>
                 <div class="clearfix"></div>

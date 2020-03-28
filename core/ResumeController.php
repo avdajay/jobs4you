@@ -101,7 +101,7 @@ class ResumeController extends Controller
 
     public function add_resume_view()
     {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth', 'verified', 'seeker']);
 
         $user = new User();
         
@@ -119,7 +119,7 @@ class ResumeController extends Controller
 
     public function manage_resume_view()
     {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth', 'verified', 'employer']);
 
         $db = new Database();
         $cdb = $db->connect();

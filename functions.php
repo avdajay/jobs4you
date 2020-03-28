@@ -63,3 +63,8 @@ function slug($string)
     $slug = strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $string));
     return $slug;
 }
+
+function truncate_desc($string, $count)
+{
+    return strlen($string) <= 100 ? $string : substr($string, 0, $count) . '...';
+}
