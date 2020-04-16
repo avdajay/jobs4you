@@ -80,11 +80,11 @@
 
 		<!-- Content -->
 		<div class="row">
-
+			<?php if($_SESSION['rid'] == 1): ?>
 			<!-- Item -->
 			<div class="col-lg-3 col-md-6">
 				<div class="dashboard-stat color-1">
-					<div class="dashboard-stat-content"><h4 class="counter">3</h4> <span>Resume on File</span></div>
+					<div class="dashboard-stat-content"><h4 class="counter"><?php e(count($data['resume'])) ?></h4> <span>Resume on File</span></div>
 					<div class="dashboard-stat-icon"><i class="ln ln-icon-File-Link"></i></div>
 				</div>
 			</div>
@@ -92,7 +92,7 @@
 				<!-- Item -->
 			<div class="col-lg-3 col-md-6">
 				<div class="dashboard-stat color-2">
-					<div class="dashboard-stat-content"><h4 class="counter">527</h4> <span>Total Resume Views</span></div>
+					<div class="dashboard-stat-content"><h4 class="counter"><?php e(count($data['exposure'])) ?></h4> <span>Company Exposure</span></div>
 					<div class="dashboard-stat-icon"><i class="ln ln-icon-Bar-Chart"></i></div>
 				</div>
 			</div>
@@ -101,7 +101,7 @@
 				<!-- Item -->
 			<div class="col-lg-3 col-md-6">
 				<div class="dashboard-stat color-3">
-					<div class="dashboard-stat-content"><h4 class="counter">17</h4> <span>Total Job Applications</span></div>
+					<div class="dashboard-stat-content"><h4 class="counter"><?php e(count($data['applications'])) ?></h4> <span>Active Job Applications</span></div>
 					<div class="dashboard-stat-icon"><i class="ln ln-icon-Business-ManWoman"></i></div>
 				</div>
 			</div>
@@ -110,56 +110,69 @@
 			<!-- Item -->
 				<div class="col-lg-3 col-md-6">
 				<div class="dashboard-stat color-4">
-					<div class="dashboard-stat-content"><h4 class="counter">36</h4> <span>Times Resume Bookmarked</span></div>
+					<div class="dashboard-stat-content"><h4 class="counter"><?php e(count($data['bookmarks'])) ?></h4> <span>Times Resumes Bookmarked</span></div>
 					<div class="dashboard-stat-icon"><i class="ln ln-icon-Add-UserStar "></i></div>
 				</div>
 			</div>
+			<?php else: ?>
+			<!-- Item -->
+			<div class="col-lg-3 col-md-6">
+				<div class="dashboard-stat color-1">
+					<div class="dashboard-stat-content"><h4 class="counter"><?php e(count($data['jobs'])) ?></h4> <span>Active Job Listing</span></div>
+					<div class="dashboard-stat-icon"><i class="ln ln-icon-File-Link"></i></div>
+				</div>
+			</div>
 
-		</div>
-
-
-		<div class="row">
-			
-			<!-- Recent Activity -->
-			<div class="col-lg-6 col-md-12">
-				<div class="dashboard-list-box margin-top-20">
-					<h4>Recent Activities</h4>
-					<ul>
-						<li>
-							Your listing <strong><a href="#">Marketing Coordinator - SEO / SEM Experience </a></strong> has been approved!
-							<a href="#" class="close-list-item"><i class="fa fa-close"></i></a>
-						</li>
-
-						<li>
-							Kathy Brown has sent you <strong><a href="#">private message</a></strong>!
-							<a href="#" class="close-list-item"><i class="fa fa-close"></i></a>
-						</li>
-
-						<li>
-							Someone bookmarked your <strong><a href="#">Restaurant Team Member - Crew</a></strong>!
-							<a href="#" class="close-list-item"><i class="fa fa-close"></i></a>
-						</li>
-
-						<li>
-							You have new application for <strong><a href="#">Power Systems User Experience Designer</a></strong>!
-							<a href="#" class="close-list-item"><i class="fa fa-close"></i></a>
-						</li>
-
-						<li>
-							Someone bookmarked your <strong><a href="#">Core PHP Developer for Site Maintenance  </a></strong> listing!
-							<a href="#" class="close-list-item"><i class="fa fa-close"></i></a>
-						</li>
-						<li>
-							Your job listing <strong><a href="#">Core PHP Developer for Site Maintenance  </a></strong> is expiring!
-							<a href="#" class="close-list-item"><i class="fa fa-close"></i></a>
-						</li>
-					</ul>
+				<!-- Item -->
+			<div class="col-lg-3 col-md-6">
+				<div class="dashboard-stat color-2">
+					<div class="dashboard-stat-content"><h4 class="counter"><?php e($data['totalCount']) ?></h4> <span>Total Job Applications</span></div>
+					<div class="dashboard-stat-icon"><i class="ln ln-icon-Bar-Chart"></i></div>
 				</div>
 			</div>
 
 
-			<!-- Recent Activity -->
+				<!-- Item -->
+			<div class="col-lg-3 col-md-6">
+				<div class="dashboard-stat color-3">
+					<div class="dashboard-stat-content"><h4 class="counter"><?php echo isset($data['count']) ? count($data['count']) : 0 ?></h4> <span>Jobs with Applications</span></div>
+					<div class="dashboard-stat-icon"><i class="ln ln-icon-Business-ManWoman"></i></div>
+				</div>
+			</div>
+
+
+			<!-- Item -->
+				<div class="col-lg-3 col-md-6">
+				<div class="dashboard-stat color-4">
+					<div class="dashboard-stat-content"><h4 class="counter"><?php e(count($data['bookmarksEmployer'])) ?></h4> <span>Resumes Bookmarked</span></div>
+					<div class="dashboard-stat-icon"><i class="ln ln-icon-Add-UserStar "></i></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
 			<div class="col-lg-6 col-md-12">
+				<div class="dashboard-list-box margin-top-20">
+					<h4>List of Bookmarked Resumes</h4>
+					<ul>
+						<?php if (count($data['bookmarksList']) > 0): ?>
+						<?php foreach($data['bookmarksList'] as $bookmarks): ?>
+						<li>
+							<?php e($bookmarks['name']) ?> <strong><a href="<?php url('/resume?id=' . $bookmarks['id']) ?>"><?php e($bookmarks['title']) ?></a></strong>
+						</li>
+						<?php endforeach; ?>
+						<?php else: ?>
+						<li>
+							<h5>No records found. Try bookmarking a resume.</h5>
+						</li>
+						<?php endif; ?>
+					</ul>
+				</div>
+			</div>
+			<?php endif; ?>
+
+			<!-- Recent Activity -->
+			<!-- <div class="col-lg-6 col-md-12">
 				<div class="dashboard-list-box with-icons margin-top-20">
 					<h4>Your Packages</h4>
 					<ul class="dashboard-packages">
@@ -180,6 +193,6 @@
 						</li>
 					</ul>
 				</div>
-			</div>
+			</div> -->
 
 <?php the_dashfoot() ?>

@@ -8,11 +8,6 @@
 			<span><a href="browse-jobs.html"><?php e($data['job']['category']) ?></a></span>
 			<h2><?php e($data['job']['job_title']) ?> <span class="freelance"><?php e($data['job']['type']) ?></span><span class="full-time"><?php e($data['job']['level']) ?></span></h2>
 		</div>
-
-		<div class="six columns">
-			<a href="#" class="button dark"><i class="fa fa-star"></i> Bookmark This Job</a>
-		</div>
-
 	</div>
 </div>
 
@@ -141,7 +136,8 @@
                             </div>
 
                             <div class="divider"></div>
-
+							<input type="hidden" name="title" value="<?php e($data['job']['job_title']) ?>">
+							<input type="hidden" name="employer" value="<?php e($data['job']['user_id']) ?>">
                             <button type="submit" name="apply" class="send">Send Application</button>
                         </form>
 					</div>

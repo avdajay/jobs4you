@@ -41,7 +41,7 @@
             <li><a href="#">Jobseekers</a>
                 <ul>
                     <li><a href="<?php url('/browse-jobs') ?>">Browse Jobs</a></li>
-                    <li><a href="<?php url('/browse-categories') ?>">Browse Categories</a></li>
+                    <li><a href="<?php url('/browse-locations') ?>">Browse Locations</a></li>
                 </ul>
             </li>
 

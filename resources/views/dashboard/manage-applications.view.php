@@ -75,14 +75,35 @@
 			
 			<!-- Table-->
 			<div class="col-lg-12 col-md-12">
-
-				<div class="notification notice">
-					The job applications for <strong><a href="#">Power Systems User Experience Designer</a></strong> are listed below.
+				<?php if (!empty($_SESSION['success'])): ?>
+				<?php foreach ($_SESSION['success'] as $success): ?>
+					<div class="notification success closeable">
+						<p><?php echo $success['success']; ?></p>
+						<a class="close" href="#"></a>
+					</div>
+				<?php endforeach; ?>
+				<?php endif; ?>
+				<?php if (!empty($_SESSION['message'])): ?>
+				<?php foreach ($_SESSION['message'] as $error): ?>
+					<div class="notification error closeable">
+						<p><?php echo $error['error']; ?></p>
+						<a class="close" href="#"></a>
+					</div>
+				<?php endforeach; ?>
+				<?php endif; ?>
+				<?php if (!isset($_GET['job'])): ?>
+				<div class="notification warning">
+					Please click Show button from a job on the <strong><a href="<?php url('/manage-jobs') ?>">Job Listing page</a></strong> to see current job applications.
 				</div>
+				<?php else: ?>
+				<div class="notification notice closeable">
+					The job applications for <strong><a href="<?php url('/job?id=' . $data['job']['id']) ?>" target="__blank"><?php e($data['job']['job_title']) ?></a></strong> are listed below.
+					<a class="close" href="#"></a>
+				</div>
+				<?php endif; ?>
 			</div>
-
-		<div class="col-md-6">
-			<!-- Select -->
+		<?php if (isset($_GET['job']) && !empty($_GET['job'])): ?>
+		<!-- <div class="col-md-6">
 			<select data-placeholder="Filter by status" class="chosen-select-no-single">
 				<option value="">Filter by status</option>
 				<option value="new">New</option>
@@ -95,29 +116,29 @@
 		</div>
 
 		<div class="col-md-6">
-			<!-- Select -->
 			<select data-placeholder="Newest first" class="chosen-select-no-single">
 				<option value="">Newest first</option>
 				<option value="name">Sort by name</option>
 				<option value="rating">Sort by rating</option>
 			</select>
 			<div class="margin-bottom-35"></div>
-		</div>
+		</div> -->
 
 
 		<!-- Applications -->
 		<div class="col-md-12">
-
+			<?php foreach($data['applications'] as $application): ?>
 			<div class="application">
 				<div class="app-content">
 					
 					<!-- Name / Avatar -->
 					<div class="info">
-						<img src="<?php asset('images/avatar-placeholder.png') ?>" alt="">
-						<span><a href="#">Tom Smith</a></span>
+						<img src="<?php asset('uploads/'. $application['photo']) ?>" alt="Resume Profile Photo">
+						<span><a href="<?php url('/resume?id=' . $application['resume_id']) ?>"><?php e($application['name']) ?></a></span>
 						<ul>
-							<li><a href="#"><i class="fa fa-file-text"></i> Preview CV</a></li>
-							<li><a href="#"><i class="fa fa-envelope"></i> Contact</a></li>
+							<li><a href="<?php url('/resume?id=' . $application['resume_id']) ?>" target="__blank"><i class="fa fa-file-text"></i> Preview CV</a></li>
+							<li><a href="mailto:<?php e($application['email']) ?>"><i class="fa fa-envelope"></i> Email</a></li>
+							<li><a href="tel:<?php e($application['phone']) ?>"><i class="fa fa-phone"></i> Call</a></li>
 						</ul>
 					</div>
 					
@@ -138,43 +159,48 @@
 					
 					<!-- First Tab -->
 				    <div class="app-tab-content" id="one-2">
-
+					<form action="<?php url('/manage-applications?job='. $application['job_id']) ?>" method="POST">
 						<div class="select-grid">
-							<select data-placeholder="Application Status" class="chosen-select-no-single">
+							<select data-placeholder="Application Status" class="chosen-select-no-single" name="status">
 								<option value="new">New</option>
 								<option value="interviewed">Interviewed</option>
-								<option value="offer">Offer extended</option>
+								<option value="job offer">Job Offer</option>
 								<option value="hired">Hired</option>
-								<option value="archived">Archived</option>
+								<option value="declined">Declined</option>
 							</select>
 						</div>
 
 						<div class="select-grid">
-							<input type="number" min="1" max="5" placeholder="Rating (out of 5)">
+							<input type="number" min="1" max="5" placeholder="Rating (out of 5)" name="rating">
 						</div>
 
 						<div class="clearfix"></div>
-						<a href="#" class="button margin-top-15">Save</a>
-						<a href="#" class="button gray margin-top-15 delete-application">Delete this application</a>
-
+						<input type="hidden" name="applicant" value="<?php e($application['name']) ?>">
+						<input type="hidden" name="app_id" value="<?php e($application['id']) ?>">
+						<button type="submit" class="button margin-top-15" name="statusRating">Save</button>
+					</form>
 				    </div>
 				    
 				    <!-- Second Tab -->
 				    <div class="app-tab-content" id="two-2">
-						<textarea placeholder="Private note regarding this application"></textarea>
-						<a href="#" class="button margin-top-15">Add Note</a>
+						<form action="<?php url('/manage-applications?job='. $application['job_id']) ?>" method="POST">
+							<input type="hidden" name="applicant" value="<?php e($application['name']) ?>">
+							<input type="hidden" name="app_id" value="<?php e($application['id']) ?>">
+							<textarea placeholder="Private note regarding this application" name="notes"><?php e($application['employer_notes']) ?></textarea>
+							<button type="submit" class="button margin-top-15" name="saveNote">Save</button>
+						</form>
 				    </div>
 				    
 				    <!-- Third Tab -->
 				    <div class="app-tab-content" id="three-2">
 						<i>Full Name:</i>
-						<span>Tom Smith</span>
+						<span><?php e($application['name']) ?></span>
 
 						<i>Email:</i>
-						<span><a href="/cdn-cgi/l/email-protection#1d697270336e707469755d78657c706d7178337e7270"><span class="__cf_email__" data-cfemail="33475c5e1d405e5a475b73564b525e435f561d505c5e">[email&#160;protected]</span></a></span>
+						<span><a href="mailto:<?php e($application['email']) ?>"><?php e($application['email']) ?></a></span>
 
 						<i>Message:</i>
-						<span>Morbi non pharetra quam. Pellentesque eget massa dolor. Sed vitae placerat eros, quis aliquet purus. Donec feugiat sapien urna, at sagittis libero pellentesque in. Praesent efficitur dui eget condimentum viverra. Sed non maximus ipsum, non consequat nulla. Vivamus nec convallis nisi, sit amet egestas magna. Quisque vulputate lorem sit amet ornare efficitur. Duis aliquam est elit, sed tincidunt enim commodo sed. Fusce tempus magna id sagittis laoreet. Proin porta luctus ante eu ultrices. Sed porta consectetur purus, rutrum tincidunt magna dictum tempus. </span>
+						<span><?php e($application['message']) ?></span>
 				    </div>
 
 				</div>
@@ -182,21 +208,22 @@
 				<!-- Footer -->
 				<div class="app-footer">
 
-					<div class="rating four-stars">
+					<div class="rating <?php e($application['rating']) ?>">
 						<div class="star-rating"></div>
 						<div class="star-bg"></div>
 					</div>
 
 					<ul>
-						<li><i class="fa fa-file-text-o"></i> Interviewed</li>
-						<li><i class="fa fa-calendar"></i> September 22, 2019</li>
+						<li class="text-notice"><i class="fa fa-file-text-o"></i> <?php e(ucwords($application['status'])) ?></li>
+						<li><i class="fa fa-calendar"></i> <?php e(Carbon\Carbon::parse($application['applied_at'])->toFormattedDateString()) ?></li>
 					</ul>
 					<div class="clearfix"></div>
 
 				</div>
 			</div>
+			<?php endforeach; ?>
 		</div>
-
+		<?php endif; ?>
 
 	</div>
 

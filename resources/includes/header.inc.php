@@ -52,8 +52,8 @@
             </li>
         </ul>
 
-        <?php if (isset($_SESSION['uid'])): ?>
-            <?php if ($_SESSION['uid'] == 1): ?>
+        <?php if (isset($_SESSION['rid'])): ?>
+            <?php if ($_SESSION['rid'] == 1): ?>
             <ul class="float-right"> 
                 <li><a href="#"><i class="fa fa-tachometer"></i> Dashboard</a>
                     <ul>
@@ -74,7 +74,7 @@
                         <li><a href="<?php url('/messages') ?>">Messages</a></li>
                         <li><a href="<?php url('/manage-jobs') ?>">Manage Jobs</a></li>
                         <li><a href="<?php url('/manage-applications') ?>">Manage Applications</a></li>
-                        <li><a href="<?php url('/add-job') ?>">Add Job</a></li>
+                        <li><a href="<?php url('/add-jobs') ?>">Add Job</a></li>
                         <li><a href="<?php url('/profile') ?>">My Profile</a></li>
                         <li><a href="<?php url('/logout') ?>">Logout</a></li>
                     </ul>

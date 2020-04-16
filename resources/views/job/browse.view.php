@@ -10,7 +10,7 @@
 		</div>
 
 		<div class="six columns">
-			<a href="<?php url('/add-job') ?>" class="button">Post a Job, It’s Free!</a>
+			<a href="<?php url('/add-jobs') ?>" class="button">Post a Job, It’s Free!</a>
 		</div>
 
 	</div>

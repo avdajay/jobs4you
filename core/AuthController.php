@@ -5,14 +5,6 @@ use Carbon\Carbon;
 class AuthController extends Controller
 {
 	private $conn;
-
-	public function __construct()
-	{
-		if (isset($_SESSION['act']) || isset($_SESSION['uid']))
-		{
-			return redirect('main');
-		}
-	}
 	
 	public function login()
 	{
@@ -172,6 +164,7 @@ class AuthController extends Controller
 		$user = config('mail', 'username');
 		$pass = config('mail', 'password');
 		$port = config('mail', 'port');
+		$encryption = config('mail', 'encryption');
 		$fromName = config('mail', 'name');
 		$fromEmail = config('mail', 'email');
 
@@ -192,7 +185,7 @@ class AuthController extends Controller
 				->setTo($email)
 				->setBody($html, 'text/html');
 			
-			$transport = (new Swift_SmtpTransport($host, $port))
+			$transport = (new Swift_SmtpTransport($host, $port, $encryption))
 				->setUsername($user)
 				->setPassword($pass);
 

@@ -9,7 +9,7 @@
 
             <!-- Form -->
             <form action="<?php url('/job') ?>" method="GET">
-            <h2>Find from over <?php echo count($data) ?> Jobs</h2>
+            <h2>Find from over <?php echo count($data['jobs']) ?> Jobs</h2>
             <input type="text" class="ico-01" placeholder="job title, keywords or company name" value="" name="keywords">
             <input type="text" class="ico-02" placeholder="city, province or region" value="" name="location">
             <button type="submit"><i class="fa fa-search"></i></button>

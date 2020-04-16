@@ -10,7 +10,7 @@
 		</div>
 
 		<div class="six columns">
-			<a href="add-resume.html" class="button">Post a Resume, It’s Free!</a>
+			<a href="<?php url('/add-resume')?>" class="button">Post a Resume, It’s Free!</a>
 		</div>
 
 	</div>

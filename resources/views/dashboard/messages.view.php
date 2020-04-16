@@ -5,8 +5,7 @@
 
 <!-- Dashboard -->
 <div id="dashboard">
-
-	<!-- Navigation
+<!-- Navigation
 	================================================== -->
 
 	<!-- Responsive Navigation Trigger -->
@@ -16,37 +15,37 @@
 		<div class="dashboard-nav-inner">
 
 			<ul data-submenu-title="Start">
-				<li><a href="dashboard.html">Dashboard</a></li>
-				<li class="active"><a href="dashboard-messages.html">Messages <span class="nav-tag">2</span></a></li>
+				<li><a href="<?php url('/main') ?>">Dashboard</a></li>
+				<li class="active"><a href="<?php url('/messages') ?>">Messages</a></li>
 			</ul>
 
 			<ul data-submenu-title="Management">
-				<li><a>For Employers</a>
-					<ul>
-						<li><a href="dashboard-manage-jobs.html">Manage Jobs <span class="nav-tag">5</span></a></li>
-						<li><a href="dashboard-manage-applications.html">Manage Applications <span class="nav-tag">4</span></a></li>
-						<li><a href="dashboard-add-job.html">Add Job</a></li>
-					</ul>
-				</li>
-
-				<li><a>For Candidates</a>
-					<ul>
-						<li><a href="dashboard-manage-resumes.html">Manage Resumes <span class="nav-tag">2</span></a></li>
-						<li><a href="dashboard-job-alerts.html">Job Alerts</a></li>
-						<li><a href="dashboard-add-resume.html">Add Resume</a></li>
-					</ul>
-				</li>	
+				<?php if(isset($_SESSION['rid']) && $_SESSION['rid'] == 1): ?>
+					<li><a>For Candidates</a>
+						<ul>
+							<li><a href="<?php url('/manage-resume') ?>">Manage Resumes</a></li>
+							<li><a href="<?php url('add-resume') ?>">Add Resume</a></li>
+						</ul>
+					</li>
+				<?php else: ?>
+					<li><a>For Employers</a>
+						<ul>
+							<li><a href="<?php url('/manage-jobs') ?>">Manage Jobs</a></li>
+							<li><a href="<?php url('/manage-applications') ?>">Manage Applications</a></li>
+							<li><a href="<?php url('/add-jobs') ?>">Add Job</a></li>
+						</ul>
+					</li>
+				<?php endif; ?>	
 			</ul>	
 
 			<ul data-submenu-title="Account">
-				<li><a href="dashboard-my-profile.html">My Profile</a></li>
-				<li><a href="index.html">Logout</a></li>
+				<li><a href="<?php url('/profile') ?>">My Profile</a></li>
+				<li><a href="<?php url('/logout') ?>">Logout</a></li>
 			</ul>
 			
 		</div>
 	</div>
 	<!-- Navigation / End -->
-
 
 	<!-- Content
 	================================================== -->
@@ -74,186 +73,40 @@
 		<div class="row">
 			<!-- Messages -->
 			<div class="col-lg-12 col-md-12">
-
+				<?php if (!empty($_SESSION['success'])): ?>
+					<?php foreach ($_SESSION['success'] as $success): ?>
+						<div class="notification success closeable">
+							<p><?php echo $success['success']; ?></p>
+							<a class="close" href="#"></a>
+						</div>
+					<?php endforeach; ?>
+				<?php endif; ?>
 				<div class="messages-container margin-top-0">
 					<div class="messages-headline">
 						<h4>Inbox</h4>
-<!-- 						<a href="#" class="message-action"><i class="fa fa-delete"></i> Delete Conversation</a> -->
 					</div>
 
 					<div class="messages-container-inner">
-
 						<!-- Messages -->
 						<div class="messages-inbox">
 							<ul>
-								<li class="active-message">
-									<a href="dashboard-messages.html">
-										<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
+								<?php if (!is_null($data['messages'][0]['id'])): ?>
+								<?php foreach($data['messages'] as $message): ?>
+								<li <?php echo isset($_GET['id']) && $message['id'] == $_GET['id'] ? 'class="active-message"' : '' ?>>
+									<a href="<?php url('/messages?id=' . $message['id']) ?>">
+										<div class="message-avatar"><img src="<?php ($_SESSION['rid'] == 2) ? asset('uploads/' . $message['applicantsPhoto']) : asset('uploads/' . $message['employerLogo']) ?>" alt="Chat Avatar" title="Chat Avatar"></div>
 
 										<div class="message-by">
 											<div class="message-by-headline">
-												<h5>Kathy Brown</h5>
-												<span>2 hours ago</span>
+												<h5><?php ($_SESSION['rid'] == 2) ? e($message['applicantsName']) : e($message['employerName']) ?></h5>
+												<span><?php e(Carbon\Carbon::parse($message['sent_at'])->toFormattedDateString()) ?></span>
 											</div>
-											<p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae...</p>
+											<p><?php e($message['content']) ?></p>
 										</div>
 									</a>
 								</li>
-
-								<li>
-									<a href="dashboard-messages.html">
-										<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-
-										<div class="message-by">
-											<div class="message-by-headline">
-												<h5>John Doe <i>Unread</i></h5>
-												<span>4 hours ago</span>
-											</div>
-											<p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae...</p>
-										</div>
-									</a>
-								</li>
-								
-								<li>
-									<a href="dashboard-messages.html">
-										<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-
-										<div class="message-by">
-											<div class="message-by-headline">
-												<h5>Thomas Smith</h5>
-												<span>Yesterday</span>
-											</div>
-											<p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae...</p>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="dashboard-messages.html">
-										<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-
-										<div class="message-by">
-											<div class="message-by-headline">
-												<h5>Mike Behringer</h5>
-												<span>28.06.2019</span>
-											</div>
-											<p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae...</p>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="dashboard-messages.html">
-										<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-
-										<div class="message-by">
-											<div class="message-by-headline">
-												<h5>Robert Baker</h5>
-												<span>22.06.2019</span>
-											</div>
-											<p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae...</p>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="dashboard-messages.html">
-										<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-
-										<div class="message-by">
-											<div class="message-by-headline">
-												<h5>Thomas Smith</h5>
-												<span>16.06.2019</span>
-											</div>
-											<p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae...</p>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="dashboard-messages.html">
-										<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-
-										<div class="message-by">
-											<div class="message-by-headline">
-												<h5>Mike Behringer</h5>
-												<span>12.06.2019</span>
-											</div>
-											<p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae...</p>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="dashboard-messages.html">
-										<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-
-										<div class="message-by">
-											<div class="message-by-headline">
-												<h5>Robert Baker</h5>
-												<span>31.05.2019</span>
-											</div>
-											<p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae...</p>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="dashboard-messages.html">
-										<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-
-										<div class="message-by">
-											<div class="message-by-headline">
-												<h5>Thomas Smith</h5>
-												<span>27.05.2019</span>
-											</div>
-											<p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae...</p>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="dashboard-messages.html">
-										<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-
-										<div class="message-by">
-											<div class="message-by-headline">
-												<h5>Mike Behringer</h5>
-												<span>24.05.2019</span>
-											</div>
-											<p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae...</p>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="dashboard-messages.html">
-										<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-
-										<div class="message-by">
-											<div class="message-by-headline">
-												<h5>Robert Baker</h5>
-												<span>22.05.2019</span>
-											</div>
-											<p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae...</p>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="dashboard-messages.html">
-										<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-
-										<div class="message-by">
-											<div class="message-by-headline">
-												<h5>Robert Baker</h5>
-												<span>17.05.2019</span>
-											</div>
-											<p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae...</p>
-										</div>
-									</a>
-								</li>
-
+								<?php endforeach; ?>
+								<?php endif; ?>
 							</ul>
 						</div>
 						<!-- Messages / End -->
@@ -261,52 +114,35 @@
 						<!-- Message Content -->
 						<div class="message-content">
 
-							<div class="message-bubble">
-								<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-								<div class="message-text"><p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae.</p></div>
+							<?php if (isset($_GET['id'])): ?>
+							<?php foreach($data['chats'] as $chat): ?>
+							<div class="message-bubble <?php echo ($_SESSION['uid'] == $chat['user_id']) ? 'me' : '' ?>">
+								<div class="message-avatar">
+									<img src="<?php ($chat['receiver_id'] == $chat['user_id']) ? asset('uploads/' . $chat['applicantsPhoto']) : asset('uploads/' . $chat['employerLogo']) ?>" alt="Chat Avatar" title="Chat Avatar">
+								</div>
+								<div class="message-text">
+									<p><?php e($chat['content']) ?></p>
+								</div>
 							</div>
+							<?php endforeach; ?>
 
-							<div class="message-bubble me">
-								<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-								<div class="message-text"><p>Nam ut hendrerit orci, ac gravida orci. Cras tristique rutrum libero at consequat. Vestibulum vehicula neque maximus sapien iaculis, nec vehicula sapien fringilla.</p></div>
-							</div>
-
-							<div class="message-bubble me">
-								<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-								<div class="message-text"><p>Accumsan et porta ac, volutpat id ligula. Donec neque neque, blandit eu pharetra in, tristique id enim.</p></div>
-							</div>
-
-							<div class="message-bubble">
-								<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-								<div class="message-text"><p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed, ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed dolor.</p></div>
-							</div>
-
-							<div class="message-bubble me">
-								<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-								<div class="message-text"><p>Nunc pulvinar, velit sit amet tristique tristique, nisi odio luctus odio, vel vulputate purus enim vestibulum est. Pellentesque non mollis ipsum, vitae tristique sapien.</p></div>
-							</div>
-
-							<div class="message-bubble">
-								<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-								<div class="message-text"><p>Donec eget consequat magna. Integer luctus neque vel nulla malesuada imperdiet. </p></div>
-							</div>
-
-							<div class="message-bubble me">
-								<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-								<div class="message-text"><p>Accumsan et porta ac, volutpat id ligula. Donec neque neque, blandit eu pharetra in, tristique id enim nulla magna interdum leo, sed tincidunt purus elit vitae magna. Donec eget consequat magna. Integer luctus neque vel nulla malesuada imperdiet. .</p></div>
-							</div>
-
-							<div class="message-bubble">
-								<div class="message-avatar"><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=70" alt=""></div>
-								<div class="message-text"><p>Nulla eget erat consequat quam feugiat dapibus eget sed mauris.</p></div>
-							</div>
-							
 							<!-- Reply Area -->
 							<div class="clearfix"></div>
 							<div class="message-reply">
-								<textarea cols="40" rows="3" placeholder="Your Message"></textarea>
-								<button class="button">Send Message</button>
+								<form action="<?php url('/messages?id=' . $_GET['id']) ?>" method="POST">
+									<textarea cols="40" rows="3" placeholder="Your Message" name="message"></textarea>
+									<button type="submit" class="button" name="reply">Send Message</button>
+								</form>
 							</div>
+							<?php elseif(!isset($_GET['id']) && is_null($data['messages'][0]['id'])): ?>
+							<div class="notification warning">
+								<h5>No conversations/notifications to show.</h5>
+							</div>
+							<?php else: ?>
+							<div class="notification notice">
+								<h5>Please select a message from the left.</h5>
+							</div>
+							<?php endif; ?>
 							
 						</div>
 						<!-- Message Content -->

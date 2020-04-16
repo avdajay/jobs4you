@@ -172,8 +172,8 @@
                             <option value="3">Freelance</option>
                             <option value="4">Internship/OJT</option>
                         </select>
-                        <input class="search-field" type="text" placeholder="Start Date" value="" name="start_date[]">
-                        <input class="search-field" type="text" placeholder="End Date" value="" name="end_date[]">
+                        <input class="search-field" type="text" placeholder="Start Date (yyyy-mm-dd)" value="" name="start_date[]">
+                        <input class="search-field" type="text" placeholder="End Date (yyyy-mm-dd) Leave blank if Present/Current" value="" name="end_date[]">
 						<textarea name="summary[]" id="desc1" cols="30" rows="10" placeholder="Summary of Experience/Key Roles and Responsibilities"></textarea>
 					</div>
 
@@ -194,7 +194,7 @@
 							<div class="form boxed box-to-clone education-box">
 								<a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
                                 <input class="search-field" type="text" placeholder="Skills e.g. PHP" value="" name="skill[]">
-                                <select name="difficulty[]" id="type">	
+                                <select name="skillLevel[]" id="type">	
                                     <option value="Beginner" selected>Beginner</option>
                                     <option value="Intermediate">Intermediate</option>
                                     <option value="Advance">Advance</option>

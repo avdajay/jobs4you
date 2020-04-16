@@ -76,6 +76,22 @@
 			<!-- Table-->
 			<div class="col-lg-12 col-md-12">
 
+				<?php if (!empty($_SESSION['success'])): ?>
+				<?php foreach ($_SESSION['success'] as $success): ?>
+					<div class="notification success closeable">
+						<p><?php echo $success['success']; ?></p>
+						<a class="close" href="#"></a>
+					</div>
+				<?php endforeach; ?>
+				<?php endif; ?>
+				<?php if (!empty($_SESSION['error'])): ?>
+				<?php foreach ($_SESSION['error'] as $error): ?>
+					<div class="notification danger closeable">
+						<p><?php echo $error['error']; ?></p>
+						<a class="close" href="#"></a>
+					</div>
+				<?php endforeach; ?>
+				<?php endif; ?>
 				<div class="notification notice">
 					Your listings are shown in the table below. Expired listings will be archived and removed after 7 days.
 				</div>
@@ -104,11 +120,16 @@
 								<td class="centered"><?php echo (empty($job['filled_at'])) ? '-' : '<i class="fa  fa-check">' ?></td>
 								<td><?php e(Carbon\Carbon::parse($job['created_at'])->toFormattedDateString()) ?></td>
 								<td><?php e(Carbon\Carbon::parse($job['expired_at'])->toFormattedDateString()) ?></td>
-								<td class="centered"><?php echo (empty($job['applications'])) ? '-' : '<a href="/manage-applications?jid='.$job['id'].'"class="button">Show ('.$job['applications'].')</a>'; ?></td>
+								<td class="centered"><?php echo (empty($job['applications'])) ? '-' : '<a href="/manage-applications?job='.$job['id'].'"class="button">Show ('.$job['applications'].')</a>'; ?></td>
 								<td class="action">
-									<a href="#"><i class="fa fa-pencil"></i> Edit</a>
-									<a href="#"><i class="fa  fa-check "></i> Mark Filled</a>
-									<a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
+									<a href="<?php url('/job?id=' . $job['id']) ?>"><i class="fa fa-eye"></i> View</a>
+									<a href="<?php url('/manage-jobs?edit=' . $job['id']) ?>"><i class="fa fa-pencil"></i> Edit</a>
+									<?php if (!isset($job['filled_at'])): ?>
+									<a href="#" onclick="event.preventDefault(); document.getElementById('filled').submit();"><i class="fa fa-check"></i> Mark Filled</a>
+									<?php endif; ?>
+									<form id="filled" method="POST" action="<?php url('/manage-jobs') ?>">
+  										<input type="hidden" name="filled" value="<?php e($job['id']) ?>">
+									</form>
 								</td>
 							</tr>
 							<?php endforeach; ?>
@@ -117,7 +138,7 @@
 
 					</div>
 				</div>
-				<a href="#" class="button margin-top-30">Add New Listing</a>
+				<a href="<?php url('/add-jobs') ?>" class="button margin-top-30">Add New Listing</a>
 			</div>
 
 <?php the_dashfoot() ?>

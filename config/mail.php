@@ -6,5 +6,6 @@ return [
     'username' => 'jobswander@gmail.com',
     'password' => 'CyJa@2020',
     'email'    => 'jobswander@gmail.com',
-    'name'     => 'Jobs4You System'
+    'name'     => 'Jobs4You System',
+    'encryption' => 'tls'
 ];

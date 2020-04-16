@@ -11,6 +11,63 @@ class JobController extends Controller
 
     }
 
+    public function edit($id)
+    {
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $data = [
+            'id' => $this->sanitize($id),
+        ];
+
+        $query = "SELECT * FROM jobs WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($data);
+        $job = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return view('job/edit', ['job' => $job]);
+    }
+
+    public function update()
+    {
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $data = [
+            'id' => $this->sanitize($_POST['id']),
+            'title' => $this->sanitize($_POST['title']),
+            'description' => $this->sanitize($_POST['description']),
+            'tags' => $this->sanitize($_POST['tags']),
+            'date' => $this->sanitize($_POST['closing-date']),
+        ];
+
+        $query = "UPDATE jobs SET job_title = :title, description = :description, tags = :tags, expired_at = :date WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($data);
+
+        return redirect('manage-jobs');
+    }
+
+    public function filled()
+    {
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $data = [
+            'filled' => Carbon::now()->toDateString(),
+            'id' => $this->sanitize($_POST['filled']),
+        ];
+
+        $query = "UPDATE jobs SET filled_at = :filled WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($data);
+
+        array_push($_SESSION['success'], ['success' => 'Job has been filled!']);
+    }
+
     public function filter($category, $city, $type)
     {
         $db = new Database();
@@ -126,7 +183,7 @@ class JobController extends Controller
         $cdb = $db->connect();
         $this->conn = $cdb;
 
-        $query = "SELECT jobs.email, jobs.job_title, jobs.description, jobs.tags, employers.name, employers.address, employers.logo, employers.website, employers.linkedin, employment_type.name AS type, categories.name AS category, job_level.name AS level FROM jobs INNER JOIN employers ON jobs.user_id = employers.user_id INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN categories ON jobs.category = categories.id INNER JOIN job_level ON jobs.level = job_level.id WHERE jobs.id = :id";
+        $query = "SELECT jobs.user_id, jobs.email, jobs.job_title, jobs.description, jobs.tags, employers.name, employers.address, employers.logo, employers.website, employers.linkedin, employment_type.name AS type, categories.name AS category, job_level.name AS level FROM jobs INNER JOIN employers ON jobs.user_id = employers.user_id INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN categories ON jobs.category = categories.id INNER JOIN job_level ON jobs.level = job_level.id WHERE jobs.id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute(['id' => $id]);
         $job = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -289,6 +346,11 @@ class JobController extends Controller
             $stmt = $this->conn->prepare($query);
             $result = $stmt->execute($data);  
             array_push($_SESSION['success'], ['success' => 'You have applied to this job! Expect a response soon.']);
+
+            $msg = 'Hello, this is an automated response to inform you that we have received your resume for the job ' . $_POST['title'] . '. Received at ' . Carbon::now()->toFormattedDateString()
+            . '. Expect a response from one of our representatives soon! Thank you.';
+            $message = new MessageController();
+            $message->create($_POST['employer'], $_POST['employer'], $_SESSION['uid'], $msg);
       
         }
         catch(PDOException $e)
@@ -317,6 +379,92 @@ class JobController extends Controller
     {
         $this->middleware(['auth', 'verified', 'employer']);
 
-        return view('dashboard/manage-applications');
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $query = "SELECT applications.*, resume.name AS name, resume.email AS email, applicants.phone AS phone , applicants.photo AS photo FROM applications
+        INNER JOIN `resume` ON resume_id = resume.id
+        INNER JOIN `applicants` ON applicants.user_id = resume.user_id
+        WHERE job_id = :id
+        ORDER BY applied_at DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['id' => isset($_GET['job']) ? $this->sanitize($_GET['job']) : null]);
+        $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $jobquery = "SELECT id, job_title FROM jobs WHERE id = :id";
+        $jobstmt = $this->conn->prepare($jobquery);
+        $jobstmt->execute(['id' => isset($_GET['job']) ? $this->sanitize($_GET['job']) : null]);
+        $job = $jobstmt->fetch(PDO::FETCH_ASSOC);
+
+        return view('dashboard/manage-applications', ['applications' => $applications, 'job' => $job]);
+    }
+
+    public function employerNotes()
+    {
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $applicant = $_POST['applicant'];
+
+        $data = [
+            'notes' => $this->sanitize($_POST['notes']),
+            'id' => $this->sanitize($_POST['app_id']),
+        ];
+
+        $query = "UPDATE applications SET employer_notes = :notes WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($data);
+        
+        array_push($_SESSION['success'], ['success' => 'Employer note for <strong>' . $applicant . '</strong> has been updated!']);
+    }
+
+    public function setStatusRating()
+    {
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $applicant = $_POST['applicant'];
+        $rating = null;
+
+        switch ($_POST['rating'])
+        {
+            case 1:
+                $rating = 'one-stars';
+                break;
+            
+            case 2:
+                $rating = 'two-stars';
+                break;
+
+            case 3:
+                $rating = 'three-stars';
+                break;
+
+            case 4:
+                $rating = 'four-stars';
+                break;
+
+            case 5:
+                $rating = 'five-stars';
+                break;
+
+            default:
+                $rating = 'no-stars';
+        }
+
+        $data = [
+            'status' => $this->sanitize($_POST['status']),
+            'rating' => $rating,
+            'id'     => $this->sanitize($_POST['app_id']),
+        ];
+
+        $query = "UPDATE applications SET status = :status, rating = :rating WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($data);
+        
+        array_push($_SESSION['success'], ['success' => 'Status and rating for <strong>' . $applicant . '</strong> has been updated!']);
     }
 }

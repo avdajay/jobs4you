@@ -2,6 +2,18 @@
 
 require __DIR__ . '/bootstrap.php';
 
-$messages = new DashboardController();
+$messages = new MessageController();
 
-$messages->messageView();
+if (isset($_POST['reply']))
+{
+    $messages->reply($_GET['id']);
+}
+
+if (isset($_GET['id']))
+{
+    $messages->view($_GET['id']);
+}
+else
+{
+    $messages->index();
+}

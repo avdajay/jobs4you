@@ -88,7 +88,7 @@
 					<h4>Job Details</h4>
 					<div class="dashboard-list-box-content">
 
-<form method="POST" action="<?php url('/add-job') ?>">
+<form method="POST" action="<?php url('/add-jobs') ?>">
 
 					<div class="submit-page">
 						<!-- Email -->
