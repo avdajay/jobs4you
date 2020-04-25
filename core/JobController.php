@@ -183,7 +183,7 @@ class JobController extends Controller
         $cdb = $db->connect();
         $this->conn = $cdb;
 
-        $query = "SELECT jobs.user_id, jobs.email, jobs.job_title, jobs.description, jobs.tags, employers.name, employers.address, employers.logo, employers.website, employers.linkedin, employment_type.name AS type, categories.name AS category, job_level.name AS level FROM jobs INNER JOIN employers ON jobs.user_id = employers.user_id INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN categories ON jobs.category = categories.id INNER JOIN job_level ON jobs.level = job_level.id WHERE jobs.id = :id";
+        $query = "SELECT jobs.user_id, jobs.email, jobs.job_title, jobs.description, jobs.tags, employers.name, employers.verified_at, employers.address, employers.logo, employers.website, employers.linkedin, employers.twitter, employers.description AS employerDescription, employment_type.name AS type, categories.name AS category, categories.id AS cid, job_level.name AS level FROM jobs INNER JOIN employers ON jobs.user_id = employers.user_id INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN categories ON jobs.category = categories.id INNER JOIN job_level ON jobs.level = job_level.id WHERE jobs.id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute(['id' => $id]);
         $job = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -347,7 +347,7 @@ class JobController extends Controller
             $result = $stmt->execute($data);  
             array_push($_SESSION['success'], ['success' => 'You have applied to this job! Expect a response soon.']);
 
-            $msg = 'Hello, this is an automated response to inform you that we have received your resume for the job ' . $_POST['title'] . '. Received at ' . Carbon::now()->toFormattedDateString()
+            $msg = 'Hello, this is an automated response to inform you that we have received your resume for the job ' . $_POST['title'] . '. Received at ' . Carbon::now('Asia/Manila')->toDayDateTimeString()
             . '. Expect a response from one of our representatives soon! Thank you.';
             $message = new MessageController();
             $message->create($_POST['employer'], $_POST['employer'], $_SESSION['uid'], $msg);
@@ -464,6 +464,16 @@ class JobController extends Controller
         $query = "UPDATE applications SET status = :status, rating = :rating WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute($data);
+
+        if ($_POST['status'] === 'checking')
+        {
+            $msg = "Hello, this is an automated response to inform you that our Recruitment Specialist is now working
+            on your application. Make you sure you entered an updated phone number so we will able to contact you.
+            Thank you. Generated on ". Carbon::now('Asia/Manila')->toDayDateTimeString();
+
+            $message = new MessageController();
+            $message->create($_SESSION['uid'], $_SESSION['uid'], $this->sanitize($_POST['applicantID']), $msg);
+        }
         
         array_push($_SESSION['success'], ['success' => 'Status and rating for <strong>' . $applicant . '</strong> has been updated!']);
     }

@@ -17,7 +17,6 @@
 
 			<ul data-submenu-title="Start">
 				<li><a href="<?php url('/admin') ?>">Dashboard</a></li>
-				<li><a href="<?php url('/admin/messages') ?>">Messages</a></li>
 			</ul>
 
 			<ul data-submenu-title="Management">
@@ -31,7 +30,6 @@
 			</ul>	
 
 			<ul data-submenu-title="Account">
-				<li><a href="<?php url('/admin/profile') ?>">My Profile</a></li>
 				<li><a href="<?php url('/logout') ?>">Logout</a></li>
 			</ul>
 			

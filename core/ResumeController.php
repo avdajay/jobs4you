@@ -104,7 +104,7 @@ class ResumeController extends Controller
         }
         else 
         {    
-            $query = "SELECT resume.*, locations.island_name AS location_name, applicants.photo AS latestPhoto, applicants.twitter AS twitter FROM resume INNER JOIN locations ON resume.location = locations.id INNER JOIN applicants ON applicants.user_id = resume.user_id WHERE resume.id = :id";
+            $query = "SELECT resume.*, locations.island_name AS location_name, applicants.photo AS latestPhoto, applicants.twitter AS twitter, applicants.linkedin FROM resume INNER JOIN locations ON resume.location = locations.id INNER JOIN applicants ON applicants.user_id = resume.user_id WHERE resume.id = :id";
             $stmt = $this->conn->prepare($query);
             $stmt->execute(['id' => $_GET['id']]);
             $resume = $stmt->fetch(PDO::FETCH_ASSOC);

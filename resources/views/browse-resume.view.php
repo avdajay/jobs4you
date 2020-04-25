@@ -32,7 +32,7 @@
 					<h4><?php e($resume['name']) ?> <span><?php e($resume['title']) ?></span></h4>
 					<span><i class="fa fa-map-marker"></i> <?php e($resume['lname']) ?></span>
 					<span>₱ <?php e($resume['salary']) ?></span>
-					<p><?php e($resume['description']) ?></p>
+					<p><?php e(truncate_desc($resume['description'], 200)) ?></p>
 				</div>
 				</a>
 				<div class="clearfix"></div>

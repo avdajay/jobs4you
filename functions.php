@@ -66,5 +66,6 @@ function slug($string)
 
 function truncate_desc($string, $count)
 {
-    return strlen($string) <= 100 ? $string : substr($string, 0, $count) . '...';
+    $defaultCount = 50;
+    return strlen($string) <= $defaultCount ? $string : substr($string, 0, $count) . '...';
 }

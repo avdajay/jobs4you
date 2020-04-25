@@ -90,7 +90,7 @@
 						<!-- Messages -->
 						<div class="messages-inbox">
 							<ul>
-								<?php if (!is_null($data['messages'][0]['id'])): ?>
+								<?php if (isset($data['messages'][0]['id'])): ?>
 								<?php foreach($data['messages'] as $message): ?>
 								<li <?php echo isset($_GET['id']) && $message['id'] == $_GET['id'] ? 'class="active-message"' : '' ?>>
 									<a href="<?php url('/messages?id=' . $message['id']) ?>">
@@ -134,9 +134,9 @@
 									<button type="submit" class="button" name="reply">Send Message</button>
 								</form>
 							</div>
-							<?php elseif(!isset($_GET['id']) && is_null($data['messages'][0]['id'])): ?>
+							<?php elseif(!isset($_GET['id']) && !isset($data['messages'][0]['id'])): ?>
 							<div class="notification warning">
-								<h5>No conversations/notifications to show.</h5>
+								<h5>No messages to show.</h5>
 							</div>
 							<?php else: ?>
 							<div class="notification notice">

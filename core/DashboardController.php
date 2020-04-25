@@ -4,7 +4,7 @@ class DashboardController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth']);
+        $this->middleware(['auth', 'verified']);
     }
 
     public function index()
@@ -23,12 +23,12 @@ class DashboardController extends Controller
         $stmt->execute(['user_id' => $_SESSION['uid']]);
         $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $query = "SELECT id FROM bookmarks WHERE bookmark_content = :user_id";
+        $query = "SELECT bookmarks.id FROM `bookmarks` INNER JOIN resume ON resume.id = bookmarks.bookmark_content WHERE resume.user_id = :user_id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute(['user_id' => $_SESSION['uid']]);
         $bookmarks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $query = "SELECT DISTINCT bookmark_user FROM bookmarks WHERE bookmark_content = :user_id";
+        $query = "SELECT DISTINCT bookmark_user FROM bookmarks INNER JOIN resume ON resume.id = bookmarks.bookmark_content WHERE resume.user_id = :user_id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute(['user_id' => $_SESSION['uid']]);
         $exposure = $stmt->fetchAll(PDO::FETCH_ASSOC);

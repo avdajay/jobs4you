@@ -2,5 +2,5 @@
 
 if ($_SESSION['rid'] != 0)
 {
-    return redirect('main');
+    return redirect('/');
 }

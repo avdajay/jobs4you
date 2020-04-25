@@ -224,13 +224,17 @@ class AuthController extends Controller
 			{
 				array_push($_SESSION['message'], ['error' => 'Password is required!']);
 			}
-			if (isset($_POST['email']) && !empty($_POST['email']) && password_verify($password, $user['password']))
+			if (isset($_POST['email']) && !empty($_POST['email']) && password_verify($password, $user['password']) && empty($user['suspended_at']))
 			{
 				$_SESSION['uid'] = $user['id'];
 				$_SESSION['rid'] = $user['role_id'];
 				$_SESSION['act'] = $user['activated_at'];
 				
 				return redirect('main');
+			}
+			elseif (!empty($user['suspended_at']))
+			{
+				array_push($_SESSION['message'], ['error' => 'Your account is suspended. Contact support!']);
 			}
 			else
 			{

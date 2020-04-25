@@ -58,9 +58,9 @@
                     <input type="submit" class="button border fw margin-top-10" name="submit">
                 </p>
 
-                <p class="lost_password">
+                <!-- <p class="lost_password">
                     <a href="#">Lost Your Password?</a>
-                </p>
+                </p> -->
                 
             </form>
         </div>

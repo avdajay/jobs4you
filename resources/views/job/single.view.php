@@ -5,7 +5,7 @@
 <div id="titlebar">
 	<div class="container">
 		<div class="ten columns">
-			<span><a href="browse-jobs.html"><?php e($data['job']['category']) ?></a></span>
+			<span><a href="<?php url('/job?category=' . $data['job']['cid']) ?>" target="__blank"><?php e($data['job']['category']) ?></a></span>
 			<h2><?php e($data['job']['job_title']) ?> <span class="freelance"><?php e($data['job']['type']) ?></span><span class="full-time"><?php e($data['job']['level']) ?></span></h2>
 		</div>
 	</div>
@@ -40,8 +40,9 @@
 		<?php endif; ?>
 			<img src="<?php asset('uploads/' . $data['job']['logo']) ?>" alt="Employer Logo" title="Employer Logo">
 			<div class="content">
-				<h4><?php e($data['job']['name']) ?> <!--<i class="fa fa-check-circle" style="color:#26AE61" title="Verified" alt="Verified Badge"></i>--></h4>
+				<h4><?php e($data['job']['name']) ?> <?php echo (isset($data['job']['verified_at']) ? '<i class="fa fa-check-circle" style="color:#26AE61" title="Verification Badge - Trusted Business by Jobwander" alt="Verification Badge - Trusted Business by Jobwander"></i>' : '') ?></h4>
 				<span><a href="http://<?php e($data['job']['website']) ?>" target="_blank"><i class="fa fa-link"></i> <?php e($data['job']['website']) ?></a></span>
+				<span><a href="http://www.twitter.com/<?php e($data['job']['twitter']) ?>" target="_blank"><i class="fa fa-twitter"></i> <?php e($data['job']['twitter']) ?></a></span>
 				<span><a href="http://www.linkedin.com/in/<?php e($data['job']['linkedin']) ?>" target="_blank"><i class="fa fa-linkedin"></i> <?php e($data['job']['linkedin']) ?></a></span>
 			</div>
 			<div class="clearfix"></div>
@@ -55,7 +56,7 @@
 
 		<h4 class="margin-bottom-10"><strong>About <?php e($data['job']['name']) ?></strong></h4>
 		<div class="margin-bottom-30">
-			<?php e($data['job']['description']) ?>
+			<?php e($data['job']['employerDescription']) ?>
 		</div>
 
 		<h4 class="margin-bottom-10"><strong>Job Description</strong></h4>

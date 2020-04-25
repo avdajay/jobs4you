@@ -17,7 +17,6 @@
 
 			<ul data-submenu-title="Start">
 				<li><a href="<?php url('/admin') ?>">Dashboard</a></li>
-				<li><a href="<?php url('/admin/messages') ?>">Messages</a></li>
 			</ul>
 
 			<ul data-submenu-title="Management">
@@ -31,7 +30,6 @@
 			</ul>	
 
 			<ul data-submenu-title="Account">
-				<li><a href="<?php url('/admin/profile') ?>">My Profile</a></li>
 				<li><a href="<?php url('/logout') ?>">Logout</a></li>
 			</ul>
 			
@@ -106,23 +104,22 @@
 								<td class="centered"><?php echo (empty($job['applications'])) ? '-' : '<a href="#" class="button">'.$job['applications'].'</a>'; ?></td>
 								<td class="action">
 									<?php if (empty($job['featured_at'])): ?>
-									<form method="POST" action="<?php url('/admin/jobs') ?>" id="featured">
+									<form method="POST" action="<?php url('/admin/jobs') ?>" id="featured<?php e($job['id']) ?>">
 										<input type="hidden" name="featured" value="<?php e($job['id']) ?>">
 									</form>
-									<a href="#" onclick="event.preventDefault(); document.getElementById('featured').submit();"><i class="fa  fa-check "></i> Featured</a>	
+									<a href="#" onclick="event.preventDefault(); document.getElementById('featured<?php e($job['id']) ?>').submit();"><i class="fa  fa-check "></i> Featured</a>	
 									<?php endif; ?>
 									<?php if(empty($job['applications'])): ?>
-									<form method="POST" action="<?php url('/admin/jobs') ?>" id="deleted">
+									<form method="POST" action="<?php url('/admin/jobs') ?>" id="deleted<?php e($job['id']) ?>">
 										<input type="hidden" name="deleted" value="<?php e($job['id']) ?>">
 									</form>
-									<a href="#" class="delete" onclick="event.preventDefault(); document.getElementById('deleted').submit();"><i class="fa fa-remove"></i> Delete</a>
+									<a href="#" class="delete" onclick="event.preventDefault(); document.getElementById('deleted<?php e($job['id']) ?>').submit();"><i class="fa fa-remove"></i> Delete</a>
 									<?php endif; ?>
 								</td>
 							</tr>
 							<?php endforeach; ?>
 
-						</table>
-
+						</table>	
 					</div>
 				</div>
 			</div>

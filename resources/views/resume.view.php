@@ -13,8 +13,7 @@
 					<span class="icons"><i class="fa fa-map-marker"></i> <?php e($data['resume']['location_name']) ?></span>
 					<span class="icons">₱ <?php e($data['resume']['salary']) ?></span>
 					<span class="icons"><a href="http://www.twitter.com/<?php e($data['resume']['twitter']) ?>"><i class="fa fa-twitter"></i> <?php e($data['resume']['twitter']) ?></a></span>
-                    
-
+                    <span class="icons"><a href="http://www.twitter.com/<?php e($data['resume']['linkedin']) ?>"><i class="fa fa-linkedin"></i> <?php e($data['resume']['linkedin']) ?></a></span>
 				</div>
 			</div>
 		</div>

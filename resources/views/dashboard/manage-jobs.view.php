@@ -125,9 +125,9 @@
 									<a href="<?php url('/job?id=' . $job['id']) ?>"><i class="fa fa-eye"></i> View</a>
 									<a href="<?php url('/manage-jobs?edit=' . $job['id']) ?>"><i class="fa fa-pencil"></i> Edit</a>
 									<?php if (!isset($job['filled_at'])): ?>
-									<a href="#" onclick="event.preventDefault(); document.getElementById('filled').submit();"><i class="fa fa-check"></i> Mark Filled</a>
+									<a href="#" onclick="event.preventDefault(); document.getElementById('filled<?php e($job['id']); ?>').submit();"><i class="fa fa-check"></i> Mark Filled</a>
 									<?php endif; ?>
-									<form id="filled" method="POST" action="<?php url('/manage-jobs') ?>">
+									<form id="filled<?php e($job['id']) ?>" method="POST" action="<?php url('/manage-jobs') ?>">
   										<input type="hidden" name="filled" value="<?php e($job['id']) ?>">
 									</form>
 								</td>

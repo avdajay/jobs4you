@@ -14,7 +14,6 @@
 
 			<ul data-submenu-title="Start">
 				<li class="active"><a href="<?php url('/admin') ?>">Dashboard</a></li>
-				<li><a href="<?php url('/admin/messages') ?>">Messages</a></li>
 			</ul>
 
 			<ul data-submenu-title="Management">
@@ -28,7 +27,6 @@
 			</ul>	
 
 			<ul data-submenu-title="Account">
-				<li><a href="<?php url('/admin/profile') ?>">My Profile</a></li>
 				<li><a href="<?php url('/logout') ?>">Logout</a></li>
 			</ul>
 			
@@ -80,7 +78,7 @@
 				<!-- Item -->
 			<div class="col-lg-3 col-md-6">
 				<div class="dashboard-stat color-2">
-					<div class="dashboard-stat-content"><h4 class="counter">527</h4> <span>Total Job Views</span></div>
+					<div class="dashboard-stat-content"><h4 class="counter"><?php e(count($data['resume'])) ?></h4> <span>Total Job Resumes</span></div>
 					<div class="dashboard-stat-icon"><i class="ln ln-icon-Bar-Chart"></i></div>
 				</div>
 			</div>
@@ -109,7 +107,7 @@
 		<div class="row">
 			
 			<!-- Recent Activity -->
-			<div class="col-lg-6 col-md-12">
+			<!-- <div class="col-lg-6 col-md-12">
 				<div class="dashboard-list-box margin-top-20">
 					<h4>Recent Activities</h4>
 					<ul>
@@ -143,11 +141,11 @@
 						</li>
 					</ul>
 				</div>
-			</div>
+			</div> -->
 
 
 			<!-- Recent Activity -->
-			<div class="col-lg-6 col-md-12">
+			<!-- <div class="col-lg-6 col-md-12">
 				<div class="dashboard-list-box with-icons margin-top-20">
 					<h4>Your Packages</h4>
 					<ul class="dashboard-packages">
@@ -168,6 +166,6 @@
 						</li>
 					</ul>
 				</div>
-			</div>
+			</div> -->
 
 <?php the_dashfoot() ?>

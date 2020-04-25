@@ -137,7 +137,7 @@
 						<span><a href="<?php url('/resume?id=' . $application['resume_id']) ?>"><?php e($application['name']) ?></a></span>
 						<ul>
 							<li><a href="<?php url('/resume?id=' . $application['resume_id']) ?>" target="__blank"><i class="fa fa-file-text"></i> Preview CV</a></li>
-							<li><a href="mailto:<?php e($application['email']) ?>"><i class="fa fa-envelope"></i> Email</a></li>
+							<li><a href="<?php url('/resume?id=' . $application['resume_id'] . '#small-dialog') ?>" target="__blank"><i class="fa fa-envelope"></i> Message</a></li>
 							<li><a href="tel:<?php e($application['phone']) ?>"><i class="fa fa-phone"></i> Call</a></li>
 						</ul>
 					</div>
@@ -163,6 +163,7 @@
 						<div class="select-grid">
 							<select data-placeholder="Application Status" class="chosen-select-no-single" name="status">
 								<option value="new">New</option>
+								<option value="checking">Checking</option>
 								<option value="interviewed">Interviewed</option>
 								<option value="job offer">Job Offer</option>
 								<option value="hired">Hired</option>
@@ -177,10 +178,11 @@
 						<div class="clearfix"></div>
 						<input type="hidden" name="applicant" value="<?php e($application['name']) ?>">
 						<input type="hidden" name="app_id" value="<?php e($application['id']) ?>">
+						<input type="hidden" name="applicantID" value="<?php e($application['user_id']) ?>">
 						<button type="submit" class="button margin-top-15" name="statusRating">Save</button>
 					</form>
-				    </div>
-				    
+					</div>
+					
 				    <!-- Second Tab -->
 				    <div class="app-tab-content" id="two-2">
 						<form action="<?php url('/manage-applications?job='. $application['job_id']) ?>" method="POST">

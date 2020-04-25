@@ -107,7 +107,7 @@
 <div class="padding-right">
     <h3 class="margin-bottom-25">Recent Jobs</h3>
     <div class="listings-container">
-        
+
         <!-- Listing -->
         <?php foreach($data['jobs'] as $job): ?>
         <a href="<?php url('/job') . e('?id='.$job['id']) ?>" class="listing <?php e(slug($job['etype'])) ?>">
@@ -117,7 +117,7 @@
             <div class="listing-title">
                 <h4><?php e($job['job_title']) ?><span class="listing-type"><?php e($job['etype']) ?></span></h4>
                 <ul class="listing-icons">
-                    <li><i class="ln ln-icon-Management"></i> <?php e($job['employer']) ?> <!--<i class="fa fa-check-circle" style="color:#26AE61" title="Verified" alt="Verified Badge"></i>--></li>
+                    <li><i class="ln ln-icon-Management"></i> <?php e($job['employer']) ?></li>
                     <li><i class="ln ln-icon-Map2"></i>  <?php e($job['lname']) ?></li>
                     <li><div class="listing-date">Posted: <?php echo Carbon\Carbon::parse($job['created_at'])->toFormattedDateString(); ?></div></li>
                 </ul>

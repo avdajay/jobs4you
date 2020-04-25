@@ -6,7 +6,7 @@ class AccountController extends Controller
 {
     public function __construct()
     {
-        
+        $this->middleware(['auth', 'verified']);
     }
 
     public function profile()
