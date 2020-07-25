@@ -10,12 +10,14 @@
 		</div>
 
 		<div class="six columns">
-			<?php if (isset($_SESSION['rid']) && $_SESSION['rid'] == 1) : ?>
-				<a href="<?php url('/add-resume') ?>" class="button">Post a Resume, It’s Free!</a>
-			<?php elseif (isset($_SESSION['uid']) && $_SESSION['rid'] == 2 || $_SESSION['rid'] == 0) : ?>
-				<!-- Will not be shown to jobseekers -->
-			<?php else : ?>
-				<a href="<?php url('/add-resume') ?>" class="button">Post a Resume, It’s Free!</a>
+			<?php if (isset($_SESSION['uid'])) : ?>
+				<?php if (isset($_SESSION['rid']) && $_SESSION['rid'] == 1) : ?>
+					<a href="<?php url('/add-resume') ?>" class="button">Post a Resume, It’s Free!</a>
+				<?php elseif (isset($_SESSION['uid']) && $_SESSION['rid'] == 2 || $_SESSION['rid'] == 0) : ?>
+					<!-- Will not be shown to jobseekers -->
+				<?php else : ?>
+					<a href="<?php url('/add-resume') ?>" class="button">Post a Resume, It’s Free!</a>
+				<?php endif; ?>
 			<?php endif; ?>
 		</div>
 
