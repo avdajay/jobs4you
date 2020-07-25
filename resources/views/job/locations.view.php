@@ -9,7 +9,13 @@
 		</div>
 
 		<div class="six columns">
-			<a href="<?php url('/add-resume') ?>" class="button">Post a Resume, It’s Free!</a>
+			<?php if (isset($_SESSION['uid']) && $_SESSION['rid'] == 2) : ?>
+				<a href="<?php url('/add-jobs') ?>" class="button">Post a Job, It’s Free!</a>
+			<?php elseif (isset($_SESSION['uid']) && $_SESSION['rid'] == 1 || $_SESSION['rid'] == 0) : ?>
+				<!-- Will not be shown to jobseekers -->
+			<?php else : ?>
+				<a href="<?php url('/add-jobs') ?>" class="button">Post a Job, It’s Free!</a>
+			<?php endif; ?>
 		</div>
 
 	</div>
@@ -22,7 +28,9 @@
 	<!-- Categories Group -->
 	<div class="categories-group">
 		<div class="container">
-			<div class="four columns"><h4>Western Visayas</h4></div>
+			<div class="four columns">
+				<h4>Western Visayas</h4>
+			</div>
 			<div class="four columns">
 				<ul>
 					<li><a href="/job?location=1">Aklan</a></li>
@@ -43,7 +51,9 @@
 	<!-- Categories Group -->
 	<div class="categories-group">
 		<div class="container">
-			<div class="four columns"><h4>Central Visayas</h4></div>
+			<div class="four columns">
+				<h4>Central Visayas</h4>
+			</div>
 			<div class="four columns">
 				<ul>
 					<li><a href="/job?location=7">Bohol</a></li>
@@ -62,7 +72,9 @@
 	<!-- Categories Group -->
 	<div class="categories-group">
 		<div class="container">
-			<div class="four columns"><h4>Eastern Visayas</h4></div>
+			<div class="four columns">
+				<h4>Eastern Visayas</h4>
+			</div>
 			<div class="four columns">
 				<ul>
 					<li><a href="/job?location=11">Biliran</a></li>

@@ -8,38 +8,33 @@ class ResumeController extends Controller
     private $educTable = "education";
     private $expTable = "experience";
     private $skillsTbl = "skills";
-    
+
     public function __construct()
     {
-        
     }
 
     public function bookmark()
     {
-        
-        if (isset($_SESSION['uid']))
-        {
+
+        if (isset($_SESSION['uid'])) {
             $db = new Database();
             $cdb = $db->connect();
             $this->conn = $cdb;
-    
+
             $data = [
                 'id' => $this->sanitize($_POST['bookmark']),
                 'uid' => $_SESSION['uid'],
             ];
-    
+
             $query = "INSERT INTO bookmarks (bookmark_user, bookmark_content) VALUES (:uid, :id)";
             $stmt = $this->conn->prepare($query);
             $stmt->execute($data);
-            
+
             echo '<script>alert("Resume has been bookmarked!")</script>';
             return redirect('main');
-        }
-        else
-        {
+        } else {
             return redirect('login');
         }
-
     }
 
     public function filter($location, $title)
@@ -50,7 +45,7 @@ class ResumeController extends Controller
 
         $data = [
             'location' => $this->sanitize($location),
-            'title' => "%".$this->sanitize($title)."%",
+            'title' => "%" . $this->sanitize($title) . "%",
         ];
 
         $query = "SELECT resume.*, locations.island_name AS lname FROM resume INNER JOIN locations ON locations.id = resume.location WHERE locations.id = :location AND resume.title LIKE :title";
@@ -62,7 +57,7 @@ class ResumeController extends Controller
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $location = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         return view('browse-resume', ['resume' => $resume, 'location' => $location]);
     }
 
@@ -81,7 +76,7 @@ class ResumeController extends Controller
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $location = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         return view('browse-resume', ['resume' => $resume, 'location' => $location]);
     }
 
@@ -97,13 +92,10 @@ class ResumeController extends Controller
         $resume = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-        if (empty($resume))
-        {
+        if (empty($resume)) {
             http_response_code(404);
             die();
-        }
-        else 
-        {    
+        } else {
             $query = "SELECT resume.*, locations.island_name AS location_name, applicants.photo AS latestPhoto, applicants.twitter AS twitter, applicants.linkedin FROM resume INNER JOIN locations ON resume.location = locations.id INNER JOIN applicants ON applicants.user_id = resume.user_id WHERE resume.id = :id";
             $stmt = $this->conn->prepare($query);
             $stmt->execute(['id' => $_GET['id']]);
@@ -128,7 +120,7 @@ class ResumeController extends Controller
             $stmt = $this->conn->prepare($query);
             $stmt->execute(['id' => $id, 'uid' => isset($_SESSION['uid']) ? $_SESSION['uid'] : null]);
             $bookmark = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
             return view('resume', ['resume' => $resume, 'experience' => $exp, 'educ' => $educ, 'skills' => $skills, 'bookmark' => $bookmark]);
         }
     }
@@ -146,13 +138,10 @@ class ResumeController extends Controller
         $this->middleware(['auth', 'verified', 'seeker']);
 
         $user = new User();
-        
-        if ($_SESSION['rid'] == 1)
-        {
+
+        if ($_SESSION['rid'] == 1) {
             $type = $user->user_applicants($_SESSION['uid']);
-        }
-        else
-        {
+        } else {
             $type = $user->user_employees($_SESSION['uid']);
         }
 
@@ -171,20 +160,17 @@ class ResumeController extends Controller
         $stmt = $this->conn->prepare($query);
         $stmt->execute(['user_id' => $_SESSION['uid']]);
         $resume = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         return view('dashboard/manage-resumes', ['resume' => $resume]);
     }
 
     public function save()
     {
         $user = new User();
-        
-        if ($_SESSION['rid'] == 1)
-        {
+
+        if ($_SESSION['rid'] == 1) {
             $result = array('user' => $user->user_applicants($_SESSION['uid']));
-        }
-        else
-        {
+        } else {
             $result = array('user' => $user->user_employees($_SESSION['uid']));
         }
 
@@ -228,29 +214,27 @@ class ResumeController extends Controller
         // Skills Information
         $skill = $_POST['skill'];
         $difficulty = $_POST['skillLevel'];
-        
-        try
-        {
+
+        try {
             $query = "INSERT INTO " . $this->table . "(name, email, title, location, photo, description, salary, created_at, user_id) VALUES (:name, :email, :title, :location, :photo, :description, :salary, :created, :user_id)";
             $stmt = $this->conn->prepare($query);
             $stmt->execute($data);
             $lastId = $this->conn->lastInsertId();
 
             $filtered = array_filter($school);
-  
+
             // Education Query
-            foreach ($filtered as $index => $value)
-            {
+            foreach ($filtered as $index => $value) {
                 $schoolQuery = "INSERT INTO " . $this->educTable . " (resume_id, school_name, type, course, major, start_year, end_year, description) VALUES (:resume_id, :school_name, :type, :course, :major, :start_year, :end_year, :description)";
                 $stmt = $this->conn->prepare($schoolQuery);
                 $stmt->execute([
-                    'resume_id'     => $this->sanitize($lastId), 
-                    'school_name' => $this->sanitize($school[$index]), 
-                    'type'        => $this->sanitize($type[$index]), 
-                    'course'      => $this->sanitize($course[$index]), 
-                    'major'       => $this->sanitize($major[$index]), 
-                    'start_year'  => $this->sanitize($start[$index]), 
-                    'end_year'    => $this->sanitize($end[$index]), 
+                    'resume_id'     => $this->sanitize($lastId),
+                    'school_name' => $this->sanitize($school[$index]),
+                    'type'        => $this->sanitize($type[$index]),
+                    'course'      => $this->sanitize($course[$index]),
+                    'major'       => $this->sanitize($major[$index]),
+                    'start_year'  => $this->sanitize($start[$index]),
+                    'end_year'    => $this->sanitize($end[$index]),
                     'description' => $this->sanitize($description[$index]),
                 ]);
             }
@@ -258,9 +242,8 @@ class ResumeController extends Controller
             // Experience Query
             $filtered = array_filter($employer);
 
-            foreach ($filtered as $index => $value)
-            {
-            
+            foreach ($filtered as $index => $value) {
+
                 $employerQuery = "INSERT INTO " . $this->expTable . " (resume_id, employer_name, position, employment_type_id, start_date, end_date, summary) VALUES (:resume_id, :employer, :position, :level, :start, :end, :summary)";
                 $stmt = $this->conn->prepare($employerQuery);
                 $stmt->execute([
@@ -272,15 +255,13 @@ class ResumeController extends Controller
                     'end'      => $this->sanitize($end_date[$index]),
                     'summary'  => $this->sanitize($summary[$index]),
                 ]);
-
             }
 
             // Skills Query
             $filtered = array_filter($skill);
 
-            foreach ($filtered as $index => $value)
-            {
-            
+            foreach ($filtered as $index => $value) {
+
                 $skillsQuery = "INSERT INTO " . $this->skillsTbl . " (resume_id, name, difficulty) VALUES (:resume_id, :name, :difficulty)";
                 $stmt = $this->conn->prepare($skillsQuery);
                 $stmt->execute([
@@ -288,16 +269,12 @@ class ResumeController extends Controller
                     'name' => $this->sanitize($skill[$index]),
                     'difficulty' => $this->sanitize($difficulty[$index]),
                 ]);
-
             }
 
             return redirect('manage-resume');
-        }
-        catch (PDOException $e)
-        {   
+        } catch (PDOException $e) {
             array_push($_SESSION['message'], ['error' => 'Error creating resume. Check your data!']);
             echo $e->getMessage();
         }
     }
-    
 }

@@ -5,7 +5,7 @@ use Carbon\Carbon;
 class AuthController extends Controller
 {
 	private $conn;
-	
+
 	public function login()
 	{
 		return view('login');
@@ -23,12 +23,9 @@ class AuthController extends Controller
 
 	public function handleActivation($token)
 	{
-		if (empty($token))
-		{
+		if (empty($token)) {
 			array_push($_SESSION['message'], ['error' => 'Token cannot be empty!']);
-		}
-		else
-		{
+		} else {
 			$db = new Database();
 			$cdb = $db->connect();
 			$this->conn = $cdb;
@@ -38,18 +35,15 @@ class AuthController extends Controller
 			$stmt->execute(['code' => $this->sanitize($token)]);
 			$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-			if (empty($user))
-			{
+			if (empty($user)) {
 				array_push($_SESSION['message'], ['error' => 'Invalid token or has expired!']);
-			}
-			else
-			{
+			} else {
 				$actData = [
 					'id' => $user['id'],
 					'activated' => Carbon::now(new DateTimeZone('Asia/Manila')),
 					'code' => null
 				];
-	
+
 				$actQuery = "UPDATE users SET activated_at =:activated, activation_code=:code WHERE id=:id";
 				$actstmt = $this->conn->prepare($actQuery);
 				$actstmt->execute($actData);
@@ -73,7 +67,7 @@ class AuthController extends Controller
 				'location' => 1,
 				'user_id' => $user['id'],
 			];
-	
+
 			$employersData = [
 				'user_id' => $user['id'],
 				'name' => null,
@@ -88,21 +82,20 @@ class AuthController extends Controller
 				'twitter' => null,
 				'linkedin' => null,
 				'location' => 1,
-				'verified_at' => null, 
+				'verified_at' => null,
 			];
-	
+
 			$applicantsTable = "applicants";
 			$employersTable = "employers";
-	
-			switch ($user['role_id'])
-			{
+
+			switch ($user['role_id']) {
 				case 1:
-					
+
 					$query = "INSERT INTO " . $applicantsTable . "(name, address, phone, summary, facebook, twitter, linkedin, slug, photo, location, user_id) VALUES (:name, :address, :phone, :summary, :facebook, :twitter, :linkedin, :slug, :photo, :location, :user_id)";
 					$stmt = $this->conn->prepare($query);
 					$stmt->execute($applicantsData);
 					break;
-				
+
 				case 2:
 					$query = "INSERT INTO " . $employersTable . "(user_id, name, address, description, phone, size, logo, slug, website, facebook, twitter, linkedin, location, verified_at) VALUES (:user_id, :name, :address, :description, :phone, :size, :logo, :slug, :website, :facebook, :twitter, :linkedin, :location, :verified_at)";
 					$stmt = $this->conn->prepare($query);
@@ -135,27 +128,22 @@ class AuthController extends Controller
 		$html = preg_replace('/{home}/', $home, $html);
 		$html = preg_replace('/{logo}/', $logo, $html);
 
-		try
-		{
+		try {
 			$message = (new Swift_Message())
 				->setSubject('Welcome to Jobs4You')
 				->setFrom([$fromEmail => $fromName])
 				->setTo($email)
 				->setBody($html, 'text/html');
-			
+
 			$transport = (new Swift_SmtpTransport($host, $port))
 				->setUsername($user)
 				->setPassword($pass);
 
 			$mailer = new Swift_Mailer($transport);
 			$mailer->send($message);
-
-		}
-		catch (Exception $e)
-		{
+		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
-
 	}
 
 	public function sendActivationEmail($email, $token)
@@ -177,24 +165,20 @@ class AuthController extends Controller
 		$html = preg_replace('/{email}/', $email, $html);
 		$html = preg_replace('/{token}/', $token, $html);
 
-		try
-		{
+		try {
 			$message = (new Swift_Message())
 				->setSubject('Verify Email Address - Jobs4You')
 				->setFrom([$fromEmail => $fromName])
 				->setTo($email)
 				->setBody($html, 'text/html');
-			
+
 			$transport = (new Swift_SmtpTransport($host, $port, $encryption))
 				->setUsername($user)
 				->setPassword($pass);
 
 			$mailer = new Swift_Mailer($transport);
 			$mailer->send($message);
-
-		}
-		catch (Exception $e)
-		{
+		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
 	}
@@ -202,7 +186,7 @@ class AuthController extends Controller
 	public function authenticate($email, $password)
 	{
 		$db = new Database();
-        $cdb = $db->connect();
+		$cdb = $db->connect();
 		$this->conn = $cdb;
 
 		$query = "SELECT * FROM users WHERE email=?";
@@ -210,78 +194,63 @@ class AuthController extends Controller
 		$stmt->execute([$this->sanitize($email)]);
 		$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		if (empty($user))
-		{
+		if (empty($user)) {
 			array_push($_SESSION['message'], ['error' => 'No existing user found! Register an account.']);
-		}
-		else
-		{
-			if (empty($_POST['email']))
-			{
+		} else {
+			if (empty($_POST['email'])) {
 				array_push($_SESSION['message'], ['error' => 'Email address is required!']);
 			}
-			if (empty($_POST['password']))
-			{
+			if (empty($_POST['password'])) {
 				array_push($_SESSION['message'], ['error' => 'Password is required!']);
 			}
-			if (isset($_POST['email']) && !empty($_POST['email']) && password_verify($password, $user['password']) && empty($user['suspended_at']))
-			{
+			if (isset($_POST['email']) && !empty($_POST['email']) && password_verify($password, $user['password']) && empty($user['suspended_at'])) {
 				$_SESSION['uid'] = $user['id'];
 				$_SESSION['rid'] = $user['role_id'];
 				$_SESSION['act'] = $user['activated_at'];
-				
+
+				if ($user['role_id'] === "0") { // Admin. Role 0 is Administrator Account
+					return redirect('admin');
+				}
+
 				return redirect('main');
-			}
-			elseif (!empty($user['suspended_at']))
-			{
+			} elseif (!empty($user['suspended_at'])) {
 				array_push($_SESSION['message'], ['error' => 'Your account is suspended. Contact support!']);
-			}
-			else
-			{
+			} else {
 				array_push($_SESSION['message'], ['error' => 'Invalid email or password!']);
 			}
 		}
-		
 	}
 
 	public function insert()
 	{
 		$db = new Database();
-        $cdb = $db->connect();
+		$cdb = $db->connect();
 		$this->conn = $cdb;
 
 		$query = "SELECT * FROM users WHERE email=?";
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute([$this->sanitize($_POST['email'])]);
 		$user = $stmt->fetch(PDO::FETCH_ASSOC);
-		
-		if (!empty($user) && !empty($_POST['email']))
-		{
+
+		if (!empty($user) && !empty($_POST['email'])) {
 			array_push($_SESSION['message'], ['error' => 'Existing email! Try logging in.']);
-		}
-		else
-		{
-			if (empty($_POST['email']))
-			{
+		} else {
+			if (empty($_POST['email'])) {
 				array_push($_SESSION['message'], ['error' => 'Email address is required!']);
 			}
-			if (empty($_POST['password']))
-			{
+			if (empty($_POST['password'])) {
 				array_push($_SESSION['message'], ['error' => 'Password is required!']);
 			}
-			if (empty($_POST['confirm']))
-			{
+			if (empty($_POST['confirm'])) {
 				array_push($_SESSION['message'], ['error' => 'Confirm Password is required!']);
 			}
-			if (strlen($_POST['password']) < 8)
-			{
+			if (strlen($_POST['password']) < 8) {
 				array_push($_SESSION['message'], ['error' => 'Password length must be greater than 8!']);
 			}
-			
-			if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirm']) && $_POST['confirm'] == $_POST['password'] && strlen($_POST['password']) > 8)
-			{
+
+			if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirm']) && $_POST['confirm'] == $_POST['password'] && strlen($_POST['password']) > 8) {
 				$actToken = sha1($this->sanitize($_POST['email']) . rand(100000, 999999) . microtime());
-			
+
 				$user = new User();
 				$user->email = $this->sanitize($_POST['email']);
 				$user->password = $_POST['password'];
@@ -293,12 +262,11 @@ class AuthController extends Controller
 				$user->save();
 
 				$this->sendActivationEmail($this->sanitize($_POST['email']), $actToken);
-				
+
 				return redirect('activate');
 			}
 
-			if ($_POST['confirm'] != $_POST['password'])
-			{
+			if ($_POST['confirm'] != $_POST['password']) {
 				array_push($_SESSION['message'], ['error' => 'Password Confirmation does not match!']);
 			}
 		}

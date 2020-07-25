@@ -8,7 +8,7 @@
     <div class="container">
 
         <div class="sixteen columns">
-            <h2>Login to Jobs4You</h2>
+            <h2>Login to <?php echo config('app', 'name') ?></h2>
             <nav id="breadcrumbs">
                 <ul>
                     <li>You are here:</li>
@@ -29,10 +29,10 @@
 <div class="container">
     <div class="my-account">
         <!-- Login -->
-        <?php if (!empty($_SESSION['message'])): ?>
-            <?php foreach ($_SESSION['message'] as $error): ?>
+        <?php if (!empty($_SESSION['message'])) : ?>
+            <?php foreach ($_SESSION['message'] as $error) : ?>
                 <div class="notification error closeable">
-                    <p><span><?php echo 'Error! '?></span><?php echo $error['error']; ?></p>
+                    <p><span><?php echo 'Error! ' ?></span><?php echo $error['error']; ?></p>
                     <a class="close" href="#"></a>
                 </div>
             <?php endforeach; ?>
@@ -61,7 +61,7 @@
                 <!-- <p class="lost_password">
                     <a href="#">Lost Your Password?</a>
                 </p> -->
-                
+
             </form>
         </div>
     </div>

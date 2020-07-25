@@ -56,28 +56,26 @@ class DashboardController extends Controller
         $totalJobCount = 0;
         $singleCount = null;
 
-        foreach ($jobCount as $count)
-        {
+        foreach ($jobCount as $count) {
             $totalJobCount = $totalJobCount + $count['jobCount'];
 
-            if ($count['id'] == null)
-            {
+            if ($count['id'] == null) {
                 $singleCount;
-            }
-            else
-            {
+            } else {
                 $singleCount = $jobCount;
             }
         }
-       
-        return view('dashboard/index', ['resume' => $resume, 
-                                        'applications' => $applications, 
-                                        'bookmarks' => $bookmarks, 
-                                        'exposure' => $exposure,
-                                        'jobs' => $jobs,
-                                        'count' => $singleCount,
-                                        'totalCount' => $totalJobCount,
-                                        'bookmarksEmployer' => $bookmarksEmployer,
-                                        'bookmarksList' => $bookmarksList]);
+
+        return view('dashboard/index', [
+            'resume' => $resume,
+            'applications' => $applications,
+            'bookmarks' => $bookmarks,
+            'exposure' => $exposure,
+            'jobs' => $jobs,
+            'count' => $singleCount,
+            'totalCount' => $totalJobCount,
+            'bookmarksEmployer' => $bookmarksEmployer,
+            'bookmarksList' => $bookmarksList
+        ]);
     }
 }

@@ -5,10 +5,9 @@ use Carbon\Carbon;
 class JobController extends Controller
 {
     private $table = 'jobs';
-    
+
     public function __construct()
     {
-
     }
 
     public function edit($id)
@@ -76,7 +75,7 @@ class JobController extends Controller
 
         $data = [
             'category' => $this->sanitize($category),
-            'city' => ucwords($this->sanitize($city)),
+            'city' => "%" . $this->sanitize($city) . "%",
             'type' => $this->sanitize($type)
         ];
 
@@ -85,7 +84,7 @@ class JobController extends Controller
         INNER JOIN locations ON jobs.location = locations.id 
         INNER JOIN employers ON jobs.user_id = employers.user_id 
         INNER JOIN categories ON jobs.category = categories.id 
-        WHERE jobs.category = :category AND locations.island_name = :city AND jobs.employment_type = :type";
+        WHERE jobs.category = :category AND locations.island_name LIKE :city AND jobs.employment_type = :type";
         $stmt = $this->conn->prepare($query);
         $stmt->execute($data);
         $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -107,7 +106,7 @@ class JobController extends Controller
         $stmt = $this->conn->prepare($query);
         $stmt->execute($data);
         $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         return view('job/browse', ['jobs' => $jobs]);
     }
 
@@ -125,7 +124,7 @@ class JobController extends Controller
         $stmt = $this->conn->prepare($query);
         $stmt->execute($data);
         $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         return view('job/browse', ['jobs' => $jobs]);
     }
 
@@ -136,15 +135,15 @@ class JobController extends Controller
         $this->conn = $cdb;
 
         $data = [
-            'keywords' => "%".$this->sanitize($keywords)."%",
+            'keywords' => "%" . $this->sanitize($keywords) . "%",
             'location' => $this->sanitize($location)
         ];
 
-        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE employers.name OR jobs.job_title LIKE :keywords AND locations.island_name = :location";
+        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE employers.name OR jobs.job_title LIKE :keywords OR locations.island_name = :location";
         $stmt = $this->conn->prepare($query);
         $stmt->execute($data);
         $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         return view('job/browse', ['jobs' => $jobs]);
     }
 
@@ -163,7 +162,7 @@ class JobController extends Controller
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $cat = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         return view('job/browse', ['jobs' => $jobs, 'categories' => $cat]);
     }
 
@@ -188,32 +187,25 @@ class JobController extends Controller
         $stmt->execute(['id' => $id]);
         $job = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (isset($_SESSION['uid']))
-        {
+        if (isset($_SESSION['uid'])) {
             $query = "SELECT * FROM applications WHERE user_id=:uid";
             $stmt = $this->conn->prepare($query);
             $stmt->execute(['uid' => $_SESSION['uid']]);
             $app = $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
-        if (empty($job))
-        {
+        if (empty($job)) {
             http_response_code(404);
             die();
-        }
-        else 
-        {
-            if (isset($_SESSION['uid']))
-            {
+        } else {
+            if (isset($_SESSION['uid'])) {
                 $query = "SELECT * FROM resume WHERE user_id=:uid";
                 $stmt = $this->conn->prepare($query);
                 $stmt->execute(['uid' => $_SESSION['uid']]);
                 $resume = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
+
                 return view('job/single', ['job' => $job, 'resume' => $resume, 'app' => $app]);
-            }
-            else
-            {
+            } else {
                 return view('job/single', ['job' => $job]);
             }
         }
@@ -232,8 +224,7 @@ class JobController extends Controller
         $stmt->execute(['user_id' => $_SESSION['uid']]);
         $type = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (empty($type))
-        {
+        if (empty($type)) {
             return redirect('profile');
         }
 
@@ -260,13 +251,14 @@ class JobController extends Controller
         $stmt->execute();
         $levels = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        
-        return view('dashboard/add-job', ['user'       => $currentUser, 
-                                          'type'       => $type, 
-                                          'categories' => $categories, 
-                                          'locations'  => $locations,
-                                          'levels'      => $levels
-                                          ]);
+
+        return view('dashboard/add-job', [
+            'user'       => $currentUser,
+            'type'       => $type,
+            'categories' => $categories,
+            'locations'  => $locations,
+            'levels'      => $levels
+        ]);
     }
 
     public function insert()
@@ -274,12 +266,12 @@ class JobController extends Controller
         $db = new Database();
         $cdb = $db->connect();
         $this->conn = $cdb;
-        
+
         $data = [
-			'user_id' => $_SESSION['uid'],
-			'email' => $_POST['email'],
-			'type' => $_POST['type'],
-			'title' => $_POST['title'],
+            'user_id' => $_SESSION['uid'],
+            'email' => $_POST['email'],
+            'type' => $_POST['type'],
+            'title' => $_POST['title'],
             'category' => $_POST['category'],
             'location' => $_POST['location'],
             'level' => $_POST['level'],
@@ -292,28 +284,23 @@ class JobController extends Controller
             'subscription' => null,
         ];
 
-        if (empty($_POST['email']))
-        {
+        if (empty($_POST['email'])) {
             array_push($_SESSION['message'], ['error' => 'Email field is required!']);
         }
 
-        if (empty($_POST['title']))
-        {
+        if (empty($_POST['title'])) {
             array_push($_SESSION['message'], ['error' => 'Job Title field is required!']);
         }
 
-        if (empty($_POST['description']))
-        {
+        if (empty($_POST['description'])) {
             array_push($_SESSION['message'], ['error' => 'Description field is required!']);
         }
 
-        if (empty($_POST['tags']))
-        {
+        if (empty($_POST['tags'])) {
             array_push($_SESSION['message'], ['error' => 'Tags field is required!']);
         }
 
-        if (!empty($_POST['email']) && !empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['tags']))
-        {
+        if (!empty($_POST['email']) && !empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['tags'])) {
             $query = "INSERT INTO " . $this->table . "(user_id, email, employment_type, job_title, category, location, level, description, tags, expired_at, created_at, approved_at, filled_at, subscription) VALUES (:user_id, :email, :type, :title, :category, :location, :level, :description, :tags, :expired_at, :created_at, :approved_at, :filled_at, :subscription)";
             $stmt = $this->conn->prepare($query);
             $stmt->execute($data);
@@ -340,21 +327,17 @@ class JobController extends Controller
             'notes'      => null,
         ];
 
-        try
-        {
+        try {
             $query = "INSERT INTO applications (message, job_id, resume_id, user_id, applied_at, status, rating, employer_notes) VALUES (:message, :job_id, :resume_id, :user_id, :applied_at, :status, :rating, :notes)";
             $stmt = $this->conn->prepare($query);
-            $result = $stmt->execute($data);  
+            $result = $stmt->execute($data);
             array_push($_SESSION['success'], ['success' => 'You have applied to this job! Expect a response soon.']);
 
             $msg = 'Hello, this is an automated response to inform you that we have received your resume for the job ' . $_POST['title'] . '. Received at ' . Carbon::now('Asia/Manila')->toDayDateTimeString()
-            . '. Expect a response from one of our representatives soon! Thank you.';
+                . '. Expect a response from one of our representatives soon! Thank you.';
             $message = new MessageController();
             $message->create($_POST['employer'], $_POST['employer'], $_SESSION['uid'], $msg);
-      
-        }
-        catch(PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e->getMessage();
         }
     }
@@ -416,7 +399,7 @@ class JobController extends Controller
         $query = "UPDATE applications SET employer_notes = :notes WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute($data);
-        
+
         array_push($_SESSION['success'], ['success' => 'Employer note for <strong>' . $applicant . '</strong> has been updated!']);
     }
 
@@ -429,12 +412,11 @@ class JobController extends Controller
         $applicant = $_POST['applicant'];
         $rating = null;
 
-        switch ($_POST['rating'])
-        {
+        switch ($_POST['rating']) {
             case 1:
                 $rating = 'one-stars';
                 break;
-            
+
             case 2:
                 $rating = 'two-stars';
                 break;
@@ -465,16 +447,15 @@ class JobController extends Controller
         $stmt = $this->conn->prepare($query);
         $stmt->execute($data);
 
-        if ($_POST['status'] === 'checking')
-        {
+        if ($_POST['status'] === 'checking') {
             $msg = "Hello, this is an automated response to inform you that our Recruitment Specialist is now working
             on your application. Make you sure you entered an updated phone number so we will able to contact you.
-            Thank you. Generated on ". Carbon::now('Asia/Manila')->toDayDateTimeString();
+            Thank you. Generated on " . Carbon::now('Asia/Manila')->toDayDateTimeString();
 
             $message = new MessageController();
             $message->create($_SESSION['uid'], $_SESSION['uid'], $this->sanitize($_POST['applicantID']), $msg);
         }
-        
+
         array_push($_SESSION['success'], ['success' => 'Status and rating for <strong>' . $applicant . '</strong> has been updated!']);
     }
 }
