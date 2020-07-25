@@ -9,7 +9,7 @@
 		</div>
 
 		<div class="six columns">
-			<?php if (isset($_SESSION['uid']) && $_SESSION['rid'] == 2) : ?>
+			<?php if (isset($_SESSION['rid']) && $_SESSION['rid'] == 2) : ?>
 				<a href="<?php url('/add-jobs') ?>" class="button">Post a Job, It’s Free!</a>
 			<?php elseif (isset($_SESSION['uid']) && $_SESSION['rid'] == 1 || $_SESSION['rid'] == 0) : ?>
 				<!-- Will not be shown to jobseekers -->
