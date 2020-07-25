@@ -181,6 +181,19 @@ class ResumeController extends Controller
         $cdb = $db->connect();
         $this->conn = $cdb;
 
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
+
+        if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $start_date)) {
+            array_push($_SESSION['message'], ['error' => 'Error creating resume. Check your data!']);
+            throw new Exception("Please check correct form formatting");
+        }
+
+        if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $end_date)) {
+            array_push($_SESSION['message'], ['error' => 'Error creating resume. Check your data!']);
+            throw new Exception("Please check correct form formatting");
+        }
+
         // Resume Details
         $data = [
             'name' => $this->sanitize(ucwords($_POST['name'])),

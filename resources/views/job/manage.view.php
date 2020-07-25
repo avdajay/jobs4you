@@ -23,7 +23,7 @@
 <!-- Content
 ================================================== -->
 <div class="container">
-	
+
 	<!-- Table -->
 	<div class="sixteen columns">
 
@@ -39,7 +39,7 @@
 				<th><i class="fa fa-user"></i> Applications</th>
 				<th></th>
 			</tr>
-					
+
 			<!-- Item #1 -->
 			<tr>
 				<td class="title"><a href="#">Marketing Coordinator - SEO / SEM Experience <span class="pending">(Pending Approval)</span></a></td>
@@ -51,7 +51,7 @@
 					<a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
 				</td>
 			</tr>
-					
+
 			<!-- Item #2 -->
 			<tr>
 				<td class="title"><a href="#">Web Developer - Front End Web Development, Relational Databases</a></td>
@@ -64,7 +64,7 @@
 					<a href="#"><i class="fa  fa-check "></i> Mark Filled</a>
 					<a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
 				</td>
-			</tr>	
+			</tr>
 
 			<!-- Item #2 -->
 			<tr>
