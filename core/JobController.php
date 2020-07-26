@@ -503,7 +503,7 @@ class JobController extends Controller
 
         try {
             $message = (new Swift_Message())
-                ->setSubject('You\'ve got applications! - Jobs4You')
+                ->setSubject('You have new applications! - Jobs4You')
                 ->setFrom([$fromEmail => $fromName])
                 ->setTo($email)
                 ->setBody($html, 'text/html');

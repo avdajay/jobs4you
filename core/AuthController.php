@@ -49,10 +49,10 @@ class AuthController extends Controller
 				$actstmt->execute($actData);
 			}
 
-			$sesQuery = "SELECT * FROM users WHERE id=:id";
-			$sesStmt = $this->conn->prepare($sesQuery);
-			$sesStmt->execute(['id' => $user['id']]);
-			$sesUser = $sesStmt->fetch(PDO::FETCH_ASSOC);
+			$query = "SELECT * FROM users WHERE id = :user_id";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute(['user_id' => $user['id']]);
+			$userSes = $stmt->fetch(PDO::FETCH_ASSOC);
 
 			$applicantsData = [
 				'name' => null,
@@ -103,11 +103,12 @@ class AuthController extends Controller
 					break;
 			}
 
-			$this->sendWelcomeEmail($sesUser['email']);
+			$this->sendWelcomeEmail($userSes['email']);
+
+			$_SESSION['act'] = $userSes['activated_at'];
 
 			array_push($_SESSION['success'], ['success' => 'Account has been activated!']);
 
-			$_SESSION['act'] = $sesUser['activated_at'];
 			return redirect('main');
 		}
 	}
@@ -118,6 +119,7 @@ class AuthController extends Controller
 		$user = config('mail', 'username');
 		$pass = config('mail', 'password');
 		$port = config('mail', 'port');
+		$encryption = config('mail', 'encryption');
 		$fromName = config('mail', 'name');
 		$fromEmail = config('mail', 'email');
 
@@ -135,7 +137,7 @@ class AuthController extends Controller
 				->setTo($email)
 				->setBody($html, 'text/html');
 
-			$transport = (new Swift_SmtpTransport($host, $port))
+			$transport = (new Swift_SmtpTransport($host, $port, $encryption))
 				->setUsername($user)
 				->setPassword($pass);
 
@@ -263,7 +265,7 @@ class AuthController extends Controller
 
 				$this->sendActivationEmail($this->sanitize($_POST['email']), $actToken);
 
-				return redirect('activate');
+				return redirect('login');
 			}
 
 			if ($_POST['confirm'] != $_POST['password']) {
