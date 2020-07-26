@@ -354,11 +354,11 @@ class JobController extends Controller
             $theMessage = $_POST['message'];
             $resume = $_POST['resume'];
             $application = $_GET['id'];
-
-            $this->sendNewApplicationEmail($email, $theJob, $applicant, $theMessage, $resume, $application);
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
+
+        $this->sendNewApplicationEmail($email, $theJob, $applicant, $theMessage, $resume, $application);
     }
 
     public function manage()
@@ -503,7 +503,7 @@ class JobController extends Controller
 
         try {
             $message = (new Swift_Message())
-                ->setSubject('Verify Email Address - Jobs4You')
+                ->setSubject('You\'ve got applications! - Jobs4You')
                 ->setFrom([$fromEmail => $fromName])
                 ->setTo($email)
                 ->setBody($html, 'text/html');
@@ -517,9 +517,5 @@ class JobController extends Controller
         } catch (Exception $e) {
             echo $e->getMessage();
         }
-    }
-
-    public function sendApplicationReviewedEmail()
-    {
     }
 }
