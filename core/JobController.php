@@ -139,7 +139,7 @@ class JobController extends Controller
             'location' => $this->sanitize($location)
         ];
 
-        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE employers.name OR jobs.job_title LIKE :keywords AND locations.island_name = :location";
+        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE employers.name OR jobs.job_title LIKE :keywords OR locations.island_name = :location";
         $stmt = $this->conn->prepare($query);
         $stmt->execute($data);
         $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
