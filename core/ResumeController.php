@@ -187,15 +187,17 @@ class ResumeController extends Controller
         $cdb = $db->connect();
         $this->conn = $cdb;
 
-        $start_date = $_POST['start_date'];
-        $end_date = $_POST['end_date'];
+        $start_dates = $_POST['start_date'];
+        $end_dates = $_POST['end_date'];
 
-        if (!$this->validateDate($start_date)) {
-            throw new Exception("Please check correct form date formatting");
-        }
+        foreach ($start_dates as $index => $value) {
+            if (!$this->validateDate($value)) {
+                throw new Exception("Please check correct form date formatting");
+            }
 
-        if (!$this->validateDate($end_date)) {
-            throw new Exception("Please check correct form date formatting");
+            if (!$this->validateDate($value)) {
+                throw new Exception("Please check correct form date formatting");
+            }
         }
 
         // Resume Details
