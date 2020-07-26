@@ -340,10 +340,10 @@ class JobController extends Controller
 
             $query = "SELECT * FROM jobs WHERE id = :job_id";
             $stmt = $this->conn->prepare($query);
-            $stmt->execute(['job_id' => $_GET['id']]);
+            $stmt->execute(['job_id' => $data['job_id']]);
             $job = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $query = "SELECT * FROM applicants WHERE id = :user_id";
+            $query = "SELECT * FROM applicants WHERE user_id = :user_id";
             $stmt = $this->conn->prepare($query);
             $stmt->execute(['user_id' => $_SESSION['uid']]);
             $app = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -354,11 +354,11 @@ class JobController extends Controller
             $theMessage = $_POST['message'];
             $resume = $_POST['resume'];
             $application = $_GET['id'];
+
+            $this->sendNewApplicationEmail($email, $theJob, $applicant, $theMessage, $resume, $application);
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-
-        $this->sendNewApplicationEmail($email, $theJob, $applicant, $theMessage, $resume, $application);
     }
 
     public function manage()
