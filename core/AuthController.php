@@ -105,6 +105,7 @@ class AuthController extends Controller
 
 			$this->sendWelcomeEmail($userSes['email']);
 
+			$_SESSION['rid'] = $userSes['role_id'];
 			$_SESSION['act'] = $userSes['activated_at'];
 
 			array_push($_SESSION['success'], ['success' => 'Account has been activated!']);
