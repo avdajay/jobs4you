@@ -493,7 +493,7 @@ class JobController extends Controller
         $resumeLink = 'http://' . $_SERVER['SERVER_NAME'] . '/resume?id=' . $resume;
         $applicantLink = 'http://' . $_SERVER['SERVER_NAME'] . '/manage-applications?id=' . $application;
 
-        $html = file_get_contents(__DIR__ . '/../resources/views/mails/email-activation.html');
+        $html = file_get_contents(__DIR__ . '/../resources/views/mails/new-application.html');
         $html = preg_replace('/{home}/', $home, $html);
         $html = preg_replace('/{logo}/', $logo, $html);
         $html = preg_replace('/{job}/', $job, $html);
