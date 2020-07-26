@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Verify Email Address - Jobs4You</title>
+    <title>New Job Application - Jobs4You</title>
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"
       rel="stylesheet"
@@ -168,7 +168,7 @@
                       >
                         <img
                           src="{logo}"
-                          alt="Jobs4You Logo"
+                          alt="Jobwander Logo"
                           width="150"
                           border="0"
                           style="display: block; width: 150px;"
@@ -203,7 +203,7 @@
                           font-size: 28px;
                           line-height: 30px;
                           font-weight: 300;
-                          letter-spacing: -1.5px;
+                          letter-spacing: 0px;
                         "
                       >
                         <span
@@ -214,9 +214,9 @@
                             font-size: 28px;
                             line-height: 30px;
                             font-weight: 300;
-                            letter-spacing: -1.5px;
+                            letter-spacing: 0px;
                           "
-                          >Hello {email},</span
+                          >You've got applications!</span
                         >
                       </font>
                       <div
@@ -241,11 +241,14 @@
                             font-size: 18px;
                             line-height: 20px;
                           "
-                          >As part of the registration process, we require all
-                          new users to activate their accounts to access other
-                          areas of the site and to verify the authenticy of each
-                          email address. Here's your activation token:</span
+                          >Good news! One of your jobs got a new application.
+                          <span style="color: #b51515;"
+                            >Manage your applications by going to 'Manage Jobs'
+                            on your account and clicking the number of
+                            applications your job has received.</span
+                          ></span
                         >
+                        You may also find the summary of the application below.
                       </font>
                       <div
                         style="
@@ -259,22 +262,23 @@
                       <font
                         face="'Source Sans Pro', sans-serif"
                         color="#585858"
-                        style="
-                          font-size: 20px;
-                          line-height: 22px;
-                          font-weight: 700;
-                        "
+                        style="font-size: 18px; line-height: 20px;"
                       >
                         <span
                           style="
                             font-family: 'Source Sans Pro', Arial, Tahoma,
                               Geneva, sans-serif;
                             color: #585858;
-                            font-size: 20px;
-                            line-height: 22px;
-                            font-weight: 700;
+                            font-size: 18px;
+                            line-height: 20px;
                           "
-                          >{token}</span
+                          >Applied for the job <b>{job}</b><br />Application
+                          submitted by <b>{applicant}</b
+                          ><br />Message:<br />{message}<br /><br /><a
+                            href="{resume}"
+                            >View Resume</a
+                          >
+                          | <a href="{manage}">Manage Applications</a></span
                         >
                       </font>
                       <div
@@ -299,11 +303,9 @@
                             font-size: 18px;
                             line-height: 20px;
                           "
-                          >Enter the token above to activate your account.
-                          Immediately activate your account once you have
-                          received this token to avoid your registration being
-                          revoked. Should you need need further assistance,
-                          please contact our support.</span
+                          >This email is a system generated email, please do not
+                          reply. Should you need further assistance, please
+                          contact our support at jobswander@gmail.com</span
                         >
                       </font>
                       <div

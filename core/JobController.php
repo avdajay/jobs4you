@@ -337,6 +337,25 @@ class JobController extends Controller
                 . '. Expect a response from one of our representatives soon! Thank you.';
             $message = new MessageController();
             $message->create($_POST['employer'], $_POST['employer'], $_SESSION['uid'], $msg);
+
+            $query = "SELECT * FROM jobs WHERE id = :job_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['job_id' => $_GET['id']]);
+            $job = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $query = "SELECT * FROM applicants WHERE id = :user_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['user_id' => $_SESSION['uid']]);
+            $app = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $email = $job['email'];
+            $theJob = $job['job_title'];
+            $applicant = $app['name'];
+            $theMessage = $_POST['message'];
+            $resume = $_POST['resume'];
+            $application = $_GET['id'];
+
+            $this->sendNewApplicationEmail($email, $theJob, $applicant, $theMessage, $resume, $application);
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -457,5 +476,50 @@ class JobController extends Controller
         }
 
         array_push($_SESSION['success'], ['success' => 'Status and rating for <strong>' . $applicant . '</strong> has been updated!']);
+    }
+
+    public function sendNewApplicationEmail($email, $job, $applicant, $message, $resume, $application)
+    {
+        $host = config('mail', 'host');
+        $user = config('mail', 'username');
+        $pass = config('mail', 'password');
+        $port = config('mail', 'port');
+        $encryption = config('mail', 'encryption');
+        $fromName = config('mail', 'name');
+        $fromEmail = config('mail', 'email');
+
+        $home = 'http://' . $_SERVER['SERVER_NAME'] . '/';
+        $logo = 'http://' . $_SERVER['SERVER_NAME'] . '/public/images/logo.png';
+        $resumeLink = 'http://' . $_SERVER['SERVER_NAME'] . '/resume?id=' . $resume;
+        $applicantLink = 'http://' . $_SERVER['SERVER_NAME'] . '/manage-applications?id=' . $application;
+
+        $html = file_get_contents(__DIR__ . '/../resources/views/mails/email-activation.html');
+        $html = preg_replace('/{home}/', $home, $html);
+        $html = preg_replace('/{logo}/', $logo, $html);
+        $html = preg_replace('/{job}/', $job, $html);
+        $html = preg_replace('/{applicant}/', $applicant, $html);
+        $html = preg_replace('/{resume}/', $resumeLink, $html);
+        $html = preg_replace('/{application}/', $applicantLink, $html);
+
+        try {
+            $message = (new Swift_Message())
+                ->setSubject('Verify Email Address - Jobs4You')
+                ->setFrom([$fromEmail => $fromName])
+                ->setTo($email)
+                ->setBody($html, 'text/html');
+
+            $transport = (new Swift_SmtpTransport($host, $port, $encryption))
+                ->setUsername($user)
+                ->setPassword($pass);
+
+            $mailer = new Swift_Mailer($transport);
+            $mailer->send($message);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function sendApplicationReviewedEmail()
+    {
     }
 }
