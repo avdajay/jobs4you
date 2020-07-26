@@ -224,21 +224,8 @@ class ResumeController extends Controller
         try {
 
             $start_dates = $_POST['start_date'];
-            $end_dates = $_POST['end_date'];
 
             foreach ($start_dates as $index => $value) {
-                if (!$this->validateDate($value)) {
-                    array_push($_SESSION['message'], ['error' => 'Error creating resume. Check correct date format!']);
-                    throw new Exception("Date format error!");
-                }
-
-                if (!$this->validateDate($value)) {
-                    array_push($_SESSION['message'], ['error' => 'Error creating resume. Check correct date format!']);
-                    throw new Exception("Date format error!");
-                }
-            }
-
-            foreach ($end_dates as $index => $value) {
                 if (!$this->validateDate($value)) {
                     array_push($_SESSION['message'], ['error' => 'Error creating resume. Check correct date format!']);
                     throw new Exception("Date format error!");
