@@ -187,19 +187,6 @@ class ResumeController extends Controller
         $cdb = $db->connect();
         $this->conn = $cdb;
 
-        $start_dates = $_POST['start_date'];
-        $end_dates = $_POST['end_date'];
-
-        foreach ($start_dates as $index => $value) {
-            if (!$this->validateDate($value)) {
-                throw new Exception("Please check correct form date formatting");
-            }
-
-            if (!$this->validateDate($value)) {
-                throw new Exception("Please check correct form date formatting");
-            }
-        }
-
         // Resume Details
         $data = [
             'name' => $this->sanitize(ucwords($_POST['name'])),
@@ -235,6 +222,34 @@ class ResumeController extends Controller
         $difficulty = $_POST['skillLevel'];
 
         try {
+
+            $start_dates = $_POST['start_date'];
+            $end_dates = $_POST['end_date'];
+
+            foreach ($start_dates as $index => $value) {
+                if (!$this->validateDate($value)) {
+                    array_push($_SESSION['message'], ['error' => 'Error creating resume. Check correct date format!']);
+                    throw new Exception("Date format error!");
+                }
+
+                if (!$this->validateDate($value)) {
+                    array_push($_SESSION['message'], ['error' => 'Error creating resume. Check correct date format!']);
+                    throw new Exception("Date format error!");
+                }
+            }
+
+            foreach ($end_dates as $index => $value) {
+                if (!$this->validateDate($value)) {
+                    array_push($_SESSION['message'], ['error' => 'Error creating resume. Check correct date format!']);
+                    throw new Exception("Date format error!");
+                }
+
+                if (!$this->validateDate($value)) {
+                    array_push($_SESSION['message'], ['error' => 'Error creating resume. Check correct date format!']);
+                    throw new Exception("Date format error!");
+                }
+            }
+
             $query = "INSERT INTO " . $this->table . "(name, email, title, location, photo, description, salary, created_at, user_id) VALUES (:name, :email, :title, :location, :photo, :description, :salary, :created, :user_id)";
             $stmt = $this->conn->prepare($query);
             $stmt->execute($data);
@@ -291,9 +306,9 @@ class ResumeController extends Controller
             }
 
             return redirect('manage-resume');
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             array_push($_SESSION['message'], ['error' => 'Error creating resume. Check your data!']);
-            echo $e->getMessage();
+            // echo $e->getMessage();
         }
     }
 }
