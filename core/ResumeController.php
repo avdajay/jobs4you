@@ -164,6 +164,12 @@ class ResumeController extends Controller
         return view('dashboard/manage-resumes', ['resume' => $resume]);
     }
 
+    public function validateDate($date, $format = 'Y-m-d')
+    {
+        $checkedDate = Carbon::createFromFormat($format, $date);
+        return $checkedDate && $checkedDate->format($format) === $date;
+    }
+
     public function save()
     {
         $user = new User();
@@ -184,14 +190,12 @@ class ResumeController extends Controller
         $start_date = $_POST['start_date'];
         $end_date = $_POST['end_date'];
 
-        if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $start_date)) {
-            array_push($_SESSION['message'], ['error' => 'Error creating resume. Check your data!']);
-            throw new Exception("Please check correct form formatting");
+        if (!$this->validateDate($start_date)) {
+            throw new Exception("Please check correct form date formatting");
         }
 
-        if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $end_date)) {
-            array_push($_SESSION['message'], ['error' => 'Error creating resume. Check your data!']);
-            throw new Exception("Please check correct form formatting");
+        if (!$this->validateDate($end_date)) {
+            throw new Exception("Please check correct form date formatting");
         }
 
         // Resume Details
