@@ -84,7 +84,7 @@ class JobController extends Controller
         INNER JOIN locations ON jobs.location = locations.id 
         INNER JOIN employers ON jobs.user_id = employers.user_id 
         INNER JOIN categories ON jobs.category = categories.id 
-        WHERE jobs.category = :category AND locations.island_name LIKE :city AND jobs.employment_type = :type";
+        WHERE jobs.category = :category AND locations.island_name LIKE :city AND jobs.employment_type = :type AND jobs.approved_at IS NOT NULL";
         $stmt = $this->conn->prepare($query);
         $stmt->execute($data);
         $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -102,7 +102,7 @@ class JobController extends Controller
             'category' => $this->sanitize($category)
         ];
 
-        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo, categories.name AS cat FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id INNER JOIN categories ON jobs.category = categories.id WHERE jobs.category = :category";
+        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo, categories.name AS cat FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id INNER JOIN categories ON jobs.category = categories.id WHERE jobs.category = :category AND jobs.approved_at IS NOT NULL";
         $stmt = $this->conn->prepare($query);
         $stmt->execute($data);
         $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -120,7 +120,7 @@ class JobController extends Controller
             'location' => $this->sanitize($location)
         ];
 
-        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE locations.id = :location";
+        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE locations.id = :location AND jobs.approved_at IS NOT NULL";
         $stmt = $this->conn->prepare($query);
         $stmt->execute($data);
         $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -140,15 +140,15 @@ class JobController extends Controller
         ];
 
         if (!empty($data['location']) && !empty($data['keywords'])) {
-            $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE employers.name OR jobs.job_title LIKE :keywords AND locations.island_name = :location";
+            $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE employers.name OR jobs.job_title LIKE :keywords AND locations.island_name = :location AND jobs.approved_at IS NOT NULL";
             $stmt = $this->conn->prepare($query);
             $stmt->execute($data);
         } else if (!empty($data['keywords']) && empty($data['location'])) {
-            $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE employers.name OR jobs.job_title LIKE :keywords";
+            $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE employers.name OR jobs.job_title LIKE :keywords AND jobs.approved_at IS NOT NULL";
             $stmt = $this->conn->prepare($query);
             $stmt->execute(['keywords' => $data['keywords']]);
         } else {
-            $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE locations.island_name = :location";
+            $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE locations.island_name = :location AND jobs.approved_at IS NOT NULL";
             $stmt = $this->conn->prepare($query);
             $stmt->execute(['location' => $data['location']]);
         }
@@ -164,7 +164,7 @@ class JobController extends Controller
         $cdb = $db->connect();
         $this->conn = $cdb;
 
-        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id";
+        $query = "SELECT jobs.*, employment_type.name AS etype, locations.island_name AS lname, employers.name AS employer, employers.logo AS logo FROM jobs INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN locations ON jobs.location = locations.id INNER JOIN employers ON jobs.user_id = employers.user_id WHERE jobs.approved_at IS NOT NULL";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -193,7 +193,7 @@ class JobController extends Controller
         $cdb = $db->connect();
         $this->conn = $cdb;
 
-        $query = "SELECT jobs.user_id, jobs.email, jobs.job_title, jobs.description, jobs.tags, employers.name, employers.verified_at, employers.address, employers.logo, employers.website, employers.linkedin, employers.twitter, employers.description AS employerDescription, employment_type.name AS type, categories.name AS category, categories.id AS cid, job_level.name AS level FROM jobs INNER JOIN employers ON jobs.user_id = employers.user_id INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN categories ON jobs.category = categories.id INNER JOIN job_level ON jobs.level = job_level.id WHERE jobs.id = :id";
+        $query = "SELECT jobs.user_id, jobs.email, jobs.job_title, jobs.description, jobs.tags, employers.name, employers.verified_at, employers.address, employers.logo, employers.website, employers.linkedin, employers.twitter, employers.description AS employerDescription, employment_type.name AS type, categories.name AS category, categories.id AS cid, job_level.name AS level FROM jobs INNER JOIN employers ON jobs.user_id = employers.user_id INNER JOIN employment_type ON jobs.employment_type = employment_type.id INNER JOIN categories ON jobs.category = categories.id INNER JOIN job_level ON jobs.level = job_level.id WHERE jobs.id = :id AND jobs.approved_at IS NOT NULL";
         $stmt = $this->conn->prepare($query);
         $stmt->execute(['id' => $id]);
         $job = $stmt->fetch(PDO::FETCH_ASSOC);

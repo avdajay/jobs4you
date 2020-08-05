@@ -59,8 +59,8 @@
 						<div class="listing-title">
 							<h4><?php e($job['job_title']) ?><span class="listing-type"><?php e($job['etype']) ?></span></h4>
 							<ul class="listing-icons">
-								<li><i class="ln ln-icon-Management"></i> <?php e($job['employer']) ?>
-									<!--<i class="fa fa-check-circle" style="color:#26AE61" title="Verified" alt="Verified Badge"></i>-->
+								<!-- <li><i class="ln ln-icon-Management"></i> <?php e($job['employer']) ?> -->
+								<!--<i class="fa fa-check-circle" style="color:#26AE61" title="Verified" alt="Verified Badge"></i>-->
 								</li>
 								<li><i class="ln ln-icon-Map2"></i> <?php e($job['lname']) ?></li>
 								<li>

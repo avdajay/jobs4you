@@ -24,7 +24,7 @@ class AdminController extends Controller
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         return view('admin/users', ['users' => $users]);
     }
 
@@ -38,7 +38,7 @@ class AdminController extends Controller
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $resume = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         return view('admin/resumes', ['resume' => $resume]);
     }
 
@@ -89,7 +89,24 @@ class AdminController extends Controller
         $stmt->execute($data);
 
         array_push($_SESSION['success'], ['success' => 'Job listing has been deleted!']);
-        
+    }
+
+    public function approveJobAdmin()
+    {
+        $db = new Database();
+        $cdb = $db->connect();
+        $this->conn = $cdb;
+
+        $data = [
+            'current' => Carbon::now('Asia/Manila')->toDateString(),
+            'id' => $this->sanitize($_POST['approved']),
+        ];
+
+        $query = "UPDATE jobs SET approved_at=:current WHERE id=:id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($data);
+
+        array_push($_SESSION['success'], ['success' => 'Job listing has been approved!']);
     }
 
     public function manualActivate()
@@ -161,13 +178,10 @@ class AdminController extends Controller
     public function preview($id, $rid)
     {
         $user = new User();
-        
-        if ($rid == 1)
-        {
+
+        if ($rid == 1) {
             $result = $user->user_applicants($id);
-        }
-        else
-        {
+        } else {
             $result = $user->user_employees($id);
         }
 
@@ -182,8 +196,10 @@ class AdminController extends Controller
 
         $query = "UPDATE employers SET verified_at = :verified WHERE user_id = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute(['verified' => Carbon::now('Asia/Manila'),
-                        'id' => $this->sanitize($_POST['verify'])]);
+        $stmt->execute([
+            'verified' => Carbon::now('Asia/Manila'),
+            'id' => $this->sanitize($_POST['verify'])
+        ]);
 
         array_push($_SESSION['success'], ['success' => 'Account identity verified!']);
     }
@@ -216,5 +232,4 @@ class AdminController extends Controller
 
         return view('admin/index', ['jobs' => $jobs, 'jobseekers' => $jobseekers, 'employers' => $employers, 'resume' => $resume]);
     }
-
 }
