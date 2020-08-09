@@ -66,11 +66,14 @@
 			<?php endforeach; ?>
 		<?php endif; ?>
 		<div class="padding-right">
-			<div class="skills">
-				<?php foreach ($data['skills'] as $skill) : ?>
-					<span><?php e($skill['name'] . ' (' . $skill['difficulty'] . ')') ?></span>
-				<?php endforeach; ?>
-			</div>
+			<!-- <div class="skills">
+				<?php //foreach ($data['skills'] as $skill) : 
+				?>
+					<span><?php //e($skill['name'] . ' (' . $skill['difficulty'] . ')') 
+							?></span>
+				<?php //endforeach; 
+				?>
+			</div> -->
 			<div class="clearfix"></div>
 			<div class="margin-bottom-30"></div>
 
@@ -89,37 +92,59 @@
 	<!-- Widgets -->
 	<div class="eight columns">
 
-		<h3>Education</h3>
+		<h3>Download My Resume</h3>
+		<?php if (isset($_SESSION['rid']) && $_SESSION['rid'] == 2) : ?>
+			<a href="/public/uploads/resumes/<?php e($data['resume']['resume_link']); ?>" class="button">Download My Resume</a>
+		<?php else : ?>
+			<p>Please login with an employer account to download resume.</p>
+		<?php endif; ?>
+
+		<!-- <h3>Education</h3> -->
 
 		<!-- Resume Table -->
-		<dl class="resume-table">
-			<?php foreach ($data['educ'] as $educ) : ?>
+		<!-- <dl class="resume-table">
+			<?php //foreach ($data['educ'] as $educ) : 
+			?>
 				<dt>
-					<small class="date"><?php e($educ['start_year']) ?> - <?php e($educ['end_year']) ?></small>
-					<strong><?php e($educ['course']) ?> Major in <?php e($educ['major']) ?> at <?php e($educ['school_name']) ?></strong>
+					<small class="date"><?php //e($educ['start_year']) 
+										?> - <?php //e($educ['end_year']) 
+												?></small>
+					<strong><?php //e($educ['course']) 
+							?> Major in <?php //e($educ['major']) 
+										?> at <?php //e($educ['school_name']) 
+												?></strong>
 				</dt>
 				<dd>
-					<p><?php e($educ['description']) ?></p>
+					<p><?php //($educ['description']) 
+						?></p>
 				</dd>
-			<?php endforeach; ?>
+			<?php //endforeach; 
+			?>
 
 		</dl>
 
-		<h3 class="margin-top-15">Experience</h3>
+		<h3 class="margin-top-15">Experience</h3> -->
 
 		<!-- Resume Table -->
-		<dl class="resume-table">
-			<?php foreach ($data['experience'] as $exp) : ?>
+		<!-- <dl class="resume-table">
+			<?php //foreach ($data['experience'] as $exp) : 
+			?>
 				<dt>
-					<small class="date"><?php e(Carbon\Carbon::parse($exp['start_date'])->toFormattedDateString()) ?> - <?php e(empty($exp['end_date']) ? 'Present' : Carbon\Carbon::parse($exp['start_date'])->toFormattedDateString()) ?></small>
-					<strong><?php e($exp['position']) ?> at <?php e($exp['employer_name']) ?></strong>
+					<small class="date"><?php //e(Carbon\Carbon::parse($exp['start_date'])->toFormattedDateString()) 
+										?> - <?php //e(empty($exp['end_date']) ? 'Present' : Carbon\Carbon::parse($exp['start_date'])->toFormattedDateString()) 
+												?></small>
+					<strong><?php //e($exp['position']) 
+							?> at //<?php //e($exp['employer_name']) 
+									?></strong>
 				</dt>
 				<dd>
-					<p><?php e($exp['summary']) ?></p>
+					<p><?php //e($exp['summary']) 
+						?></p>
 				</dd>
-			<?php endforeach; ?>
+			<?php //endforeach; 
+			?>
 
-		</dl>
+		</dl> -->
 		<div class="margin-bottom-30"></div>
 	</div>
 

@@ -12,13 +12,10 @@ class AccountController extends Controller
     public function profile()
     {
         $user = new User();
-        
-        if ($_SESSION['rid'] == 1)
-        {
+
+        if ($_SESSION['rid'] == 1) {
             $result = $user->user_applicants($_SESSION['uid']);
-        }
-        else
-        {
+        } else {
             $result = $user->user_employees($_SESSION['uid']);
         }
 
@@ -30,7 +27,7 @@ class AccountController extends Controller
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $location = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
         return view('profile', ['user' => $result, 'location' => $location]);
     }
 
@@ -45,12 +42,10 @@ class AccountController extends Controller
         $applicantsTable = "applicants";
         $employersTable = "employers";
 
-        switch ($_SESSION['rid'])
-        {
+        switch ($_SESSION['rid']) {
             case 1:
-                
-                if ($_FILES['photo']['size'] != 0)
-                {
+
+                if ($_FILES['photo']['size'] != 0) {
                     $applicantsData = [
                         'name' => $this->sanitize($_POST['name']),
                         'address' => $this->sanitize($_POST['address']),
@@ -64,19 +59,16 @@ class AccountController extends Controller
                         'location' => $_POST['location'],
                         'user_id' => $_SESSION['uid'],
                     ];
-    
+
                     $query = "UPDATE " . $applicantsTable . " SET name=:name, address=:address, phone=:phone, summary=:summary, facebook=:facebook, twitter=:twitter, linkedin=:linkedin, slug=:slug, photo=:photo, location=:location WHERE user_id=:user_id";
                     $stmt = $this->conn->prepare($query);
                     $stmt->execute($applicantsData);
 
                     array_push($_SESSION['success'], ['success' => 'Profile has been updated successfully!']);
-                    
-                }
-                else
-                {
+                } else {
                     array_push($_SESSION['message'], ['error' => 'Please upload a photo or a logo image!']);
                 }
-                 
+
                 break;
 
             case 2:
@@ -94,7 +86,7 @@ class AccountController extends Controller
                     'twitter' => $this->sanitize($_POST['twitter']),
                     'linkedin' => $this->sanitize($_POST['linkedin']),
                     'location' => $_POST['location'],
-                    'verified_at' => null, 
+                    'verified_at' => null,
                 ];
 
                 $query = "UPDATE " . $employersTable . " SET name=:name, address=:address, description=:description, phone=:phone, size=:size, logo=:logo, slug=:slug, website=:website, facebook=:facebook, twitter=:twitter, linkedin=:linkedin, location=:location, verified_at=:verified_at WHERE user_id=:user_id";
@@ -102,9 +94,7 @@ class AccountController extends Controller
                 $stmt->execute($employersData);
                 array_push($_SESSION['success'], ['success' => 'Profile has been updated successfully!']);
                 break;
-
         }
-    
     }
 
     public function change_password()
@@ -123,42 +113,33 @@ class AccountController extends Controller
         $confirmNew = $_POST['confirm_new'];
         $newPassword = $_POST['new_password'];
 
-        if (empty($currentPassword) || empty($confirmNew) || empty($newPassword))
-        {
+        if (empty($currentPassword) || empty($confirmNew) || empty($newPassword)) {
             array_push($_SESSION['message'], ['error' => 'Please fill in all required fields!']);
         }
 
-        if (!empty($currentPassword) && !empty($confirmNew) && !empty($newPassword))
-        {
-            if (password_verify($currentPassword, $passwordOnFile) && $confirmNew == $newPassword && strlen($newPassword) > 8)
-            {
+        if (!empty($currentPassword) && !empty($confirmNew) && !empty($newPassword)) {
+            if (password_verify($currentPassword, $passwordOnFile) && $confirmNew == $newPassword && strlen($newPassword) > 8) {
                 $passQuery = "UPDATE users SET password=:password, updated_at=:updated WHERE id=:id";
                 $passStmt = $this->conn->prepare($passQuery);
-                $passStmt->execute(['password' => password_hash($newPassword, PASSWORD_DEFAULT), 'updated' => Carbon::now(new DateTimeZone('Asia/Manila')),'id' => $user['id']]);
-                
+                $passStmt->execute(['password' => password_hash($newPassword, PASSWORD_DEFAULT), 'updated' => Carbon::now(new DateTimeZone('Asia/Manila')), 'id' => $user['id']]);
+
                 array_push($_SESSION['success'], ['success' => 'Password changed successfully!']);
-            }
-            else
-            {
+            } else {
                 array_push($_SESSION['message'], ['error' => 'Passwords does not match!']);
             }
 
-            if ($currentPassword == $newPassword)
-            {
+            if ($currentPassword == $newPassword) {
                 array_push($_SESSION['message'], ['error' => 'Please use another password!']);
             }
 
-            if ($confirmNew != $newPassword)
-            {
+            if ($confirmNew != $newPassword) {
                 array_push($_SESSION['message'], ['error' => 'Password confirmation does not match!']);
             }
 
-            if (strlen($newPassword) < 8)
-            {
+            if (strlen($newPassword) < 8) {
                 array_push($_SESSION['message'], ['error' => 'Password should have a minimum of 8 characters!']);
             }
         }
-
     }
 
     public function handleImageUpload()
@@ -166,19 +147,19 @@ class AccountController extends Controller
         $currentDir = getcwd();
         $uploadDirectory = "/public/uploads/";
 
-        $fileExtensions = ['jpeg','jpg','png']; // Get all the file extensions
+        $fileExtensions = ['doc', 'docx', 'pdf']; // Get all the file extensions
 
         $fileName = $_FILES['photo']['name'];
         $fileSize = $_FILES['photo']['size'];
         $fileTmpName  = $_FILES['photo']['tmp_name'];
         $fileType = $_FILES['photo']['type'];
-        $tmp = explode('.',$fileName);
+        $tmp = explode('.', $fileName);
         $str = end($tmp);
         $fileExtension = strtolower($str);
 
         $uploadPath = $currentDir . $uploadDirectory . basename($fileName);
 
-        if (!in_array($fileExtension,$fileExtensions)) {
+        if (!in_array($fileExtension, $fileExtensions)) {
             array_push($_SESSION['message'], ['error' => 'This file extension is not allowed. Please upload a JPEG or PNG file']);
         }
 
@@ -186,15 +167,12 @@ class AccountController extends Controller
             array_push($_SESSION['message'], ['error' => 'This file is more than 2MB. Sorry, it has to be less than or equal to 2MB']);
         }
 
-        if (empty($_POST['message']) && $_FILES['photo']['size'] != 0)
-        {
+        if (empty($_POST['message']) && $_FILES['photo']['size'] != 0) {
             $didUpload = move_uploaded_file($fileTmpName, $uploadPath);
 
-            if ($didUpload)
-            {
+            if ($didUpload) {
                 return $fileName;
             }
         }
     }
-
 }

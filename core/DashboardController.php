@@ -43,7 +43,7 @@ class DashboardController extends Controller
         $stmt->execute(['user_id' => $_SESSION['uid']]);
         $bookmarksEmployer = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $query = "SELECT jobs.id, count(applications.id) AS jobCount FROM jobs INNER JOIN applications ON applications.job_id = jobs.id WHERE jobs.user_id = :user_id";
+        $query = "SELECT jobs.id, count(applications.id) AS jobCount FROM jobs INNER JOIN applications ON applications.job_id = jobs.id WHERE jobs.user_id = :user_id GROUP BY jobs.id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute(['user_id' => $_SESSION['uid']]);
         $jobCount = $stmt->fetchAll(PDO::FETCH_ASSOC);

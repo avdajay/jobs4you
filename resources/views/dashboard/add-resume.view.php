@@ -21,14 +21,14 @@
 			</ul>
 
 			<ul data-submenu-title="Management">
-				<?php if(isset($_SESSION['rid']) && $_SESSION['rid'] == 1): ?>
+				<?php if (isset($_SESSION['rid']) && $_SESSION['rid'] == 1) : ?>
 					<li class="active-submenu"><a>For Candidates</a>
 						<ul>
 							<li><a href="<?php url('/manage-resume') ?>">Manage Resumes</a></li>
 							<li><a href="<?php url('add-resume') ?>">Add Resume</a></li>
 						</ul>
 					</li>
-				<?php else: ?>
+				<?php else : ?>
 					<li><a>For Employers</a>
 						<ul>
 							<li><a href="<?php url('/manage-jobs') ?>">Manage Jobs</a></li>
@@ -36,14 +36,14 @@
 							<li><a href="<?php url('/add-jobs') ?>">Add Job</a></li>
 						</ul>
 					</li>
-				<?php endif; ?>	
-			</ul>	
+				<?php endif; ?>
+			</ul>
 
 			<ul data-submenu-title="Account">
 				<li><a href="<?php url('/profile') ?>">My Profile</a></li>
 				<li><a href="<?php url('/logout') ?>">Logout</a></li>
 			</ul>
-			
+
 		</div>
 	</div>
 	<!-- Navigation / End -->
@@ -67,72 +67,82 @@
 							<li>Add Resume</li>
 						</ul>
 					</nav>
-					<?php if (!empty($_SESSION['message'])): ?>
-					<?php foreach ($_SESSION['message'] as $error): ?>
-						<div class="notification error closeable">
-							<p><?php echo $error['error']; ?></p>
-							<a class="close" href="#"></a>
-						</div>
-					<?php endforeach; ?>
+					<?php if (!empty($_SESSION['message'])) : ?>
+						<?php foreach ($_SESSION['message'] as $error) : ?>
+							<div class="notification error closeable">
+								<p><?php echo $error['error']; ?></p>
+								<a class="close" href="#"></a>
+							</div>
+						<?php endforeach; ?>
 					<?php endif; ?>
 				</div>
 			</div>
 		</div>
 
 		<div class="row">
-<form method="POST" action="<?php url('/add-resume') ?>">
-			<!-- Table-->
-			<div class="col-lg-12 col-md-12">
+			<form method="POST" action="<?php url('/add-resume') ?>" enctype="multipart/form-data">
+				<!-- Table-->
+				<div class="col-lg-12 col-md-12">
 
-				<div class="dashboard-list-box margin-top-0">
-					<h4>Details</h4>
-					<div class="dashboard-list-box-content">
+					<div class="dashboard-list-box margin-top-0">
+						<h4>Details</h4>
+						<div class="dashboard-list-box-content">
 
-					<div class="submit-page">
+							<div class="submit-page">
 
-						<!-- Email -->
-						<div class="form">
-							<h5>Your Name</h5>
-							<input class="search-field" type="text" placeholder="Your full name" value="<?php e($data['user']['name']) ?>" name="name">
+								<!-- Email -->
+								<div class="form">
+									<h5>Your Name</h5>
+									<input class="search-field" type="text" placeholder="Your full name" value="<?php e($data['user']['name']) ?>" name="name">
+								</div>
+
+								<!-- Email -->
+								<div class="form">
+									<h5>Your Email</h5>
+									<input class="search-field" type="text" placeholder="mail@example.com" value="<?php e($data['user']['email']) ?>" name="email">
+								</div>
+
+								<!-- Title -->
+								<div class="form">
+									<h5>Professional Title</h5>
+									<input class="search-field" type="text" placeholder="e.g. Web Developer" value="" name="title">
+								</div>
+
+								<!-- Location -->
+								<div class="form">
+									<h5>Expected Salary</h5>
+									<input class="search-field" type="text" placeholder="e.g. 14000" value="" name="salary">
+								</div>
+
+								<!-- Description -->
+								<div class="form" style="width: 100%;">
+									<h5>Description</h5>
+									<textarea name="desc" cols="40" rows="10" spellcheck="true" placeholder="Descriptive information on why are you qualified for the job or how will you contribute to the company or talk about your experiences and skills"></textarea>
+								</div>
+
+
+								<div class="form margin-top-30">
+									<div class="change-photo-btn">
+										<div class="photoUpload">
+											<span><i class="fa fa-upload"></i> Upload Resume (.docx, .doc, .pdf)</span>
+											<input type="file" class="upload" id="upload" accept=".doc,.docx,.pdf" name="resume">
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+
 						</div>
-
-						<!-- Email -->
-						<div class="form">
-							<h5>Your Email</h5>
-							<input class="search-field" type="text" placeholder="mail@example.com" value="<?php e($data['user']['email']) ?>" name="email">
-						</div>
-
-						<!-- Title -->
-						<div class="form">
-							<h5>Professional Title</h5>
-							<input class="search-field" type="text" placeholder="e.g. Web Developer" value="" name="title">
-						</div>
-
-						<!-- Location -->
-						<div class="form">
-							<h5>Expected Salary</h5>
-							<input class="search-field" type="text" placeholder="e.g. 14000" value="" name="salary">
-						</div>
-
-						<!-- Description -->
-						<div class="form" style="width: 100%;">
-							<h5>Description</h5>
-							<textarea name="desc" cols="40" rows="10" spellcheck="true" placeholder="Descriptive information on why are you qualified for the job or how will you contribute to the company or talk about your experiences and skills"></textarea>
-						</div>
-
 					</div>
 
-					</div>
-				</div>
 
-
-				<div class="dashboard-list-box margin-top-30">
+					<!-- <div class="dashboard-list-box margin-top-30">
 					<h4>Education</h4>
 					<div class="dashboard-list-box-content with-padding">
 
 						<div class="form-inside">
 
-							<!-- Add Education -->
 							<div class="form boxed box-to-clone education-box">
 								<a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
                                 <input class="search-field" type="text" placeholder="School Name" value="" name="school[]">
@@ -161,7 +171,6 @@
 					<div class="dashboard-list-box-content with-padding">
 				<div class="form-inside">
 
-					<!-- Add Experience -->
 					<div class="form boxed box-to-clone experience-box">
 						<a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
 						<input class="search-field" type="text" placeholder="Employer/Company Name" value="" name="employer[]">
@@ -190,7 +199,6 @@
 
 						<div class="form-inside">
 
-							<!-- Add Skills -->
 							<div class="form boxed box-to-clone education-box">
 								<a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
                                 <input class="search-field" type="text" placeholder="Skills e.g. PHP" value="" name="skill[]">
@@ -206,11 +214,11 @@
 						</div>
 
 					</div>
+				</div> -->
+
+
+					<button type="submit" class="button margin-top-30" name="save_resume" value="save_resume">Save Resume <i class="fa fa-arrow-circle-right"></i></button>
+
 				</div>
-
-
-				<button type="submit" class="button margin-top-30" name="save_resume" value="save_resume">Save Resume <i class="fa fa-arrow-circle-right"></i></button>
-
-			</div>
-</form>
-<?php the_dashfoot() ?>
+			</form>
+			<?php the_dashfoot() ?>

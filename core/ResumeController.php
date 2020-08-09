@@ -164,6 +164,40 @@ class ResumeController extends Controller
         return view('dashboard/manage-resumes', ['resume' => $resume]);
     }
 
+    public function handleResumeUpload()
+    {
+        $currentDir = getcwd();
+        $uploadDirectory = "/public/uploads/resumes/";
+
+        $fileExtensions = ['doc', 'docx', 'pdf']; // Get all the file extensions
+
+        $fileName = $_FILES['resume']['name'];
+        $fileSize = $_FILES['resume']['size'];
+        $fileTmpName  = $_FILES['resume']['tmp_name'];
+        $fileType = $_FILES['resume']['type'];
+        $tmp = explode('.', $fileName);
+        $str = end($tmp);
+        $fileExtension = strtolower($str);
+
+        $uploadPath = $currentDir . $uploadDirectory . basename($fileName);
+
+        if (!in_array($fileExtension, $fileExtensions)) {
+            array_push($_SESSION['message'], ['error' => 'This file extension is not allowed. Please upload a document file']);
+        }
+
+        if ($fileSize > 5000000) {
+            array_push($_SESSION['message'], ['error' => 'This file is more than 5MB. Sorry, it has to be less than or equal to 2MB']);
+        }
+
+        if (empty($_POST['message']) && $_FILES['resume']['size'] != 0) {
+            $didUpload = move_uploaded_file($fileTmpName, $uploadPath);
+
+            if ($didUpload) {
+                return $fileName;
+            }
+        }
+    }
+
     public function save()
     {
         $user = new User();
@@ -173,6 +207,8 @@ class ResumeController extends Controller
         } else {
             $result = array('user' => $user->user_employees($_SESSION['uid']));
         }
+
+        $resume = $this->handleResumeUpload();
 
         $userLocation = $result['user']['location'];
         $userPhoto = $result['user']['photo'];
@@ -192,96 +228,97 @@ class ResumeController extends Controller
             'salary' => $this->sanitize($_POST['salary']),
             'created' => Carbon::now()->toFormattedDateString(),
             'user_id' => $_SESSION['uid'],
+            'resume' => $resume,
         ];
 
         // Educational Background Information
-        $school = $_POST['school'];
-        $type = $_POST['type'];
-        $course = $_POST['course'];
-        $major = $_POST['major'];
-        $start = $_POST['start'];
-        $end = $_POST['end'];
-        $description = $_POST['description'];
+        // $school = $_POST['school'];
+        // $type = $_POST['type'];
+        // $course = $_POST['course'];
+        // $major = $_POST['major'];
+        // $start = $_POST['start'];
+        // $end = $_POST['end'];
+        // $description = $_POST['description'];
 
         // Job Experience Information
-        $employer = $_POST['employer'];
-        $position = $_POST['position'];
-        $level = $_POST['level'];
-        $start_date = $_POST['start_date'];
-        $end_date = $_POST['end_date'];
-        $summary = $_POST['summary'];
+        // $employer = $_POST['employer'];
+        // $position = $_POST['position'];
+        // $level = $_POST['level'];
+        // $start_date = $_POST['start_date'];
+        // $end_date = $_POST['end_date'];
+        // $summary = $_POST['summary'];
 
         // Skills Information
-        $skill = $_POST['skill'];
-        $difficulty = $_POST['skillLevel'];
+        // $skill = $_POST['skill'];
+        // $difficulty = $_POST['skillLevel'];
 
         try {
 
-            $start_dates = $_POST['start_date'];
+            // $start_dates = $_POST['start_date'];
 
-            $filtered_date = array_filter($start_dates);
+            // $filtered_date = array_filter($start_dates);
 
-            foreach ($filtered_date as $date) {
-                if (!$this->validateDate($date)) {
-                    array_push($_SESSION['message'], ['error' => 'Error creating resume. Check correct date format!']);
-                    throw new Exception("Date format error!");
-                }
-            }
+            // foreach ($filtered_date as $date) {
+            //     if (!$this->validateDate($date)) {
+            //         array_push($_SESSION['message'], ['error' => 'Error creating resume. Check correct date format!']);
+            //         throw new Exception("Date format error!");
+            //     }
+            // }
 
-            $query = "INSERT INTO " . $this->table . "(name, email, title, location, photo, description, salary, created_at, user_id) VALUES (:name, :email, :title, :location, :photo, :description, :salary, :created, :user_id)";
+            $query = "INSERT INTO " . $this->table . "(name, email, title, location, photo, description, salary, created_at, user_id, resume_link) VALUES (:name, :email, :title, :location, :photo, :description, :salary, :created, :user_id, :resume)";
             $stmt = $this->conn->prepare($query);
             $stmt->execute($data);
             $lastId = $this->conn->lastInsertId();
 
-            $filtered = array_filter($school);
+            // $filtered = array_filter($school);
 
             // Education Query
-            foreach ($filtered as $index => $value) {
-                $schoolQuery = "INSERT INTO " . $this->educTable . " (resume_id, school_name, type, course, major, start_year, end_year, description) VALUES (:resume_id, :school_name, :type, :course, :major, :start_year, :end_year, :description)";
-                $stmt = $this->conn->prepare($schoolQuery);
-                $stmt->execute([
-                    'resume_id'     => $this->sanitize($lastId),
-                    'school_name' => $this->sanitize($school[$index]),
-                    'type'        => $this->sanitize($type[$index]),
-                    'course'      => $this->sanitize($course[$index]),
-                    'major'       => $this->sanitize($major[$index]),
-                    'start_year'  => $this->sanitize($start[$index]),
-                    'end_year'    => $this->sanitize($end[$index]),
-                    'description' => $this->sanitize($description[$index]),
-                ]);
-            }
+            // foreach ($filtered as $index => $value) {
+            //     $schoolQuery = "INSERT INTO " . $this->educTable . " (resume_id, school_name, type, course, major, start_year, end_year, description) VALUES (:resume_id, :school_name, :type, :course, :major, :start_year, :end_year, :description)";
+            //     $stmt = $this->conn->prepare($schoolQuery);
+            //     $stmt->execute([
+            //         'resume_id'     => $this->sanitize($lastId),
+            //         'school_name' => $this->sanitize($school[$index]),
+            //         'type'        => $this->sanitize($type[$index]),
+            //         'course'      => $this->sanitize($course[$index]),
+            //         'major'       => $this->sanitize($major[$index]),
+            //         'start_year'  => $this->sanitize($start[$index]),
+            //         'end_year'    => $this->sanitize($end[$index]),
+            //         'description' => $this->sanitize($description[$index]),
+            //     ]);
+            // }
 
             // Experience Query
-            $filtered = array_filter($employer);
+            // $filtered = array_filter($employer);
 
-            foreach ($filtered as $index => $value) {
+            // foreach ($filtered as $index => $value) {
 
-                $employerQuery = "INSERT INTO " . $this->expTable . " (resume_id, employer_name, position, employment_type_id, start_date, end_date, summary) VALUES (:resume_id, :employer, :position, :level, :start, :end, :summary)";
-                $stmt = $this->conn->prepare($employerQuery);
-                $stmt->execute([
-                    'resume_id'  => $this->sanitize($lastId),
-                    'employer' => $this->sanitize($employer[$index]),
-                    'position' => $this->sanitize($position[$index]),
-                    'level'    => $this->sanitize($level[$index]),
-                    'start'    => $this->sanitize($start_date[$index]),
-                    'end'      => $this->sanitize($end_date[$index]),
-                    'summary'  => $this->sanitize($summary[$index]),
-                ]);
-            }
+            //     $employerQuery = "INSERT INTO " . $this->expTable . " (resume_id, employer_name, position, employment_type_id, start_date, end_date, summary) VALUES (:resume_id, :employer, :position, :level, :start, :end, :summary)";
+            //     $stmt = $this->conn->prepare($employerQuery);
+            //     $stmt->execute([
+            //         'resume_id'  => $this->sanitize($lastId),
+            //         'employer' => $this->sanitize($employer[$index]),
+            //         'position' => $this->sanitize($position[$index]),
+            //         'level'    => $this->sanitize($level[$index]),
+            //         'start'    => $this->sanitize($start_date[$index]),
+            //         'end'      => $this->sanitize($end_date[$index]),
+            //         'summary'  => $this->sanitize($summary[$index]),
+            //     ]);
+            // }
 
             // Skills Query
-            $filtered = array_filter($skill);
+            // $filtered = array_filter($skill);
 
-            foreach ($filtered as $index => $value) {
+            // foreach ($filtered as $index => $value) {
 
-                $skillsQuery = "INSERT INTO " . $this->skillsTbl . " (resume_id, name, difficulty) VALUES (:resume_id, :name, :difficulty)";
-                $stmt = $this->conn->prepare($skillsQuery);
-                $stmt->execute([
-                    'resume_id'  => $this->sanitize($lastId),
-                    'name' => $this->sanitize($skill[$index]),
-                    'difficulty' => $this->sanitize($difficulty[$index]),
-                ]);
-            }
+            //     $skillsQuery = "INSERT INTO " . $this->skillsTbl . " (resume_id, name, difficulty) VALUES (:resume_id, :name, :difficulty)";
+            //     $stmt = $this->conn->prepare($skillsQuery);
+            //     $stmt->execute([
+            //         'resume_id'  => $this->sanitize($lastId),
+            //         'name' => $this->sanitize($skill[$index]),
+            //         'difficulty' => $this->sanitize($difficulty[$index]),
+            //     ]);
+            // }
 
             return redirect('manage-resume');
         } catch (Exception $e) {
